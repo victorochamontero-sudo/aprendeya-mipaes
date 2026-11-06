@@ -1239,6 +1239,8 @@ function route(){
 function markDayView(){}
 window.addEventListener("hashchange",route);
 route();
+/* si el enlace apunta a la pantalla actual (otra ronda, jugar otra vez), hashchange no se dispara: forzar */
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(a&&a.getAttribute("href")===location.hash){e.preventDefault();route()}});
 </script>
 
 </body></html>
