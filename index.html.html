@@ -1,0 +1,1244 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Aprendeya MiPAES</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>:root{
+  /* Diseño: columna única centrada, cabecera con navegación por nivel; cada nivel tiene su color */
+  --bg:#F4F6FA; --surface:#FFFFFF; --ink:#0F1B2E; --ink2:#4E5C75; --line:#D9E0EA; --soft:#EAF0F8;
+  --brand:#2457D6; --on:#FFFFFF; --good:#13795B; --goodbg:#E3F4EC; --bad:#B3321F; --badbg:#FBEAE6;
+  --b:#13795B; --i:#2457D6; --a:#8A2F9C; --e:#B45309; --f:#C2185B;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1422; --surface:#142033; --ink:#E7EDF7; --ink2:#9DAAC2; --line:#26364F; --soft:#1A2A42;
+  --brand:#7FA2FF; --on:#0C1422; --good:#4CC9A0; --goodbg:#10302A; --bad:#FF9A86; --badbg:#3A1B17;
+  --b:#4CC9A0; --i:#7FA2FF; --a:#D79BE8; --e:#F0A15C; --f:#F27DA8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1422; --surface:#142033; --ink:#E7EDF7; --ink2:#9DAAC2; --line:#26364F; --soft:#1A2A42;
+  --brand:#7FA2FF; --on:#0C1422; --good:#4CC9A0; --goodbg:#10302A; --bad:#FF9A86; --badbg:#3A1B17;
+  --b:#4CC9A0; --i:#7FA2FF; --a:#D79BE8; --e:#F0A15C; --f:#F27DA8; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;padding-block:16px 56px}
+[data-lv="b"]{--lv:var(--b)} [data-lv="i"]{--lv:var(--i)} [data-lv="a"]{--lv:var(--a)} [data-lv="e"]{--lv:var(--e)} [data-lv="f"]{--lv:var(--f)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(28px,5vw,44px);letter-spacing:-.02em}
+h2{font-size:clamp(20px,3vw,26px)}
+p{margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.eyebrow,.cefr{font:600 12px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.cefr{color:var(--lv,var(--ink2))}
+.lead{font-size:1.1rem;color:var(--ink2);max-width:62ch;margin-top:10px}
+.small{font-size:13.5px;color:var(--ink2)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.row.end{justify-content:flex-end;margin-top:22px}.row.center{justify-content:center}
+
+/* cabecera */
+.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.brand{font:800 26px/1 var(--f-display);letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--brand)}
+.prog{min-width:200px}
+.prog .small{display:block;margin-bottom:4px}
+.meter{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--lv,var(--brand));border-radius:99px;transition:width .3s}
+.meter.big{height:12px;margin-top:16px}
+nav#nav{display:flex;gap:4px;overflow-x:auto;padding:10px 0 2px;margin-bottom:22px;scrollbar-width:thin}
+nav#nav a{white-space:nowrap;padding:8px 14px;border-radius:99px;text-decoration:none;color:var(--ink2);font-weight:600;font-size:15px}
+nav#nav a:hover{background:var(--soft);color:var(--ink)}
+nav#nav a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+
+/* botones */
+.btn{font:inherit;font-weight:700;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;border:2px solid var(--lv,var(--brand));background:var(--lv,var(--brand));color:var(--on);cursor:pointer;text-decoration:none;line-height:1.2}
+.btn.alt{background:transparent;color:var(--lv,var(--brand))}
+.btn.small{min-height:36px;padding:6px 12px;font-size:14px}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.say{font:inherit;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 12px;border-radius:99px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.say:hover{border-color:var(--brand);color:var(--brand)}
+.say.mini{min-width:40px;padding:6px 10px}.say.mini span{display:none}
+.back{display:inline-block;margin-bottom:12px;color:var(--ink2);font-weight:600;text-decoration:none}
+
+/* inicio */
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:32px;align-items:center;padding:16px 0 36px}
+.hl{color:var(--brand)}
+.heroside{background:var(--ink);color:var(--bg);padding:24px;border-radius:14px;display:grid;gap:10px;align-content:start}
+.heroside .eyebrow{color:var(--bg);opacity:.7}
+.heroside .big{font:700 24px/1.25 var(--f-display)}
+.heroside .es{color:var(--bg);opacity:.85}
+.heroside .say{background:transparent;color:var(--bg);border-color:currentColor;justify-self:start}
+.levels{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.levels .lvcard{grid-column:span 2}.levels .lvcard:nth-child(n+4){grid-column:span 3}
+@media (max-width:900px){.levels .lvcard,.levels .lvcard:nth-child(n+4){grid-column:span 6}}
+.lvcard{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--lv);border-radius:12px;padding:20px;display:grid;gap:10px;align-content:start}
+.lvcard .btn{justify-self:start;margin-top:6px}
+.how{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;gap:12px}
+.how ol{margin:0;padding-left:22px;display:grid;gap:8px;max-width:70ch}
+
+/* nivel */
+.lvhead{padding:8px 0 24px;border-left:6px solid var(--lv);padding-left:18px;margin-bottom:20px}
+.units{display:grid;gap:10px}
+.unit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink)}
+.unit:hover{border-color:var(--lv)}
+.unit .num{font:700 18px var(--f-mono);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--lv)}
+.unit .ut{display:grid;gap:2px;min-width:0}.unit .ut span{color:var(--ink2);font-size:14px}
+.st{font:600 12px var(--f-mono);padding:5px 10px;border-radius:99px;background:var(--soft);color:var(--ink2);white-space:nowrap}
+.st.ok{background:var(--goodbg);color:var(--good)}.st.mid{background:var(--soft);color:var(--lv)}
+.examcard{margin-top:24px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;background:var(--ink);color:var(--bg);padding:22px;border-radius:12px}
+.examcard p{opacity:.85;max-width:56ch;margin-top:6px}
+.examcard .small{color:var(--bg)}
+.examcard .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+
+/* unidad */
+.unithead{border-left:6px solid var(--lv);padding-left:18px;margin-bottom:18px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.tabs button{font:inherit;font-weight:700;background:none;border:0;border-bottom:4px solid transparent;padding:12px 16px;color:var(--ink2);cursor:pointer;min-height:44px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--lv)}
+#unitbody{max-width:760px}
+.lesson{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px;display:grid;gap:12px}
+.lesson p{max-width:66ch}
+.exs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.exs li,.vlist li{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--soft);border-radius:10px;padding:10px 14px}
+.en{display:block;font-weight:700}.es{display:block;color:var(--ink2);font-size:14.5px}
+.exs li>div{min-width:0}
+/* vocabulario */
+.cards{display:grid;gap:14px;justify-items:center;margin-bottom:28px}
+.card{position:relative;width:min(100%,420px);min-height:190px;border-radius:16px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;padding:24px;font:inherit}
+.card .side{font:700 clamp(26px,6vw,34px)/1.2 var(--f-display);text-align:center}
+.card .es{display:none;color:var(--lv);font-size:clamp(22px,5vw,28px);font-weight:700}
+.card.flip .en{display:none}.card.flip .es{display:block}
+.card.flip{border-color:var(--lv)}
+.card.isk{border-style:dashed}
+.card .tap{position:absolute;bottom:10px;left:0;right:0;text-align:center;font:600 12px var(--f-mono);color:var(--ink2)}
+.vlist h2{margin-bottom:12px}.vlist ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.vlist li.k .en::after{content:" · la sé";font:600 12px var(--f-mono);color:var(--good)}
+/* práctica */
+.prac{display:grid;gap:16px}
+.pbar{display:grid;gap:6px;font-weight:600}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px}
+.qt{font-weight:700;font-size:1.1rem;line-height:1.45}
+.blank{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--lv,var(--brand));text-align:center;color:transparent}
+.opts{display:grid;gap:8px}
+.opt{font:inherit;text-align:left;min-height:46px;padding:10px 14px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--lv,var(--brand))}
+.opt.sel{border-color:var(--lv,var(--brand));background:var(--soft)}
+.opt.good{border-color:var(--good);background:var(--goodbg);color:var(--ink)}
+.opt.bad{border-color:var(--bad);background:var(--badbg);color:var(--ink)}
+.opt:disabled{cursor:default}
+.fillrow input{font:inherit;width:100%;min-height:46px;padding:10px 14px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.fillrow input.good{border-color:var(--good);background:var(--goodbg)}.fillrow input.bad{border-color:var(--bad);background:var(--badbg)}
+.ordans{min-height:58px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border:2px dashed var(--line);border-radius:10px}
+.ordans.good{border-color:var(--good);background:var(--goodbg)}.ordans.bad{border-color:var(--bad);background:var(--badbg)}
+.ordbank{display:flex;flex-wrap:wrap;gap:8px}
+.tile{font:inherit;font-weight:600;min-height:42px;padding:8px 14px;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tile:hover:not(:disabled){border-color:var(--lv,var(--brand))}
+.ordans .tile{background:var(--soft)}
+.hint{color:var(--ink2);font-size:14px}
+.fb{padding:12px 14px;border-radius:10px;border:2px solid;line-height:1.5}
+.fb.good{border-color:var(--good);background:var(--goodbg)}.fb.bad{border-color:var(--bad);background:var(--badbg)}
+.fb .btn{margin-left:8px}
+.result,.examres,.examintro{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;max-width:760px}
+.examres{max-width:900px}
+.score{font:800 clamp(56px,14vw,96px)/1 var(--f-display);color:var(--lv,var(--brand));font-variant-numeric:tabular-nums}
+.score.sm{font-size:clamp(40px,10vw,64px)}
+.rev{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.rev li{padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:.95rem}
+.rev li.good{border-color:var(--good)}.rev li.bad{border-color:var(--bad)}
+.why{color:var(--ink2)}
+.examintro ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:420px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font:600 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.paper{display:grid;gap:14px;max-width:760px}
+.sticky{position:sticky;top:0;z-index:5;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:700}
+.eq{border:0;margin:0;padding:0;min-width:0}
+.eq legend{font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);padding:0 0 6px}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
+@media (max-width:720px){
+ .hero{grid-template-columns:1fr}
+ .unit{grid-template-columns:auto minmax(0,1fr)}.unit .st{grid-column:2;justify-self:start}
+ .top{align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* juegos */
+.gh{border-left-color:var(--brand)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font:inherit;font-weight:600;min-height:40px;padding:6px 16px;border-radius:99px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:20px}
+.gcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:10px;align-content:start}
+.gcard .btn{justify-self:start}
+.gamesband{margin:28px 0 0;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+.gamesband p{color:var(--ink2);max-width:58ch;margin-top:4px}
+.gplay{display:grid;gap:14px;max-width:760px}
+.mem{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.mc{font:inherit;font-weight:700;min-height:84px;padding:6px;border-radius:10px;border:2px solid var(--line);background:var(--ink);color:var(--bg);cursor:pointer;display:grid;place-items:center;text-align:center;overflow-wrap:anywhere;font-size:15px}
+.mc.up{background:var(--surface);color:var(--ink);border-color:var(--brand)}
+.mc.ok{background:var(--goodbg);color:var(--ink);border-color:var(--good);cursor:default}
+.sprhead{display:flex;justify-content:space-between;font:700 20px var(--f-display);font-variant-numeric:tabular-nums}
+.word{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0}
+.lt{min-width:36px;height:44px;padding:0 6px;display:inline-grid;place-items:center;border-bottom:4px solid var(--ink);font:700 24px var(--f-mono);text-transform:uppercase}
+.lt.sp{border-bottom-color:transparent}
+.q .word .lt{background:var(--soft);border-radius:8px;border-bottom:0}
+.keys{display:flex;flex-wrap:wrap;gap:6px}
+.key{font:700 16px var(--f-mono);width:40px;height:44px;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-transform:uppercase}
+.key.good{background:var(--goodbg);border-color:var(--good)}.key.bad{background:var(--badbg);border-color:var(--bad)}
+.key:disabled{cursor:default}
+@media (max-width:480px){.mem{grid-template-columns:repeat(3,minmax(0,1fr))}.mc{min-height:76px;font-size:14px}}
+
+/* ===== MiPAES ===== */
+:root{--l:#2457D6;--m1:#C2185B;--m2:#8A2F9C;--h:#B45309;--cb:#13795B;--cf:#0B7285;--cq:#6D5BD0;--warn:#B45309;--warnbg:#FDF1E2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--l:#7FA2FF;--m1:#F27DA8;--m2:#D79BE8;--h:#F0A15C;--cb:#4CC9A0;--cf:#5CD3E8;--cq:#B2A6FF;--warn:#F0A15C;--warnbg:#3A2A14}}
+[data-lv="l"]{--lv:var(--l)}[data-lv="m1"]{--lv:var(--m1)}[data-lv="m2"]{--lv:var(--m2)}[data-lv="h"]{--lv:var(--h)}[data-lv="cb"]{--lv:var(--cb)}[data-lv="cf"]{--lv:var(--cf)}[data-lv="cq"]{--lv:var(--cq)}
+.levels{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}.levels .lvcard,.levels .lvcard:nth-child(n+4){grid-column:auto}
+.lvcard .ic{font-size:28px;line-height:1}
+.lvcard .req{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.hero{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+.cd{font:800 clamp(56px,12vw,88px)/1 var(--f-display);color:var(--bg);font-variant-numeric:tabular-nums}
+.heroside .small{color:var(--bg);opacity:.8}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 16px;display:grid;gap:0;min-width:104px}
+.stat b{font:800 24px/1.2 var(--f-display);font-variant-numeric:tabular-nums}.stat span{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.mission{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:10px}
+.mission ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.mission li{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--soft);border-radius:10px;padding:10px 14px}
+.mission li.done{opacity:.6}.mission li.done .mt::before{content:"✓ ";color:var(--good);font-weight:800}
+.sec{margin:34px 0 14px}
+.pass{border-left:4px solid var(--lv,var(--brand));background:var(--soft);border-radius:0 10px 10px 0;padding:14px 16px;font-size:1rem;line-height:1.65;display:grid;gap:8px}
+.pass .src{font:600 12px var(--f-mono);color:var(--ink2)}
+.fig{width:min(100%,320px);height:auto;color:var(--ink);justify-self:start}
+.dt td,.dt th{padding:7px 10px}
+.box{border:2px solid var(--lv,var(--brand));border-radius:10px;padding:12px 14px;background:var(--surface)}
+.box b.t{display:block;font:700 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lv,var(--brand));margin-bottom:4px}
+.tip{background:var(--warnbg);border:1px solid var(--warn);border-radius:10px;padding:10px 14px}
+.fm{font-family:var(--f-mono);background:var(--soft);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.lesson h3{font-size:1.15rem}.lesson ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.dots{display:flex;flex-wrap:wrap;gap:6px}
+.dot{font:700 13px var(--f-mono);width:34px;height:34px;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.dot.ans{background:var(--soft);border-color:var(--lv,var(--brand))}.dot.cur{outline:3px solid var(--ink)}
+.timer{font:700 18px var(--f-mono);font-variant-numeric:tabular-nums}.timer.low{color:var(--bad)}
+.tag{font:600 11px var(--f-mono);padding:3px 8px;border-radius:99px;background:var(--soft);color:var(--lv,var(--ink2));letter-spacing:.05em;text-transform:uppercase}
+.bars{display:grid;gap:8px}.bar{display:grid;grid-template-columns:110px 1fr 48px;gap:10px;align-items:center;font-size:14px}
+.bar .meter{height:12px}
+.big2{font:800 clamp(44px,12vw,72px)/1 var(--f-display);font-variant-numeric:tabular-nums}
+.stars{font-size:30px;letter-spacing:4px;color:var(--warn)}
+.vf{display:grid;grid-template-columns:1fr 1fr;gap:10px}.vf .btn{min-height:56px;font-size:17px}
+.tl{display:grid;gap:8px}.tl .tile{text-align:left;min-height:50px}.tl .tile.done{background:var(--goodbg);border-color:var(--good)}.tl .tile.no{background:var(--badbg);border-color:var(--bad)}
+.hist{display:grid;gap:6px}.hist li{list-style:none}
+.note{font-size:13px;color:var(--ink2);border:1px dashed var(--line);border-radius:10px;padding:10px 14px}
+.acc{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}.acc summary{cursor:pointer;padding:14px 18px;font-weight:700;min-height:44px}.acc div{padding:0 18px 16px;display:grid;gap:8px}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.bar{grid-template-columns:84px 1fr 44px}}
+main:focus{outline:none}
+</style>
+<div class="wrap">
+<header class="top"><a class="brand" href="#inicio">Aprendeya <span>MiPAES</span></a><div class="prog" id="hprog"></div></header>
+<nav id="nav" aria-label="Secciones"></nav>
+<main id="main" tabindex="-1"></main>
+<footer class="foot small">Material de práctica original para 4.º medio. No es oficial ni está afiliado al DEMRE; los puntajes son estimaciones. Confirma fechas y estructura en demre.cl.</footer>
+</div>
+<script>/* ===== utilidades compartidas por datos y app ===== */
+var TOPICS=[];
+function R(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t}return a}
+function fmt(n,d){
+ if(d==null)d=Number.isInteger(n)?0:2;
+ var neg=n<0;n=Math.abs(n);var s=n.toFixed(d),p=s.split("."),i=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+ if(d>0){var dec=p[1].replace(/0+$/,"");s=dec.length?i+","+dec:i}else s=i;
+ return (neg?"−":"")+s;
+}
+function frac(n,d){var g=gcd(n,d);n/=g;d/=g;if(d<0){n=-n;d=-d}return d===1?String(n).replace("-","−"):String(n).replace("-","−")+"/"+d}
+/* pregunta de alternativas con respuesta correcta y distractores (cadenas) */
+function mcq(text,correct,wrongs,why,x){
+ var c=String(correct),seen={},ws=[];seen[c]=1;
+ wrongs.forEach(function(w){w=String(w);if(!seen[w]){seen[w]=1;ws.push(w)}});
+ if(ws.length<3)throw new Error("faltan distractores: "+text);
+ var mn=function(t){return String(t).replace(/(^|[\s(=,])-(?=\d)/g,"$1\u2212")};c=mn(c);ws=ws.map(mn);text=mn(text);why=mn(why||"");
+ var opts=shuf([c].concat(ws.slice(0,3)));
+ var q={text:text,opts:opts,ai:opts.indexOf(c),why:why||""};
+ if(x)for(var k in x)q[k]=x[k];
+ return q;
+}
+/* pregunta numérica: respuesta y distractores como números; rellena si faltan */
+function numq(text,ans,wrongs,why,o){
+ o=o||{};var d=o.d==null?(Number.isInteger(ans)?0:2):o.d,u=o.u||"",seen={},ws=[];
+ var key=function(n){return Math.round(n*1e6)};seen[key(ans)]=1;
+ wrongs.forEach(function(w){w=Math.round(w*Math.pow(10,d))/Math.pow(10,d);if(isFinite(w)&&!seen[key(w)]&&(o.min==null||w>=o.min)){seen[key(w)]=1;ws.push(w)}});
+ var step=Math.max(Math.pow(10,-d),Math.abs(Math.round(ans/8*Math.pow(10,d))/Math.pow(10,d))),t=0;
+ while(ws.length<3&&t++<60){var w=ans+(R(0,1)?1:-1)*step*R(1,6);w=Math.round(w*Math.pow(10,d))/Math.pow(10,d);if(isFinite(w)&&!seen[key(w)]&&(o.min==null||w>=o.min)){seen[key(w)]=1;ws.push(w)}}
+ var f=function(n){return (o.pre||"")+fmt(n,d)+(u?" "+u:"")};
+ return mcq(text,f(ans),ws.map(f),why,o.x);
+}
+/* figuras SVG simples (usan currentColor, funcionan en claro y oscuro) */
+function svgWrap(w,h,inner,alt){return '<svg class="fig" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+(alt||"figura")+'">'+inner+"</svg>"}
+function tx(x,y,s,anchor){return '<text x="'+x+'" y="'+y+'" font-size="13" text-anchor="'+(anchor||"middle")+'" fill="currentColor">'+s+"</text>"}
+function svgTri(a,b,c,alt){ // triángulo rectángulo: cateto horizontal a, vertical b, hipotenusa c (etiquetas)
+ var inner='<polygon points="30,120 190,120 30,20" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="30,104 46,104 46,120" fill="none" stroke="currentColor" stroke-width="1.5"/>'+tx(110,138,a)+tx(14,74,b,"end")+tx(122,62,c,"start");
+ return svgWrap(210,146,inner,alt||"triángulo rectángulo");
+}
+function svgRect(w,h,alt){var inner='<rect x="30" y="20" width="150" height="90" fill="none" stroke="currentColor" stroke-width="2"/>'+tx(105,130,w)+tx(22,70,h,"end");return svgWrap(210,140,inner,alt||"rectángulo")}
+function svgCircle(r,alt){var inner='<circle cx="105" cy="70" r="55" fill="none" stroke="currentColor" stroke-width="2"/><line x1="105" y1="70" x2="160" y2="70" stroke="currentColor" stroke-width="2"/><circle cx="105" cy="70" r="2.5" fill="currentColor"/>'+tx(132,64,r);return svgWrap(210,140,inner,alt||"circunferencia")}
+function svgGraph(fn,xr,yr,alt,pts){ // gráfico cartesiano de una función
+ var W=240,H=200,L=24,B=20,x0=xr[0],x1=xr[1],y0=yr[0],y1=yr[1];
+ var X=function(x){return L+(x-x0)/(x1-x0)*(W-L-8)},Y=function(y){return H-B-(y-y0)/(y1-y0)*(H-B-8)};
+ var g="";
+ for(var i=Math.ceil(x0);i<=x1;i++){g+='<line x1="'+X(i)+'" y1="8" x2="'+X(i)+'" y2="'+(H-B)+'" stroke="currentColor" stroke-opacity=".12"/>';if(i%2===0||x1-x0<=8)g+=tx(X(i),H-6,i)}
+ for(var j=Math.ceil(y0);j<=y1;j++){g+='<line x1="'+L+'" y1="'+Y(j)+'" x2="'+(W-8)+'" y2="'+Y(j)+'" stroke="currentColor" stroke-opacity=".12"/>';if(j%2===0||y1-y0<=8)g+=tx(L-4,Y(j)+4,j,"end")}
+ var ax=Y(0)>=8&&Y(0)<=H-B?Y(0):H-B,ay=X(0)>=L&&X(0)<=W-8?X(0):L;
+ g+='<line x1="'+L+'" y1="'+ax+'" x2="'+(W-8)+'" y2="'+ax+'" stroke="currentColor" stroke-width="1.5"/><line x1="'+ay+'" y1="8" x2="'+ay+'" y2="'+(H-B)+'" stroke="currentColor" stroke-width="1.5"/>';
+ var d="",first=true;for(var k=0;k<=120;k++){var x=x0+(x1-x0)*k/120,y=fn(x);if(!isFinite(y)||y<y0-1||y>y1+1){first=true;continue}d+=(first?"M":"L")+X(x).toFixed(1)+" "+Y(y).toFixed(1)+" ";first=false}
+ g+='<path d="'+d+'" fill="none" stroke="var(--lv,var(--brand))" stroke-width="3"/>';
+ (pts||[]).forEach(function(p){g+='<circle cx="'+X(p[0])+'" cy="'+Y(p[1])+'" r="4" fill="var(--lv,var(--brand))"/>'+(p[2]?tx(X(p[0])+6,Y(p[1])-6,p[2],"start"):"")});
+ return svgWrap(W,H,g,alt||"gráfico de una función");
+}
+function table(head,rows){return '<div class="tw"><table class="dt"><thead><tr>'+head.map(function(h){return "<th>"+h+"</th>"}).join("")+"</tr></thead><tbody>"+rows.map(function(r){return "<tr>"+r.map(function(c){return "<td>"+c+"</td>"}).join("")+"</tr>"}).join("")+"</tbody></table></div>"}
+
+/* ===== MiPAES: motor ===== */
+var SUBJ=[
+ {k:"l",n:"Competencia Lectora",s:"Lectora",ic:"📖",req:"Obligatoria",d:"Comprender, interpretar y evaluar textos."},
+ {k:"m1",n:"Matemática M1",s:"M1",ic:"➗",req:"Obligatoria",d:"Números, álgebra, funciones, geometría y datos."},
+ {k:"m2",n:"Matemática M2",s:"M2",ic:"📐",req:"Según carrera",d:"Profundiza: funciones, trigonometría y probabilidad."},
+ {k:"h",n:"Historia y Cs. Sociales",s:"Historia",ic:"🏛️",req:"Electiva",d:"Chile y el mundo, economía y ciudadanía."},
+ {k:"cb",n:"Ciencias: Biología",s:"Biología",ic:"🧬",req:"Electiva Ciencias",d:"Célula, genética, cuerpo humano y ecología."},
+ {k:"cf",n:"Ciencias: Física",s:"Física",ic:"⚡",req:"Electiva Ciencias",d:"Movimiento, fuerzas, energía, ondas y electricidad."},
+ {k:"cq",n:"Ciencias: Química",s:"Química",ic:"⚗️",req:"Electiva Ciencias",d:"Átomo, enlace, estequiometría, ácidos y orgánica."}
+];
+var PRUEBAS=[
+ {id:"l",n:"Competencia Lectora",subs:["l"],q:20,min:2.3,lv:"l"},
+ {id:"m1",n:"Matemática M1",subs:["m1"],q:20,min:2.1,lv:"m1"},
+ {id:"m2",n:"Matemática M2",subs:["m2"],q:16,min:2.5,lv:"m2"},
+ {id:"h",n:"Historia y Cs. Sociales",subs:["h"],q:20,min:1.85,lv:"h"},
+ {id:"c",n:"Ciencias",subs:["cb","cf","cq"],q:24,min:2,lv:"cb"}
+];
+var UNITS=[];
+function U(o){UNITS.push(o);return o}
+function subj(k){return SUBJ.filter(function(s){return s.k===k})[0]}
+function unitsOf(k){return UNITS.filter(function(u){return u.s===k})}
+function uById(id){return UNITS.filter(function(u){return u.id===id})[0]}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function strip(h){return String(h).replace(/<[^>]+>/g,"")}
+
+/* ---------- almacenamiento ---------- */
+var KEY="mp-prog",MEM=null;
+function load(){try{var v=localStorage.getItem(KEY);if(v)return JSON.parse(v)}catch(e){}return MEM||{u:{},ens:[],err:[],days:[],xp:0,dl:{},g:{}}}
+var P=load();
+["u","dl","g"].forEach(function(k){if(!P[k])P[k]={}});["ens","err","days"].forEach(function(k){if(!P[k])P[k]=[]});if(!P.xp)P.xp=0;
+function save(){MEM=P;try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
+function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function dayKey(off){var d=new Date();d.setDate(d.getDate()-off);return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function markDay(what){var t=today();if(P.days.indexOf(t)<0)P.days.push(t);var l=P.dl[t]||(P.dl[t]={p:0,g:0,e:0});if(what)l[what]++;save()}
+function streak(){var n=0,o=P.days.indexOf(today())>=0?0:1;while(P.days.indexOf(dayKey(o+n))>=0)n++;return n}
+function addXp(n){P.xp+=n;save()}
+var RANKS=[[0,"Novato"],[150,"Aprendiz"],[500,"Estudiante"],[1200,"Destacado"],[2500,"Experto"],[5000,"Puntaje Nacional 🏆"]];
+function rank(){var r=RANKS[0],nx=null;for(var i=0;i<RANKS.length;i++){if(P.xp>=RANKS[i][0]){r=RANKS[i];nx=RANKS[i+1]||null}}return{n:r[1],next:nx}}
+function noteErr(q){
+ var key=strip(q.text)+"|"+q.opts.join("|");
+ P.err=P.err.filter(function(e){return e.key!==key});
+ P.err.unshift({key:key,text:q.text,opts:q.opts,ai:q.ai,why:q.why||"",pass:q.pass||"",fig:q.fig||"",s:q.s||"",u:q.u||""});
+ if(P.err.length>60)P.err.length=60;save();
+}
+function clearErr(q){var key=strip(q.text)+"|"+q.opts.join("|");P.err=P.err.filter(function(e){return e.key!==key});save()}
+function unitStat(id){return P.u[id]||null}
+function stars(p){return p>=90?3:p>=70?2:p>=50?1:0}
+function score(p){return Math.round(100+900*Math.pow(p,.85))}
+
+/* ---------- timers ---------- */
+var TM=[];
+function every(f,ms){var t=setInterval(f,ms);TM.push(t);return t}
+function clearTimers(){TM.forEach(clearInterval);TM=[]}
+
+/* ---------- selección de preguntas ---------- */
+function tagq(q,u){q.s=u.s;q.u=u.t;return q}
+function genUnit(u){return shuf(u.q()).map(function(q){return tagq(q,u)})}
+function sample(subs,n){
+ var lists=[];subs.forEach(function(k){unitsOf(k).forEach(function(u){lists.push(genUnit(u))})});lists=shuf(lists);
+ var out=[],i=0,guard=0;
+ while(out.length<n&&guard++<500){var l=lists[i%lists.length];if(l.length)out.push(l.shift());i++;if(!lists.some(function(x){return x.length}))break}
+ return shuf(out);
+}
+
+/* ---------- DOM ---------- */
+var $main=document.getElementById("main"),$nav=document.getElementById("nav");
+function set(html,lv){$main.setAttribute("data-lv",lv||"");$main.innerHTML=html;window.scrollTo(0,0);$main.focus&&$main.focus({preventScroll:true})}
+function pct(a,b){return b?Math.round(100*a/b):0}
+function lvOf(k){return k==="c"?"cb":k}
+
+/* ---------- cuenta regresiva ---------- */
+function daysLeft(){var t=new Date(2026,10,30),n=new Date();n=new Date(n.getFullYear(),n.getMonth(),n.getDate());return Math.round((t-n)/864e5)}
+function cdHTML(){var d=daysLeft();
+ if(d>0)return '<div class="eyebrow">Cuenta regresiva PAES</div><div class="cd">'+d+'</div><div class="big">'+(d===1?"día":"días")+' para rendir</div><div class="small">PAES Regular · 30 nov, 1 y 2 dic 2026 (confírmalo en demre.cl)</div>';
+ if(d>-3)return '<div class="eyebrow">PAES Regular</div><div class="cd">¡Hoy!</div><div class="big">Confía en lo que practicaste</div><div class="small">Duerme bien, come liviano y responde todas las preguntas.</div>';
+ return '<div class="eyebrow">Aprendeya MiPAES</div><div class="big">Sigue practicando</div><div class="small">Úsalo para próximas rendiciones o para reforzar tu nivel.</div>'}
+
+/* ---------- pantallas ---------- */
+function recUnit(){
+ var order=["l","m1","h","cb","m2","cf","cq"],best=null,bs=1e9;
+ order.forEach(function(k){unitsOf(k).forEach(function(u){var st=unitStat(u.id),sc=st?st.best:-1;if(sc<85&&sc<bs){bs=sc;best=u}})});
+ return best||UNITS[0];
+}
+function homeScreen(){
+ var tk=today(),dl=P.dl[tk]||{p:0,g:0,e:0},ru=recUnit(),rk=rank();
+ var totalU=UNITS.length,doneU=UNITS.filter(function(u){var s=unitStat(u.id);return s&&s.best>=70}).length;
+ var pr=PRUEBAS[(new Date().getDate())%PRUEBAS.length];
+ var third=P.err.length?{t:"Repasa tus errores ("+P.err.length+")",h:"#errores",d:dl.e>0}:{t:"Haz un mini ensayo de "+pr.n,h:"#ens-"+pr.id,d:P.ens.some(function(e){return e.d===tk})};
+ var cards=SUBJ.map(function(s){var us=unitsOf(s.k),dn=us.filter(function(u){var x=unitStat(u.id);return x&&x.best>=70}).length;
+  return '<div class="lvcard" data-lv="'+s.k+'"><div class="ic">'+s.ic+'</div><span class="req">'+s.req+'</span><h3>'+s.n+'</h3><p class="small">'+s.d+'</p><div class="meter"><i style="width:'+pct(dn,us.length)+'%"></i></div><span class="small">'+dn+' de '+us.length+' unidades dominadas</span><a class="btn" href="#s-'+s.k+'">Estudiar</a></div>'}).join("");
+ set('<section class="hero"><div><div class="eyebrow">Aprendeya MiPAES · 4º medio</div><h1>Prepárate para la PAES <span class="hl">jugando, practicando y avanzando</span></h1><p class="lead">Lecciones cortas, ejercicios con explicación, juegos y ensayos con puntaje estimado para Lectora, Matemática, Historia y Ciencias. Una misión corta por día basta para llegar mejor.</p><div class="row"><a class="btn" href="#s-'+ru.s+'">▶ Seguir con: '+esc(ru.t)+'</a><a class="btn alt" href="#juegos">🎮 Jugar</a></div></div><div class="heroside">'+cdHTML()+'</div></section>'+
+ '<div class="stats"><div class="stat"><b>🔥 '+streak()+'</b><span>Racha (días)</span></div><div class="stat"><b>⭐ '+P.xp+'</b><span>Puntos XP</span></div><div class="stat"><b>'+rk.n+'</b><span>Tu rango'+(rk.next?" · sig. "+rk.next[0]+" XP":"")+'</span></div><div class="stat"><b>'+doneU+'/'+totalU+'</b><span>Unidades ≥70%</span></div></div>'+
+ '<section class="mission"><h2>🎯 Tu misión de hoy</h2><ul><li class="'+(dl.p>0?"done":"")+'"><span class="mt">Practica «'+esc(ru.t)+'» ('+esc(subj(ru.s).s)+')</span><a class="btn small" href="#p-'+ru.id+'">Ir</a></li><li class="'+(dl.g>0?"done":"")+'"><span class="mt">Juega una partida</span><a class="btn small" href="#juegos">Ir</a></li><li class="'+(third.d?"done":"")+'"><span class="mt">'+third.t+'</span><a class="btn small" href="'+third.h+'">Ir</a></li></ul></section>'+
+ '<h2 class="sec">Elige tu prueba</h2><div class="levels">'+cards+'</div>'+
+ '<h2 class="sec">Ensayos con puntaje estimado</h2><div class="gcards">'+PRUEBAS.map(function(p){return '<div class="gcard" data-lv="'+lvOf(p.id)+'"><h3>'+p.n+'</h3><p class="small">'+p.q+' preguntas · '+Math.round(p.q*p.min)+' min orientativos</p><a class="btn alt" href="#ens-'+p.id+'">Hacer ensayo</a></div>'}).join("")+'</div>'+
+ '<div class="gamesband"><div><h2>🎮 Zona de juegos</h2><p>Contrarreloj, cálculo mental, memorice, línea de tiempo y verdadero o falso. Aprender con ganas rinde más.</p></div><a class="btn" href="#juegos">Entrar</a></div>'+
+ '<div class="gamesband"><div><h2>🧭 Cómo funciona la PAES</h2><p>Pruebas, tiempos, puntaje y estrategias para rendir con cabeza fría.</p></div><a class="btn alt" href="#paes">Ver guía</a></div>');
+}
+function subjScreen(k){
+ var s=subj(k),us=unitsOf(k);if(!s)return homeScreen();
+ var pr=PRUEBAS.filter(function(p){return p.subs.indexOf(k)>=0})[0];
+ set('<a class="back" href="#inicio">← Inicio</a><header class="lvhead"><div class="cefr">'+s.req+'</div><h1>'+s.ic+' '+s.n+'</h1><p class="lead">'+s.d+'</p></header><div class="units">'+us.map(function(u,i){var st=unitStat(u.id);
+  return '<a class="unit" href="#u-'+u.id+'"><span class="num">'+(i+1)+'</span><span class="ut"><b>'+u.t+'</b><span>'+u.sum+'</span></span><span class="st '+(st&&st.best>=70?"ok":st?"mid":"")+'">'+(st?"★".repeat(stars(st.best))+"☆".repeat(3-stars(st.best))+" "+st.best+"%":"Nuevo")+'</span></a>'}).join("")+'</div>'+
+ '<div class="examcard"><div><h2>Ensayo de '+(pr?pr.n:s.n)+'</h2><p>Simula la prueba, con respuestas y explicación al final y puntaje estimado.</p></div><a class="btn" href="#ens-'+pr.id+'">Hacer ensayo</a></div>',k);
+}
+function unitScreen(id){
+ var u=uById(id);if(!u)return homeScreen();var st=unitStat(id),i=unitsOf(u.s).indexOf(u),nx=unitsOf(u.s)[i+1];
+ set('<a class="back" href="#s-'+u.s+'">← '+subj(u.s).n+'</a><header class="unithead"><div class="cefr">Unidad '+(i+1)+(st?" · mejor resultado "+st.best+"%":"")+'</div><h1>'+u.t+'</h1><p class="lead">'+u.sum+'</p></header><div id="unitbody">'+
+ u.lesson.map(function(b){return '<div class="lesson"><h3>'+b.h+'</h3>'+b.p+'</div>'}).join("")+
+ '<div class="row"><a class="btn" href="#p-'+u.id+'">Practicar esta unidad →</a>'+(nx?'<a class="btn alt" href="#u-'+nx.id+'">Siguiente unidad</a>':"")+'</div></div>',u.s);
+}
+function practiceScreen(id){
+ var u=uById(id);if(!u)return homeScreen();
+ var qs=genUnit(u).slice(0,8);
+ runQuiz({qs:qs,mode:"p",lv:u.s,title:u.t,back:"#u-"+u.id,after:function(r){
+  var p=pct(r.ok,r.n),st=P.u[u.id]||(P.u[u.id]={best:0,n:0});st.n++;if(p>st.best)st.best=p;
+  var xp=r.ok*10+(p===100?20:0);addXp(xp);markDay("p");
+  return '<div class="stars" aria-label="'+stars(p)+' estrellas">'+"★".repeat(stars(p))+"☆".repeat(3-stars(p))+'</div><p><b>+'+xp+' XP</b>'+(p>=70?" · ¡Unidad dominada!":" · Repasa la lección y vuelve a intentar para subir tu marca.")+'</p>'},
+  btns:'<a class="btn" href="#p-'+u.id+'">Otra ronda</a><a class="btn alt" href="#u-'+u.id+'">Ver lección</a><a class="btn alt" href="#s-'+u.s+'">Unidades</a>'});
+}
+function ensayoScreen(id){
+ var pr=PRUEBAS.filter(function(p){return p.id===id})[0];if(!pr)return homeScreen();
+ var mins=Math.round(pr.q*pr.min);
+ set('<a class="back" href="#inicio">← Inicio</a><div class="examintro"><div class="cefr">Ensayo</div><h1>'+pr.n+'</h1><ul><li>'+pr.q+' preguntas con 4 alternativas, tomadas de todas las unidades.</li><li>Tiempo orientativo: '+mins+' minutos (puedes desactivarlo).</li><li>En la PAES <b>no se descuentan puntos por errores</b>: nunca dejes una pregunta en blanco.</li><li>Las respuestas y explicaciones aparecen al final, junto con un puntaje <b>estimado</b>.</li></ul><label><input type="checkbox" id="wt" checked> Con cronómetro</label><div class="row"><button class="btn" id="go">Comenzar ensayo</button></div></div>',lvOf(pr.id));
+ document.getElementById("go").onclick=function(){
+  var wt=document.getElementById("wt").checked,qs=sample(pr.subs,pr.q);
+  runQuiz({qs:qs,mode:"e",lv:lvOf(pr.id),title:"Ensayo "+pr.n,back:"#inicio",timeSec:wt?mins*60:0,after:function(r){
+   var p=r.ok/r.n,sc=score(p);P.ens.unshift({p:pr.id,pct:Math.round(p*100),score:sc,d:today()});if(P.ens.length>40)P.ens.length=40;
+   addXp(r.ok*5);markDay("p");
+   var prev=P.ens.filter(function(e,i){return i>0&&e.p===pr.id})[0];
+   return '<div class="eyebrow">Puntaje estimado</div><div class="big2" style="color:var(--lv)">'+sc+'</div><p class="small">Escala 100–1000. Es una estimación de práctica (no oficial): el puntaje real depende de la dificultad de cada prueba y del año.'+(prev?' Tu ensayo anterior: '+prev.score+'.':"")+'</p><p><b>+'+(r.ok*5)+' XP</b></p>'},
+   btns:'<a class="btn" href="#ens-'+pr.id+'">Nuevo ensayo</a><a class="btn alt" href="#inicio">Inicio</a>'});
+ };
+}
+function errScreen(){
+ if(!P.err.length){set('<a class="back" href="#inicio">← Inicio</a><div class="result"><h1>Mis errores</h1><p class="lead">Aún no tienes errores guardados. Las preguntas que falles en prácticas, ensayos y juegos aparecerán aquí para repasarlas hasta dominarlas.</p><div class="row"><a class="btn" href="#inicio">Ir a practicar</a></div></div>');return}
+ var qs=P.err.slice(0,10).map(function(e){return{text:e.text,opts:e.opts,ai:e.ai,why:e.why,pass:e.pass,fig:e.fig,s:e.s,u:e.u}});
+ runQuiz({qs:qs,mode:"p",lv:qs[0].s||"l",title:"Repaso de errores",back:"#inicio",reviewMode:true,after:function(r){
+  r.right.forEach(clearErr);var xp=r.ok*8;addXp(xp);markDay("e");
+  return '<p><b>+'+xp+' XP</b> · Las que acertaste salen de la lista. Quedan '+P.err.length+'.</p>'},
+  btns:(P.err.length?'<a class="btn" href="#errores">Seguir repasando</a>':"")+'<a class="btn alt" href="#inicio">Inicio</a>'});
+}
+
+/* ---------- motor de preguntas ---------- */
+function qHTML(q,i,n,extra){
+ var h='<div class="q">'+(q.s?'<div><span class="tag">'+esc(subj(q.s).s)+' · '+esc(q.u||"")+'</span></div>':"");
+ if(q.pass)h+='<div class="pass">'+q.pass+'</div>';
+ if(q.fig)h+=q.fig;
+ h+='<div class="qt">'+q.text+'</div><div class="opts">'+q.opts.map(function(o,j){return '<button class="opt" data-j="'+j+'"><b>'+"ABCD"[j]+".</b> "+o+'</button>'}).join("")+'</div>'+(extra||"")+'</div>';
+ return h;
+}
+function runQuiz(c){
+ clearTimers();
+ var qs=c.qs,n=qs.length,ans=[],i=0,locked=false,left=c.timeSec||0,ended=false,ex=c.mode==="e";
+ for(var z=0;z<n;z++)ans.push(-1);
+ function bar(){return '<div class="pbar"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span>'+(ex?"":esc(c.title)+" · ")+'Pregunta '+(i+1)+' de '+n+'</span>'+(left?'<span class="timer" id="tmr">'+tm(left)+'</span>':"")+'</div><div class="meter"><i style="width:'+pct(ex?ans.filter(function(a){return a>=0}).length:i,n)+'%"></i></div></div>'}
+ function tm(s){var m=Math.floor(s/60),x=s%60;return m+":"+("0"+x).slice(-2)}
+ function draw(){
+  var q=qs[i],nav="";
+  if(ex){nav='<div class="dots">'+qs.map(function(_,j){return '<button class="dot '+(ans[j]>=0?"ans":"")+(j===i?" cur":"")+'" data-go="'+j+'" aria-label="Ir a la pregunta '+(j+1)+'">'+(j+1)+'</button>'}).join("")+'</div><div class="row"><button class="btn alt" id="pv" '+(i?"":"disabled")+'>← Anterior</button>'+(i<n-1?'<button class="btn" id="nx">Siguiente →</button>':'')+'<button class="btn" id="fin" style="margin-left:auto">Terminar ensayo</button></div>'}
+  set('<div class="prac">'+bar()+qHTML(q,i,n,'<div id="fb"></div>')+nav+(ex?"":'<div class="row"><a class="back" href="'+c.back+'">Salir</a></div>')+'</div>',c.lv);
+  if(ex&&ans[i]>=0)mark(ans[i],false);
+  if(!ex&&ans[i]>=0)reveal();
+  var tmr=document.getElementById("tmr");
+ }
+ function mark(j){var bs=$main.querySelectorAll(".opt");bs.forEach(function(b){b.classList.toggle("sel",+b.dataset.j===j)})}
+ function reveal(){
+  var q=qs[i],bs=$main.querySelectorAll(".opt"),ok=ans[i]===q.ai;
+  bs.forEach(function(b){var j=+b.dataset.j;b.disabled=true;if(j===q.ai)b.classList.add("good");else if(j===ans[i])b.classList.add("bad")});
+  document.getElementById("fb").innerHTML='<div class="fb '+(ok?"good":"bad")+'"><b>'+(ok?"¡Correcto!":"No es esa. Correcta: "+"ABCD"[q.ai]+".")+'</b> '+(q.why||"")+'<div class="row"><button class="btn small" id="nx">'+(i<n-1?"Siguiente →":"Ver resultado")+'</button></div></div>';
+  var b=document.getElementById("nx");if(b)b.focus();
+ }
+ function finish(){
+  if(ended)return;ended=true;clearTimers();
+  var ok=0,right=[],byS={};
+  qs.forEach(function(q,k){var good=ans[k]===q.ai;if(good){ok++;right.push(q)}else if(!c.reviewMode||ans[k]>=0)noteErr(q);var b=byS[q.s||"x"]||(byS[q.s||"x"]={a:0,n:0});b.n++;if(good)b.a++});
+  var r={ok:ok,n:n,right:right},extra=c.after?c.after(r):"",p=pct(ok,n);
+  var brk=Object.keys(byS).length>1?'<div class="bars">'+Object.keys(byS).map(function(k){var b=byS[k];return '<div class="bar"><span>'+esc(subj(k).s)+'</span><div class="meter" data-lv="'+k+'"><i style="width:'+pct(b.a,b.n)+'%"></i></div><b>'+b.a+'/'+b.n+'</b></div>'}).join("")+'</div>':"";
+  var rev=qs.map(function(q,k){var good=ans[k]===q.ai;
+   return '<li class="'+(good?"good":"bad")+'"><b>'+(k+1)+'. '+(good?"✓":"✗")+'</b> '+(q.pass?'<details><summary>Ver texto</summary><div class="pass">'+q.pass+'</div></details>':"")+q.text+(q.fig||"")+'<div class="why">Tu respuesta: '+(ans[k]>=0?"ABCD"[ans[k]]+". "+q.opts[ans[k]]:"en blanco")+' · <b>Correcta: '+"ABCD"[q.ai]+". "+q.opts[q.ai]+'</b></div><div class="why">'+(q.why||"")+'</div></li>'}).join("");
+  set('<div class="'+(ex?"examres":"result")+'"><div class="eyebrow">'+esc(c.title)+'</div><h1>'+ok+' de '+n+' correctas</h1><div class="score sm">'+p+'%</div>'+extra+brk+'<div class="row">'+c.btns+'</div><h2 style="margin-top:14px">Respuestas y explicaciones</h2><ul class="rev">'+rev+'</ul></div>',c.lv);
+ }
+ $main.onclick=function(e){
+  if(ended)return;
+  var o=e.target.closest(".opt");
+  if(o&&!o.disabled){var j=+o.dataset.j;if(ex){ans[i]=j;mark(j);var d=$main.querySelectorAll(".dot");d[i].classList.add("ans");$main.querySelector(".meter i").style.width=pct(ans.filter(function(a){return a>=0}).length,n)+"%"}else{if(locked)return;ans[i]=j;reveal()}return}
+  var g=e.target.closest("[data-go]");if(g){i=+g.dataset.go;draw();return}
+  var b=e.target.closest("button");if(!b)return;
+  if(b.id==="nx"){if(i<n-1){i++;draw()}else finish()}
+  else if(b.id==="pv"){i--;draw()}
+  else if(b.id==="fin"){var blank=ans.filter(function(a){return a<0}).length;if(!blank||confirm("Te quedan "+blank+" preguntas sin responder. En la PAES no se descuenta por error: ¿terminar igual?"))finish()}
+ };
+ if(left)every(function(){left--;var t=document.getElementById("tmr");if(t){t.textContent=tm(Math.max(left,0));t.classList.toggle("low",left<=60)}if(left<=0){alert("¡Se acabó el tiempo! Mostraremos tus resultados.");finish()}},1000);
+ draw();
+}
+
+/* ---------- guía PAES ---------- */
+function paesScreen(){
+ set('<a class="back" href="#inicio">← Inicio</a><header class="lvhead" data-lv="l"><div class="cefr">Guía rápida</div><h1>Cómo funciona la PAES</h1><p class="lead">Lo esencial para planificar tu preparación. Los datos pueden cambiar: confirma siempre en demre.cl.</p></header><div style="max-width:760px">'+
+ '<details class="acc" open><summary>Las pruebas</summary><div><p><b>Obligatorias:</b> Competencia Lectora y Competencia Matemática 1 (M1).</p><p><b>Electivas (según tu carrera):</b> Matemática 2 (M2), Historia y Ciencias Sociales y Ciencias (con preguntas de Biología, Física y Química).</p>'+table(["Prueba","Preguntas (puntúan)","Tiempo aprox."],[["Competencia Lectora","65 (60)","2 h 30 min"],["Matemática 1 (M1)","65 (60)","2 h 20 min"],["Matemática 2 (M2)","55 (50)","2 h 20 min"],["Historia y Cs. Sociales","65 (60)","2 h"],["Ciencias","80 (75)","2 h 40 min"]])+'<p class="note">Cifras según publicaciones del DEMRE; pueden cambiar entre procesos. Cada pregunta tiene 4 alternativas; algunas preguntas son de experimentación y no puntúan.</p></div></details>'+
+ '<details class="acc"><summary>Puntaje y postulación</summary><div><p>El puntaje de cada prueba va de <b>100 a 1000</b>. No hay descuento por respuestas incorrectas: <b>responde todo</b>.</p><p>Cada carrera pondera las pruebas de forma distinta, junto con NEM y ranking. Revisa la ponderación de tus carreras de interés en el sitio de admisión.</p><p>Para postular en general se pide un promedio mínimo entre Lectora y M1 (458 en la última publicación consultada) o estar en el 10 % superior de tu colegio.</p></div></details>'+
+ '<details class="acc"><summary>Fechas</summary><div><p>PAES Regular 2026 (Admisión 2027): <b>30 de noviembre, 1 y 2 de diciembre de 2026</b>.</p></div></details>'+
+ '<details class="acc"><summary>Estrategias que sí funcionan</summary><div><ul><li><b>Responde todas.</b> Si dudas, descarta 2 alternativas y elige entre las otras dos.</li><li><b>Primera pasada rápida:</b> resuelve lo que ves claro y marca el resto para volver.</li><li><b>Lectora:</b> lee primero las preguntas, luego el texto; busca la respuesta en el texto, no en lo que tú opinas.</li><li><b>Matemática:</b> escribe los datos, dibuja la figura y revisa unidades. Reemplaza las alternativas cuando sea más rápido.</li><li><b>Historia:</b> ubica la época y la idea central; las alternativas extremas («siempre», «nunca») suelen ser falsas.</li><li><b>Ciencias:</b> identifica qué variable cambia y cuál se mide; revisa unidades y gráficos.</li><li><b>Plan:</b> 20–30 minutos diarios constantes valen más que una maratón de un día. Repasa tus errores.</li></ul></div></details>'+
+ '<p class="note">Aprendeya MiPAES es material de práctica original, no es oficial ni está afiliado al DEMRE. Los puntajes son estimaciones.</p></div>');
+}
+
+/* ===== M1 ===== */
+function M(t,sum,les,gens,s){return U({id:t[0],s:s||"m1",t:t[1],sum:sum,lesson:les,q:function(){return gens.map(function(g){return g()})}})}
+function sg(n){return n<0?"− "+Math.abs(n):"+ "+n}
+function quad(b,c){return "x²"+(b===0?"":(b<0?" − ":" + ")+(Math.abs(b)===1?"":Math.abs(b))+"x")+(c===0?"":(c<0?" − ":" + ")+Math.abs(c))}
+function pw(n){return ["⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹"][n]}
+
+M(["m1a","Porcentajes y fracciones"],"Porcentaje de una cantidad, descuentos, aumentos sucesivos y fracciones.",[
+ {h:"La idea clave",p:'<p>Un porcentaje es una fracción de denominador 100: <span class="fm">p% de N = N · p / 100</span>.</p><div class="box"><b class="t">Truco</b>10 % = dividir en 10 · 50 % = la mitad · 25 % = la cuarta parte · 1 % = dividir en 100.</div>'},
+ {h:"Aumentos y descuentos",p:'<ul><li>Aumento de <b>a %</b>: multiplica por <span class="fm">(1 + a/100)</span>.</li><li>Descuento de <b>d %</b>: multiplica por <span class="fm">(1 − d/100)</span>.</li><li>Las variaciones sucesivas se <b>multiplican</b>, no se suman: +20 % y luego −20 % es ×1,2 · ×0,8 = ×0,96, o sea baja 4 %.</li></ul>'},
+ {h:"Ejemplo resuelto",p:'<p>Una chaqueta de $40.000 tiene 15 % de descuento. Pago = 40.000 · 0,85 = <b>$34.000</b>.</p><p class="tip">Si preguntan «cuánto pagas», usa (1 − d/100); si preguntan «cuánto descuentan», usa d/100.</p>'},
+ {h:"Fracciones",p:'<p>Para sumar fracciones lleva ambas al <b>común denominador</b>: 1/2 + 1/3 = 3/6 + 2/6 = 5/6. Nunca sumes los denominadores. Para comparar, pasa a decimal.</p>'}
+],[
+ function(){var p=pick([5,15,20,25,35,40,60,75]),n=R(2,30)*20,a=n*p/100;return numq("¿Cuál es el "+p+" % de "+fmt(n)+"?",a,[a*10,a/10,n-a,n/p],"Se calcula "+fmt(n)+" · "+p+"/100 = "+fmt(a)+".")},
+ function(){var P=R(4,25)*2500,d=pick([10,15,20,25,30,40]),a=P*(100-d)/100;return numq("Una polera cuesta $"+fmt(P)+" y tiene "+d+" % de descuento. ¿Cuánto se paga?",a,[P*d/100,P*(100+d)/100,P-d],"Se paga el "+(100-d)+" % del precio: "+fmt(P)+" · "+(100-d)+"/100 = "+fmt(a)+".",{pre:"$"})},
+ function(){var c=pick([[20,20,-4],[10,10,-1],[50,20,20],[25,20,0],[10,20,-12],[20,10,8],[30,10,17],[40,50,-10]]),a=c[0],b=c[1],r=c[2];return numq("Un valor sube "+a+" % y luego baja "+b+" %. ¿Cuál es la variación total respecto del valor inicial?",r,[a-b,a+b,-b,r+5],"Factor total = "+(100+a)+"/100 · "+(100-b)+"/100 = "+fmt((100+a)*(100-b)/10000,4)+". La variación es "+fmt(r)+" %.",{d:0,u:"%"})},
+ function(){var a=pick([20,25,50,10,40]),o=R(2,12)*20,f=o*(100+a)/100;return numq("Tras un aumento de "+a+" %, un artículo vale $"+fmt(f)+". ¿Cuánto valía antes?",o,[f*(100-a)/100,f-a,f*(100+a)/100,f/a],"Final = original · "+fmt((100+a)/100)+", entonces original = "+fmt(f)+" / "+fmt((100+a)/100)+" = "+fmt(o)+". Restar el "+a+" % al final no devuelve el original.",{pre:"$"})},
+ function(){var b=pick([20,40,50,80,120,200]),a=pick([b/4,b/2,b*3/4,b/5,b/10].filter(function(x){return Number.isInteger(x)&&x>0})),r=a/b*100;return numq("¿Qué porcentaje de "+b+" es "+a+"?",r,[a*b/100,r/10,100-r,r*2],a+" / "+b+" = "+fmt(a/b)+", es decir, "+fmt(r)+" %.",{d:0,u:"%"})},
+ function(){var d=pick([[1,2,1,4],[1,3,1,6],[2,3,1,4],[3,4,1,2],[2,5,1,10],[5,6,1,3]]),n=d[0]*d[3]+d[2]*d[1],dd=d[1]*d[3],c=frac(n,dd);return mcq("Calcula "+d[0]+"/"+d[1]+" + "+d[2]+"/"+d[3]+".",c,[frac(d[0]+d[2],d[1]+d[3]),frac(d[0]+d[2],d[1]*d[3]),frac(n+1,dd),frac(d[0]*d[2],dd)],"Común denominador "+dd+": ("+d[0]*d[3]+" + "+d[2]*d[1]+")/"+dd+" = "+c+". No se suman los denominadores.")},
+ function(){var fr=shuf([[5,8],[3,5],[7,12],[2,3],[4,7],[9,16]]).slice(0,4),best=fr.slice().sort(function(a,b){return b[0]/b[1]-a[0]/a[1]})[0],s=function(x){return x[0]+"/"+x[1]};return mcq("¿Cuál de estas fracciones es la mayor?",s(best),fr.filter(function(x){return x!==best}).map(s),"En decimales: "+fr.map(function(x){return s(x)+" ≈ "+fmt(Math.round(x[0]/x[1]*1000)/1000,3)}).join("; ")+". La mayor es "+s(best)+".")},
+ function(){var n=R(2,9),a=R(2,5),v=n*Math.pow(10,a);return mcq("¿Cuál es la notación científica de "+fmt(v)+"?",n+" · 10"+pw(a),[n+" · 10"+pw(a+1),(n*10)+" · 10"+pw(a),n+" · 10"+pw(a-1)],fmt(v)+" = "+n+" seguido de "+a+" ceros = "+n+" · 10"+pw(a)+".")}
+]);
+
+M(["m1b","Razones y proporcionalidad"],"Razón, proporción directa e inversa, escalas y reparto proporcional.",[
+ {h:"Directa e inversa",p:'<ul><li><b>Directa:</b> si una cantidad se duplica, la otra también. <span class="fm">y / x = k</span> (constante).</li><li><b>Inversa:</b> si una se duplica, la otra se reduce a la mitad. <span class="fm">x · y = k</span> (constante).</li></ul><div class="box"><b class="t">Pregúntate</b>¿Más trabajadores → menos días? Inversa. ¿Más kilos → más dinero? Directa.</div>'},
+ {h:"Razón y reparto",p:'<p>Repartir <b>T</b> en razón <b>a : b</b>: cada «parte» vale T/(a+b). La primera recibe a·parte, la segunda b·parte.</p><p>Escala 1 : 50.000 significa que 1 cm en el mapa son 50.000 cm (500 m) reales.</p>'},
+ {h:"Ejemplo",p:'<p>6 obreros terminan una obra en 12 días. Con 9 obreros: 6 · 12 = 72 = 9 · d → d = <b>8 días</b>.</p>'}
+],[
+ function(){var k=R(2,9),a=R(2,6),b=R(7,15),c=a*k*100;return numq(a+" kg de fruta cuestan $"+fmt(a*k*100)+". ¿Cuánto cuestan "+b+" kg al mismo precio?",b*k*100,[(b-a)*k*100+a*k*100+k*100,b*a*100,b*k*10,k*100*(b+a)],"Precio por kg = "+fmt(k*100)+". "+b+" · "+fmt(k*100)+" = "+fmt(b*k*100)+".",{pre:"$"})},
+ function(){var w=pick([4,6,8,10]),d=pick([6,9,12,15]),w2=pick([w*2,w*3,w/2].filter(function(x){return Number.isInteger(x)&&x>0&&(w*d)%x===0})),r=w*d/w2;return numq(w+" trabajadores demoran "+d+" días en una obra. ¿Cuántos días demorarían "+w2+" trabajadores (mismo ritmo)?",r,[d*w2/w,d+(w2-w),d-(w2-w),w*d],"Es proporcionalidad inversa: "+w+" · "+d+" = "+(w*d)+" = "+w2+" · días, entonces días = "+fmt(r)+".")},
+ function(){var a=R(2,7),b=R(2,7),k=R(3,12),T=(a+b)*k;return numq("Se reparten $"+fmt(T*1000)+" entre dos personas en razón "+a+" : "+b+". ¿Cuánto recibe la que recibe más?",Math.max(a,b)*k*1000,[T*1000/2,Math.min(a,b)*k*1000,Math.max(a,b)*T*100,T*1000/Math.max(a,b)],"Cada parte vale "+fmt(T*1000)+"/"+(a+b)+" = "+fmt(k*1000)+". La mayor recibe "+Math.max(a,b)+" partes = "+fmt(Math.max(a,b)*k*1000)+".",{pre:"$"})},
+ function(){var e=pick([25000,50000,100000]),cm=R(2,9),km=cm*e/100000;return numq("En un mapa a escala 1 : "+fmt(e)+", dos ciudades están a "+cm+" cm. ¿Cuál es la distancia real en km?",km,[cm*e/1000,cm*e/100,cm*e,km/10],cm+" · "+fmt(e)+" = "+fmt(cm*e)+" cm. Como 100.000 cm = 1 km, son "+fmt(km)+" km.",{u:"km"})},
+ function(){var d=R(2,9)*30,t=pick([30,45,60,90,120]),v=d/(t/60);return numq("Un auto recorre "+d+" km en "+t+" minutos a rapidez constante. ¿Cuál es su rapidez en km/h?",v,[d/t,d*t/60,d*t,d/(t/60)*2],"En horas: "+t+"/60 = "+fmt(t/60)+" h. Rapidez = "+d+" / "+fmt(t/60)+" = "+fmt(v)+" km/h.",{u:"km/h"})},
+ function(){var a=R(2,5),b=R(2,5),k=R(3,9);return mcq("Si la razón entre hombres y mujeres de un grupo es "+a+" : "+b+" y hay "+a*k+" hombres, ¿cuántas personas hay en total?",String((a+b)*k),[String(a*k+b),String((a+b)*k+k),String(b*k),String(a*b*k),String((a+b)*k-1)],"Cada parte son "+k+" personas ("+a*k+"/"+a+"). Total = ("+a+" + "+b+") · "+k+" = "+(a+b)*k+".")},
+ function(){var k=R(2,6),xs=[1,2,3,4];return mcq("La tabla muestra una relación proporcional directa:"+table(["x","1","2","3","4"],[["y",k,2*k,3*k,"?"]])+"¿Qué valor falta?",String(4*k),[String(4*k+1),String(3*k+k+1),String(k+4),String(4*k-1)],"La constante es y/x = "+k+". Entonces y = 4 · "+k+" = "+4*k+".")},
+ function(){var p=pick([[3,5,60],[2,5,40],[3,4,60],[1,4,20],[2,3,60]]),r=Math.round(p[2]*p[1]/p[0]);return numq("En un curso, "+p[0]+" de cada "+p[1]+" estudiantes practica deporte. Si "+p[2]+" lo practican, ¿cuántos estudiantes hay en el curso?",r,[p[2]*p[0]/p[1],p[2]+p[1]-p[0],p[2]*p[1],r+p[1]],"Proporción: "+p[0]+"/"+p[1]+" = "+p[2]+"/T, entonces T = "+p[2]+" · "+p[1]+" / "+p[0]+" = "+fmt(r)+".")}
+]);
+
+M(["m1c","Álgebra: expresiones y ecuaciones"],"Ecuaciones, productos notables, factorización y problemas con incógnitas.",[
+ {h:"Ecuaciones de 1.er grado",p:'<p>Lo que haces a un lado, hazlo al otro. Para <span class="fm">3x + 5 = 20</span>: resta 5 → 3x = 15; divide por 3 → x = 5.</p>'},
+ {h:"Productos notables y factorización",p:'<ul><li><span class="fm">(a + b)² = a² + 2ab + b²</span></li><li><span class="fm">(a − b)² = a² − 2ab + b²</span></li><li><span class="fm">(a + b)(a − b) = a² − b²</span></li><li><span class="fm">x² + (p+q)x + pq = (x+p)(x+q)</span></li></ul><div class="box"><b class="t">Error clásico</b>(a + b)² <b>no</b> es a² + b²: falta el doble producto 2ab.</div>'},
+ {h:"Problemas con palabras",p:'<p>Traduce: «el doble de x» → 2x; «5 más que x» → x + 5; «la suma es 36» → igualdad. Define la incógnita y escribe la ecuación antes de calcular.</p>'}
+],[
+ function(){var x=R(-6,12),a=R(2,9),b=R(-12,15),c=a*x+b;return numq("Resuelve: "+a+"x "+sg(b)+" = "+c+". ¿Cuál es x?",x,[(c+b)/a,c-b,(c-b)/a+1,-x],"Aísla x: "+a+"x = "+c+" "+(b<0?"+ ":"− ")+Math.abs(b)+" = "+(c-b)+"; x = "+(c-b)+"/"+a+" = "+x+".",{d:0,min:-1e9})},
+ function(){var a=R(2,9);return mcq("¿Cuál es el desarrollo de (x + "+a+")²?","x² + "+2*a+"x + "+a*a,["x² + "+a*a,"x² + "+a+"x + "+a*a,"x² + "+2*a+"x + "+2*a,"x² + "+(2*a+1)+"x + "+a*a],"(x + "+a+")² = x² + 2·"+a+"·x + "+a+"² = x² + "+2*a+"x + "+a*a+".")},
+ function(){var a=R(2,9);return mcq("¿Cuál es el resultado de (x + "+a+")(x − "+a+")?","x² − "+a*a,["x² + "+a*a,"x² − "+2*a+"x","x² − "+a+"x − "+a*a],"Suma por diferencia: x² − "+a+"² = x² − "+a*a+".")},
+ function(){var p=R(1,9),q=R(1,9);if(p===q)q++;return mcq("Factoriza: "+quad(p+q,p*q)+".","(x + "+p+")(x + "+q+")",["(x + "+(p*q)+")(x + 1)","(x − "+p+")(x − "+q+")","(x + "+(p+q)+")(x + "+(p+q)+")","(x + "+(p+1)+")(x + "+(q+1)+")"],"Busca dos números que sumen "+(p+q)+" y multipliquen "+(p*q)+": "+p+" y "+q+".")},
+ function(){var a=pick([2,3,4,5]),b=pick([3,4,6]),k=R(1,5),x=a*b*k,c=(a+b)*k;return numq("Resuelve: x/"+a+" + x/"+b+" = "+c+". ¿Cuál es x?",x,[c*a*b,c*(a+b),c/(a+b),x+a+b],"Multiplica por "+a*b+": "+b+"x + "+a+"x = "+c*a*b+" → "+(a+b)+"x = "+c*a*b+" → x = "+x+".")},
+ function(){var b=R(3,15),T=3*b;return numq("Ana tiene el doble de la edad de Beto y juntos suman "+T+" años. ¿Cuántos años tiene Ana?",2*b,[b,T/2,T-b+2,3*b],"Beto = x, Ana = 2x. x + 2x = "+T+" → x = "+b+". Ana tiene 2 · "+b+" = "+2*b+".")},
+ function(){var a=R(-4,4),b=R(2,6);return numq("Si a = "+a+" y b = "+b+", ¿cuál es el valor de 3a² − 2b?",3*a*a-2*b,[9*a*a-2*b,3*a*a+2*b,3*a-2*b,(3*a)*(3*a)-2*b+1],"a² = "+a*a+", entonces 3·"+a*a+" − 2·"+b+" = "+(3*a*a-2*b)+". Cuidado: el cuadrado afecta solo a «a».",{min:-1e9})},
+ function(){var l=R(3,9),a=R(2,6),P=2*(l+a);return mcq("El perímetro de un rectángulo es P = 2(l + a). Si P = "+P+" y a = "+a+", ¿cuál es l?",String(l),[String(P/2+a),String(P-a),String(P/2),String(l+2)],"P/2 = l + a → l = P/2 − a = "+P/2+" − "+a+" = "+l+".")}
+]);
+
+M(["m1d","Sistemas e inecuaciones"],"Sistemas de ecuaciones, inecuaciones y problemas de dos incógnitas.",[
+ {h:"Sistemas 2 × 2",p:'<p>Dos métodos: <b>sustitución</b> (despejas una variable y reemplazas) o <b>reducción</b> (sumas/restas las ecuaciones para eliminar una incógnita).</p><p>Ejemplo: x + y = 10 y x − y = 2 → sumando: 2x = 12 → x = 6, y = 4.</p>'},
+ {h:"Inecuaciones",p:'<div class="box"><b class="t">Regla de oro</b>Si multiplicas o divides por un número <b>negativo</b>, el sentido de la desigualdad se invierte: −2x &lt; 6 → x &gt; −3.</div><p>Las soluciones se anotan como intervalo: x &gt; 3 es (3, +∞); x ≤ 3 es (−∞, 3].</p>'},
+ {h:"Cuántas soluciones tiene",p:'<ul><li>Rectas que se cruzan: <b>una</b> solución.</li><li>Rectas paralelas (misma pendiente, distinto n): <b>ninguna</b>.</li><li>Misma recta: <b>infinitas</b>.</li></ul>'}
+],[
+ function(){var x=R(2,12),y=R(1,x-1),s=x+y,d=x-y;return numq("Si x + y = "+s+" y x − y = "+d+", ¿cuál es el valor de x?",x,[y,s*d,(s-d),s/2+1],"Sumando: 2x = "+(s+d)+", entonces x = "+x+".")},
+ function(){var A=R(5,20),N=R(5,20),a=pick([3000,4000,5000]),b=pick([1000,1500,2000]),T=A+N,Mo=a*A+b*N;return numq("En un espectáculo se vendieron "+T+" entradas: de adulto a $"+fmt(a)+" y de niño a $"+fmt(b)+". Se recaudaron $"+fmt(Mo)+". ¿Cuántas entradas de adulto se vendieron?",A,[N,T/2,Math.round(Mo/a),A+1],"Sea A adultos y N niños: A + N = "+T+" y "+a+"A + "+b+"N = "+Mo+". Resolviendo, A = "+A+" y N = "+N+".")},
+ function(){var k=R(2,9),c=R(-10,10),r=Math.floor(R(3,15)),m=k*r+c;return numq("¿Cuál es el menor entero que cumple "+k+"x "+sg(c)+" ≥ "+(k*r+c)+"?",r,[r-1,r+1,r+c,Math.round(m/k)+2],k+"x ≥ "+(k*r+c)+" "+(c<0?"+ ":"− ")+Math.abs(c)+" = "+k*r+" → x ≥ "+r+". El menor entero es "+r+".",{min:-1e9})},
+ function(){var a=R(2,6),x0=R(1,8);return mcq("¿Cuál es la solución de "+(-a)+"x < "+(-a*x0)+"?","x > "+x0,["x < "+x0,"x > "+(-x0),"x < "+(-x0)],"Al dividir por "+(-a)+" (negativo), el signo se invierte: x > "+x0+".")},
+ function(){var k=pick([4,8,10,12]);return mcq("El sistema 2x + 3y = 6 y 4x + 6y = "+k+" ¿cuántas soluciones tiene?",k===12?"Infinitas":"Ninguna",k===12?["Una","Ninguna","Dos"]:["Una","Infinitas","Dos"],"Multiplicando la primera ecuación por 2 se obtiene 4x + 6y = 12. "+(k===12?"Es la misma recta: infinitas soluciones.":"Con k = "+k+" las rectas son paralelas distintas: ninguna solución."))},
+ function(){var x=R(2,9),y=R(1,8),s=x+y,d=x-y;return numq("Si x + y = "+s+" y x − y = "+d+", ¿cuál es el valor de x · y?",x*y,[s*d,x+y+1,x*y+x,(s*s-d*d)/2],"x = "+x+" e y = "+y+". Entonces x · y = "+x*y+".")},
+ function(){var a=R(2,5),b=R(1,9),c=R(10,30);var lim=(c-b)/a;return mcq("¿Cuál es la solución de "+a+"x + "+b+" < "+c+"?","x < "+fmt(lim),["x > "+fmt(lim),"x < "+fmt(lim+b),"x < "+fmt(c/a)],a+"x < "+c+" − "+b+" = "+(c-b)+" → x < "+fmt(lim)+".")}
+]);
+
+M(["m1e","Funciones lineales y cuadráticas"],"Pendiente, recta, función afín, parábola, vértice y raíces.",[
+ {h:"Función lineal y afín",p:'<p><span class="fm">f(x) = m·x + n</span>: m es la <b>pendiente</b> (cuánto sube y por cada 1 en x) y n el <b>intercepto con el eje y</b>.</p><p>Pendiente por dos puntos: <span class="fm">m = (y₂ − y₁)/(x₂ − x₁)</span>.</p><p>Modelo típico: costo = fijo + variable · cantidad (taxi: bajada + valor por km).</p>'},
+ {h:"Función cuadrática",p:'<p><span class="fm">f(x) = ax² + bx + c</span> es una parábola. Si a &gt; 0 abre hacia arriba (tiene mínimo); si a &lt; 0, hacia abajo (máximo).</p><ul><li>Vértice: x = −b/(2a).</li><li>Si x² − (r+s)x + rs = 0, las raíces son r y s.</li><li>Intercepta el eje y en c.</li></ul>'}
+],[
+ function(){var m=R(-4,5)||2,n=R(-6,8),x=R(-3,6);return numq("Si f(x) = "+m+"x "+sg(n)+", ¿cuál es f("+x+")?",m*x+n,[m+x+n,m*x-n,m*(x+n),-(m*x+n)],"Se reemplaza x: "+m+"·("+x+") "+sg(n)+" = "+(m*x+n)+".",{min:-1e9})},
+ function(){var x1=R(-3,3),y1=R(-4,4),m=pick([-3,-2,-1,1,2,3,4]),dx=R(1,4),x2=x1+dx,y2=y1+m*dx;return numq("¿Cuál es la pendiente de la recta que pasa por ("+x1+", "+y1+") y ("+x2+", "+y2+")?",m,[-m,dx/(m*dx||1)||m+1,(x2-x1)/(y2-y1||1),m*dx],"m = ("+y2+" − ("+y1+")) / ("+x2+" − ("+x1+")) = "+(y2-y1)+"/"+dx+" = "+m+".",{d:m%1?2:0,min:-1e9})},
+ function(){var b=pick([3,4,5]),k=R(3,9),f=R(3,5)*500,v=pick([300,400,500]);return numq("Un taxi cobra $"+fmt(f)+" de bajada y $"+fmt(v)+" por cada kilómetro. ¿Cuánto cuesta un viaje de "+k+" km?",f+v*k,[(f+v)*k,f*k+v,f+v+k,f*v*k/1000],"Costo = fijo + variable · km = "+fmt(f)+" + "+fmt(v)+" · "+k+" = "+fmt(f+v*k)+".",{pre:"$"})},
+ function(){var m=pick([2,3,-1,-2,1]),n=pick([-4,-3,-2,-1,1,2,3,4,5].filter(function(v){return v!==m})),pts=[[0,n],[1,m+n]],g=svgGraph(function(x){return m*x+n},[-4,5],[-8,10],"recta con dos puntos marcados",[[0,n,"("+0+", "+n+")"],[1,m+n,"(1, "+(m+n)+")"]]);var ok="f(x) = "+m+"x "+sg(n);return mcq("La figura muestra la gráfica de una función afín. ¿Cuál es su ecuación?",ok,["f(x) = "+n+"x "+sg(m),"f(x) = "+(-m)+"x "+sg(n),"f(x) = "+m+"x "+sg(-n),"f(x) = "+(m+1)+"x "+sg(n)],"Pasa por (0, "+n+"): n = "+n+". Al avanzar 1 en x, y cambia de "+n+" a "+(m+n)+": m = "+m+".",{fig:g})},
+ function(){var r=R(1,6),s=R(1,6)*-1,b=-(r+s),c=r*s;return numq("Las raíces de f(x) = "+quad(b,c)+" son números reales. ¿Cuál es la suma de ellas?",r+s,[c,-(r+s),r-s,r*s+r+s],"Para x² + bx + c, la suma de raíces es −b = "+(r+s)+" (raíces "+r+" y "+s+").",{min:-1e9})},
+ function(){var h=R(1,6),k=R(-8,5),b=-2*h,c=h*h+k;return numq("¿En qué valor de x alcanza su mínimo la función f(x) = "+quad(b,c)+"?",h,[-h,2*h,c,h+1],"El vértice está en x = −b/(2a) = "+(-b)+"/2 = "+h+".",{min:-1e9})},
+ function(){var h=R(1,5),k=R(-6,-1),b=-2*h,c=h*h+k;return numq("¿Cuál es el valor mínimo de f(x) = "+quad(b,c)+"?",k,[-k,c,h,c-h],"f(x) = (x − "+h+")² "+sg(k)+": el mínimo vale "+k+" y ocurre en x = "+h+".",{min:-1e9})},
+ function(){var r=R(2,7),s=R(2,7);if(r===s)s++;return mcq("¿Cuáles son las soluciones de "+quad(-(r+s),r*s)+" = 0?","x = "+r+" y x = "+s,["x = −"+r+" y x = −"+s,"x = "+(r*s)+" y x = 1","x = "+(r+s)+" y x = 0"],"Factoriza: (x − "+r+")(x − "+s+") = 0, así que x = "+r+" o x = "+s+".")}
+]);
+
+M(["m1f","Geometría y medición"],"Pitágoras, áreas, volúmenes, semejanza, ángulos e isometrías.",[
+ {h:"Pitágoras y semejanza",p:'<p>En un triángulo rectángulo: <span class="fm">a² + b² = c²</span> (c es la hipotenusa). Ternas útiles: 3-4-5, 5-12-13, 8-15-17 y sus múltiplos.</p><p>Triángulos semejantes tienen lados proporcionales: sombras y alturas, Thales y planos a escala.</p>'},
+ {h:"Áreas y volúmenes",p:'<table class="dt"><tbody><tr><td>Rectángulo</td><td>b·h</td></tr><tr><td>Triángulo</td><td>b·h/2</td></tr><tr><td>Círculo</td><td>πr² (perímetro 2πr)</td></tr><tr><td>Cilindro</td><td>πr²h</td></tr><tr><td>Cono</td><td>πr²h/3</td></tr><tr><td>Esfera</td><td>(4/3)πr³</td></tr></tbody></table>'},
+ {h:"Ángulos e isometrías",p:'<ul><li>Suma de ángulos interiores de un polígono de n lados: (n − 2)·180°.</li><li>Traslación: sumar el vector a las coordenadas.</li><li>Reflexión en el eje x: (a, b) → (a, −b). En el eje y: (a, b) → (−a, b).</li><li>Rotación de 90° antihoraria en torno al origen: (a, b) → (−b, a).</li></ul>'}
+],[
+ function(){var t=pick([[3,4,5],[5,12,13],[8,15,17],[6,8,10],[9,12,15],[7,24,25]]),hyp=Math.random()<.5;return numq(hyp?"Un triángulo rectángulo tiene catetos de "+t[0]+" cm y "+t[1]+" cm. ¿Cuánto mide la hipotenusa?":"En un triángulo rectángulo la hipotenusa mide "+t[2]+" cm y un cateto "+t[0]+" cm. ¿Cuánto mide el otro cateto?",hyp?t[2]:t[1],[t[0]+t[1],hyp?t[0]*t[1]:t[2]-t[0],hyp?t[2]+1:t[2]+t[0],hyp?Math.round(Math.sqrt(t[0]+t[1])):t[0]],hyp?t[0]+"² + "+t[1]+"² = "+(t[0]*t[0]+t[1]*t[1])+" = "+t[2]+"².":t[2]+"² − "+t[0]+"² = "+(t[2]*t[2]-t[0]*t[0])+" = "+t[1]+"².",{u:"cm",x:{fig:hyp?svgTri(t[0],t[1],"?"):svgTri(t[0],"?",t[2])}})},
+ function(){var l=R(4,14),a=R(3,9);return numq("Un rectángulo mide "+l+" cm de largo y "+a+" cm de ancho. ¿Cuál es su perímetro?",2*(l+a),[l*a,l+a,2*l*a,2*l+a],"P = 2(l + a) = 2("+l+" + "+a+") = "+2*(l+a)+" cm.",{u:"cm"})},
+ function(){var b=R(3,12)*2,h=R(3,9);return numq("¿Cuál es el área de un triángulo de base "+b+" cm y altura "+h+" cm?",b*h/2,[b*h,b+h,b*h/3,2*b*h],"Área = base · altura / 2 = "+b+" · "+h+" / 2 = "+b*h/2+" cm².",{u:"cm²"})},
+ function(){var r=R(2,9);return mcq("¿Cuál es el área de un círculo de radio "+r+" cm?",r*r+"π cm²",[2*r+"π cm²",2*r*r+"π cm²",r*r*r+"π cm²",r*r+r+"π cm²",4*r*r+"π cm²"],"Área = π r² = π · "+r+"² = "+r*r+"π cm². (2πr es el perímetro).")},
+ function(){var r=pick([3,6]),v=4*r*r*r/3;return mcq("¿Cuál es el volumen de una esfera de radio "+r+" cm?",v+"π cm³",[4*r*r+"π cm³",(r*r*r)+"π cm³",(4*r*r*r)+"π cm³",(2*r*r*r)+"π cm³"],"V = (4/3)π r³ = (4/3)·"+r*r*r+"π = "+v+"π cm³.")},
+ function(){var altura=R(2,4)*2,sombra=R(1,3)*2,fac=R(2,5);return numq("Un poste de "+altura+" m proyecta una sombra de "+sombra+" m. A la misma hora, un árbol proyecta una sombra de "+sombra*fac+" m. ¿Cuánto mide el árbol?",altura*fac,[altura+fac,sombra*fac,altura*sombra,altura*fac+sombra],"Triángulos semejantes: altura/sombra constante. "+altura+"/"+sombra+" = H/"+sombra*fac+" → H = "+altura*fac+" m.",{u:"m"})},
+ function(){var n=pick([5,6,8,10,12]);return numq("¿Cuánto suman los ángulos interiores de un polígono de "+n+" lados?",(n-2)*180,[n*180,(n-1)*180,360,(n-2)*90],"Suma = (n − 2)·180° = "+(n-2)+"·180° = "+(n-2)*180+"°.",{u:"°"})},
+ function(){var a=R(2,8),b=R(2,8),t=pick([["reflexión respecto del eje y",-a,b],["reflexión respecto del eje x",a,-b],["rotación de 90° antihoraria en torno al origen",-b,a]]);var ok="("+t[1]+", "+t[2]+")";return mcq("El punto P("+a+", "+b+") se transforma mediante una "+t[0]+". ¿Cuáles son las nuevas coordenadas?",ok.replace(/-/g,"−"),["("+a+", "+b+")","("+(-a)+", "+(-b)+")","("+b+", "+a+")","("+a+", "+(-b)+")","("+(-a)+", "+b+")","("+b+", "+(-a)+")"].map(function(x){return x.replace(/-/g,"−")}),"Regla: "+t[0]+" → "+ok.replace(/-/g,"−")+".")}
+]);
+
+M(["m1g","Datos y probabilidad"],"Media, mediana, moda, probabilidad simple y combinatoria.",[
+ {h:"Medidas de tendencia central",p:'<ul><li><b>Media</b>: suma de datos ÷ cantidad.</li><li><b>Mediana</b>: dato central con los datos <b>ordenados</b> (si son pares, promedio de los dos centrales).</li><li><b>Moda</b>: el dato que más se repite.</li><li><b>Rango</b>: máximo − mínimo.</li></ul>'},
+ {h:"Probabilidad",p:'<p><span class="fm">P(A) = casos favorables / casos posibles</span> (si todos son igualmente probables). Va de 0 a 1. <span class="fm">P(no A) = 1 − P(A)</span>.</p><p>Combinatoria: ordenar n objetos → n! · elegir k de n sin orden → C(n,k) = n!/(k!(n−k)!).</p>'},
+ {h:"Ejemplo",p:'<p>Notas: 4, 5, 5, 6, 7. Media = 27/5 = 5,4. Mediana = 5. Moda = 5. Rango = 3.</p>'}
+],[
+ function(){var d=[R(2,9),R(2,9),R(2,9),R(2,9),R(2,9)],s=d.reduce(function(a,b){return a+b}),m=d[0]*d.length;d[4]+=(d.length-s%d.length)%d.length;s=d.reduce(function(a,b){return a+b});return numq("¿Cuál es el promedio de los datos "+d.join(", ")+"?",s/d.length,[Math.max.apply(null,d),s/(d.length-1),s,Math.round(s/d.length)+2],"Suma = "+s+"; "+s+" / "+d.length+" = "+s/d.length+".")},
+ function(){var d=shuf([R(1,4),R(5,8),R(9,12),R(13,16),R(17,20),R(21,25),R(26,30)]),o=d.slice().sort(function(a,b){return a-b});return numq("¿Cuál es la mediana de "+d.join(", ")+"?",o[3],[d[3],o[2],o[4],(o[0]+o[6])/2],"Ordenados: "+o.join(", ")+". El central (4.º) es "+o[3]+". Hay que ordenar antes de elegir.")},
+ function(){var m=R(2,9),o=[],x;while(o.length<3){x=R(1,9);if(x!==m&&o.indexOf(x)<0)o.push(x)}var d=shuf([m,m,m].concat(o));return numq("¿Cuál es la moda de "+d.join(", ")+"?",m,[o[0],o[1],o[2]],"El dato "+m+" se repite 3 veces, más que cualquier otro.")},
+ function(){var n=4,x=R(4,6),y=R(5,6),t=y*5-x*n;t=Math.min(Math.max(t,1),7);var avg=(x*n+t)/5;return numq("Las 4 primeras notas de Ana tienen promedio "+x+". ¿Qué nota debe sacar en la 5.ª para que su promedio sea "+fmt(avg)+"?",t,[Math.round(avg*10)/10,t+1,x*2-t,y*5-x],"Suma necesaria = "+fmt(avg)+" · 5 = "+fmt(avg*5)+". Ya tiene "+x+" · 4 = "+x*4+". Falta "+t+".",{d:0})},
+ function(){var r=R(2,7),b=R(2,7),v=R(2,6),T=r+b+v;return mcq("En una bolsa hay "+r+" bolitas rojas, "+b+" azules y "+v+" verdes. Si se saca una al azar, ¿cuál es la probabilidad de que sea roja?",frac(r,T),[frac(r,r+b),frac(r,b+v),frac(T-r,T),frac(r,b),frac(r+1,T)],"Favorables = "+r+"; posibles = "+T+". P = "+frac(r,T)+".")},
+ function(){var s=R(3,11),w={2:1,3:2,4:3,5:4,6:5,7:6,8:5,9:4,10:3,11:2,12:1}[s];return mcq("Se lanzan dos dados. ¿Cuál es la probabilidad de que la suma sea "+s+"?",frac(w,36),[frac(w+1,36),frac(1,12),frac(w,12),frac(1,36),frac(w,11)],"Hay "+w+" parejas de 36 posibles que suman "+s+". P = "+frac(w,36)+".")},
+ function(){var n=R(4,7);var f=[1,1,2,6,24,120,720,5040];return numq("¿De cuántas formas distintas pueden ordenarse "+n+" personas en una fila?",f[n],[n*n,n*(n-1),f[n-1],f[n]+n],n+"! = "+Array.from({length:n},function(_,i){return n-i}).join(" · ")+" = "+f[n]+".")},
+ function(){var n=R(5,8),k=pick([2,3]),c=function(n,k){var r=1;for(var i=1;i<=k;i++)r=r*(n-k+i)/i;return r};return numq("De un grupo de "+n+" estudiantes se debe elegir un comité de "+k+" personas (el orden no importa). ¿Cuántos comités distintos hay?",c(n,k),[n*k,c(n,k)*k,n*(n-1)*(k===3?n-2:1),n+k],"C("+n+","+k+") = "+n+"!/("+k+"!·"+(n-k)+"!) = "+c(n,k)+".")}
+]);
+
+/* ===== M2 ===== */
+function M2(t,sum,les,gens){return M(t,sum,les,gens,"m2")}
+function sup(n){return String(n).split("").map(function(c){return c==="-"?"⁻":pw(+c)}).join("")}
+function C(n,k){var r=1;for(var i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
+
+M2(["m2a","Potencias, raíces y logaritmos"],"Propiedades de potencias, raíces, exponentes racionales y logaritmos.",[
+ {h:"Potencias y raíces",p:'<ul><li><span class="fm">aᵐ · aⁿ = aᵐ⁺ⁿ</span> · <span class="fm">aᵐ / aⁿ = aᵐ⁻ⁿ</span> · <span class="fm">(aᵐ)ⁿ = aᵐⁿ</span></li><li><span class="fm">a⁻ⁿ = 1/aⁿ</span> · <span class="fm">a^(m/n) = ⁿ√(aᵐ)</span></li><li>√(a·b) = √a · √b. Para simplificar, extrae factores que sean cuadrados perfectos: √72 = √36·√2 = 6√2.</li></ul>'},
+ {h:"Logaritmos",p:'<p><span class="fm">log_b(x) = y ⇔ bʸ = x</span>. Es «el exponente al que hay que elevar la base».</p><ul><li>log(a·b) = log a + log b</li><li>log(a/b) = log a − log b</li><li>log(aⁿ) = n · log a</li><li>log_b(1) = 0 y log_b(b) = 1</li></ul>'}
+],[
+ function(){var a=pick([2,3,5,6,7]),k=pick([2,3,4,5,6]);var n=k*k*a,ok=k+"√"+a;return mcq("Simplifica √"+n+".",ok,[a+"√"+k,(k*a)+"√"+a,"√"+n+"/"+k,k+"√"+(a+1)],"√"+n+" = √("+k*k+" · "+a+") = "+k+"√"+a+".")},
+ function(){var b=pick([2,3,5]),x=R(2,4),y=R(2,4),z=R(1,3);return numq("Calcula "+b+sup(x+y)+" ÷ "+b+sup(z)+" cuando se reduce a una sola potencia y se evalúa.",Math.pow(b,x+y-z),[Math.pow(b,x+y+z),Math.pow(b,x*y-z),Math.pow(b,x+y)/z,Math.pow(b,x+y-z)+b],"Misma base: se restan exponentes. "+b+sup(x+y-z)+" = "+fmt(Math.pow(b,x+y-z))+".")},
+ function(){var t=pick([[8,2,3,4],[27,2,3,9],[16,3,4,8],[4,-2,1,1/16],[25,1,2,5],[125,2,3,25],[9,3,2,27]]),b=t[0],a=t[1],c=t[2],r=t[3];var ok=r<1?"1/16":String(r);return mcq("¿Cuánto vale "+b+"<sup>"+(a<0?"−"+Math.abs(a):a)+(c>1&&a>0?"/"+c:"")+"</sup>?",ok,r<1?["−16","16","1/8","−1/16"]:[String(r+1),String(r*2),String(Math.round(r*b/ c))+(r*b/c===r?"1":"")].filter(function(x,i,ar){return x!==ok}).concat([String(r+3)]),"Un exponente fraccionario m/n es raíz n-ésima elevada a m; uno negativo invierte. Resultado: "+ok+".")},
+ function(){var b=pick([2,3,4,5]),k=R(2,5),x=Math.pow(b,k);return numq("¿Cuánto vale log"+String.fromCharCode(8320+b)+"("+x+")?",k,[x/b,b*k,k+1,k-1],"Porque "+b+sup(k)+" = "+x+".")},
+ function(){var a=pick([2,4,5,25,20]),b=100/a;return mcq("¿Cuál es el valor de log "+a+" + log "+b+" (logaritmo en base 10)?","2",["1","10","log "+(a+b)],"log a + log b = log(a·b) = log "+a*b+" = 2.")},
+ function(){var b=pick([2,3]),k=R(3,6),x=Math.pow(b,k)+0;var n=R(2,5);return numq("Resuelve "+b+"<sup>x</sup> = "+Math.pow(b,k)+". ¿Cuál es x?",k,[Math.pow(b,k)/b,k+1,k-1,b*k],"Se iguala la base: "+b+"^x = "+b+sup(k)+" → x = "+k+".")},
+ function(){var r=pick([2,3,5,6]);var ok=(6/Math.sqrt(r)).toFixed(0)&&"";var num=pick([2,4,6,10]);return mcq("Racionaliza "+num+"/√"+r+".",num+"√"+r+"/"+r,[num+"√"+r,num+"/"+r,"√"+(num*r)],"Multiplica numerador y denominador por √"+r+": "+num+"√"+r+"/"+r+".")},
+ function(){var a=R(2,4),n=R(2,4);return numq("Si log₂(x) = "+(a+n)+", ¿cuánto vale x?",Math.pow(2,a+n),[(a+n)*2,Math.pow(2,a+n)-2,Math.pow(a+n,2),Math.pow(2,a)+n],"log₂(x) = "+(a+n)+" ⇔ x = 2"+sup(a+n)+" = "+Math.pow(2,a+n)+".")}
+]);
+
+M2(["m2b","Funciones exponencial, logarítmica y potencia"],"Crecimiento exponencial, interés compuesto, ecuaciones logarítmicas y funciones potencia.",[
+ {h:"Exponencial",p:'<p><span class="fm">f(x) = k·aˣ</span>, a &gt; 0, a ≠ 1. Si a &gt; 1 crece; si 0 &lt; a &lt; 1 decrece. Siempre pasa por (0, k).</p><p><b>Interés compuesto:</b> <span class="fm">Cf = C·(1 + i)ⁿ</span>. Crecimiento/duplicación: <span class="fm">N(t) = N₀ · 2^(t/T)</span>.</p>'},
+ {h:"Logarítmica y potencia",p:'<p>La logarítmica es la inversa de la exponencial: pasa por (1, 0) y su dominio son los reales positivos.</p><p>Función potencia <span class="fm">f(x)=xⁿ</span>: si n es par es simétrica respecto del eje y; si n es impar, respecto del origen.</p>'}
+],[
+ function(){var n0=R(2,9)*100,T=pick([1,2,3]),t=T*R(2,4);return numq("Un cultivo de "+n0+" bacterias duplica su cantidad cada "+T+" hora(s). ¿Cuántas habrá después de "+t+" horas?",n0*Math.pow(2,t/T),[n0*t,n0*2*t/T,n0+t*2,n0*Math.pow(2,t)],"Hay "+t/T+" duplicaciones: "+n0+" · 2"+sup(t/T)+" = "+fmt(n0*Math.pow(2,t/T))+".")},
+ function(){var c=pick([1,2,5])*1000000,i=pick([10,20,5]),n=2,f=c*Math.pow(1+i/100,n);return numq("Se depositan $"+fmt(c)+" a un interés compuesto anual de "+i+" %. ¿Cuánto dinero habrá al cabo de 2 años?",Math.round(f),[c*(1+2*i/100),c*(1+i/100),c+i*2,c*Math.pow(1+i/100,3)],"Cf = C(1 + i)² = "+fmt(c)+" · "+fmt(Math.pow(1+i/100,2),4)+" = "+fmt(Math.round(f))+". Con interés simple sería menor.",{pre:"$"})},
+ function(){var m=R(3,6);return mcq("¿Por qué punto pasa siempre la gráfica de f(x) = "+m+"ˣ?","(0, 1)",["(1, 0)","(0, 0)","(1, 1)"],"Cualquier número (≠ 0) elevado a 0 es 1: f(0) = 1.")},
+ function(){var a=pick([2,3]);return mcq("La función f(x) = (1/"+a+")ˣ es:","decreciente",["creciente","constante","creciente solo para x > 0"],"La base 1/"+a+" está entre 0 y 1, por eso la función disminuye al aumentar x.")},
+ function(){var r=pick([2,3,4]),x=r*(r+2);return numq("Resuelve log₂(x) + log₂(x − 2) = 3. ¿Cuál es el valor de x?",4,[2,8,6,-2],"log₂[x(x − 2)] = 3 → x(x − 2) = 8 → x² − 2x − 8 = 0 → x = 4 o x = −2. Solo x = 4 sirve (x − 2 debe ser positivo).",{min:-1e9}).constructor===Object?numq("Resuelve log₂(x) + log₂(x − 2) = 3. ¿Cuál es el valor de x?",4,[2,8,6],"log₂[x(x − 2)] = 3 → x(x − 2) = 8 → x = 4 (x = −2 no sirve, porque el logaritmo exige argumento positivo)."):0},
+ function(){var n=pick([2,3,4,5]),x=R(2,3)*-1;var v=Math.pow(x,n);return numq("Si f(x) = x"+sup(n)+", ¿cuánto vale f("+x+")?",v,[-v,x*n,Math.abs(v)+x,Math.pow(x,n)*2],"("+x+")"+sup(n)+" = "+v+(n%2?" (exponente impar conserva el signo).":" (exponente par da positivo)."),{min:-1e9})},
+ function(){var h=pick([5730,10,8]);var n=R(2,4);return numq("Una sustancia tiene una vida media de "+h+" años (la mitad se desintegra en ese tiempo). Si hay 80 g, ¿cuántos gramos quedan tras "+n*h+" años?",80/Math.pow(2,n),[80/n,80-n*h/100,80/(2*n),80/Math.pow(2,n)*2],"Pasaron "+n+" vidas medias: 80 · (1/2)"+sup(n)+" = "+fmt(80/Math.pow(2,n))+" g.",{u:"g"})},
+ function(){var b=pick([10]),k=R(2,5),x=Math.pow(10,k);return numq("Si f(x) = log₁₀(x), ¿cuánto vale f("+fmt(x)+")?",k,[x/10,k+1,x,k-1],"10"+sup(k)+" = "+fmt(x)+" → log = "+k+".")}
+]);
+
+M2(["m2c","Álgebra avanzada: cuadráticas e inecuaciones"],"Discriminante, fórmula general, forma canónica, inecuaciones cuadráticas y optimización.",[
+ {h:"Ecuación cuadrática",p:'<p><span class="fm">ax² + bx + c = 0</span> → <span class="fm">x = (−b ± √Δ) / 2a</span>, con <span class="fm">Δ = b² − 4ac</span>.</p><ul><li>Δ &gt; 0: dos soluciones reales distintas.</li><li>Δ = 0: una solución real (doble).</li><li>Δ &lt; 0: ninguna solución real.</li></ul>'},
+ {h:"Forma canónica e inecuaciones",p:'<p><span class="fm">f(x) = a(x − h)² + k</span> tiene vértice (h, k).</p><p>Para <span class="fm">(x − p)(x − q) &lt; 0</span> con p &lt; q, la solución es p &lt; x &lt; q (la parábola está bajo el eje x entre las raíces).</p>'}
+],[
+ function(){var a=R(1,4),b=R(-8,8),c=R(-5,5);var d=b*b-4*a*c;return numq("Calcula el discriminante de "+a+"x² "+sg(b)+"x "+sg(c)+" = 0.",d,[b*b+4*a*c,-b-4*a*c,b*b-2*a*c,Math.sqrt(Math.abs(d))],"Δ = b² − 4ac = ("+b+")² − 4·"+a+"·("+c+") = "+d+".",{min:-1e9})},
+ function(){var t=pick([[-1,"ninguna solución real"],[0,"una solución real"],[1,"dos soluciones reales distintas"]]),k=pick([[1,-6,9],[1,-4,4],[1,2,1]]);var c=t[0]===0?9:t[0]>0?5:13;return mcq("¿Cuántas soluciones reales tiene x² − 6x + "+c+" = 0?",t[1],["ninguna solución real","una solución real","dos soluciones reales distintas","infinitas soluciones"].filter(function(x){return x!==t[1]}),"Δ = 36 − 4·"+c+" = "+(36-4*c)+(36-4*c>0?" > 0.":36-4*c===0?" = 0.":" < 0.")+" Entonces: "+t[1]+".")},
+ function(){var p=R(-4,0),q=R(2,7);var cnt=q-p-1;return numq("¿Cuántos números enteros cumplen "+(p===0?"x":"(x "+(p<0?"+ "+(-p):"− "+p)+")")+"(x − "+q+") < 0?",cnt,[q-p,q-p+1,q+Math.abs(p),Math.max(cnt-1,0)],"Las raíces son "+p+" y "+q+"; la solución es "+p+" < x < "+q+". Los enteros estrictamente entre ellas son "+cnt+".")},
+ function(){var h=R(1,5),k=R(-5,5),a=pick([1,2,3]);var x=h+1;return numq("Si f(x) = "+a+"(x − "+h+")² "+sg(k)+", ¿cuánto vale f("+x+")?",a+k,[a*(x-h)+k,a*x*x+k,a*h*h+k,a+k+1],"x − "+h+" = 1 → "+a+"·1² "+sg(k)+" = "+(a+k)+".",{min:-1e9})},
+ function(){var v=pick([10,20,30,40]),mx=v*v/20;return numq("La altura (en m) de un balón es h(t) = −5t² + "+v+"t, con t en segundos. ¿Cuál es la altura máxima que alcanza?",mx,[v,v/2,v*v/10,mx+5],"El máximo está en t = v/10 = "+v/10+" s: h = −5·"+fmt(v*v/100)+" + "+v*v/10+" = "+fmt(mx)+" m.",{u:"m"})},
+ function(){var s=R(2,4),p=R(2,5);var x1=R(2,6),x2=x1+R(2,5);return mcq("¿Cuál es la solución del sistema x > "+x1+" e x < "+x2+"?","("+x1+", "+x2+")",["("+x2+", "+x1+")","(−∞, "+x1+")","("+x2+", +∞)"],"Se necesitan ambas condiciones a la vez: los valores entre "+x1+" y "+x2+".")},
+ function(){var r=R(1,5),s=R(1,6);var S=r+s,P=r*s;return numq("Una ecuación x² − "+S+"x + "+P+" = 0 tiene dos soluciones. ¿Cuál es el producto de ellas?",P,[S,-P,P+S,S*S],"En x² + bx + c = 0 el producto de las raíces es c = "+P+" (las raíces son "+r+" y "+s+").")}
+]);
+
+M2(["m2d","Trigonometría y geometría"],"Razones trigonométricas, ángulos notables, radianes, arco y sector, homotecia y cuerpos.",[
+ {h:"Razones en el triángulo rectángulo",p:'<p><span class="fm">sen α = cateto opuesto / hipotenusa</span> · <span class="fm">cos α = cateto adyacente / hipotenusa</span> · <span class="fm">tan α = opuesto / adyacente</span>. Además sen²α + cos²α = 1.</p><table class="dt"><thead><tr><th>Ángulo</th><th>sen</th><th>cos</th><th>tan</th></tr></thead><tbody><tr><td>30°</td><td>1/2</td><td>√3/2</td><td>√3/3</td></tr><tr><td>45°</td><td>√2/2</td><td>√2/2</td><td>1</td></tr><tr><td>60°</td><td>√3/2</td><td>1/2</td><td>√3</td></tr></tbody></table>'},
+ {h:"Radianes, arcos y homotecia",p:'<ul><li>180° = π rad. Para pasar a radianes: grados · π/180.</li><li>Arco = 2πr · (θ/360°). Sector = πr² · (θ/360°).</li><li>Homotecia de razón k: longitudes ×k, áreas ×k², volúmenes ×k³.</li></ul>'}
+],[
+ function(){var t=pick([[3,4,5],[5,12,13],[8,15,17]]),f=pick(["sen","cos","tan"]);var v={sen:frac(t[0],t[2]),cos:frac(t[1],t[2]),tan:frac(t[0],t[1])};return mcq("En un triángulo rectángulo los catetos miden "+t[0]+" (opuesto a α) y "+t[1]+" (adyacente a α), y la hipotenusa mide "+t[2]+". ¿Cuánto vale "+f+" α?",v[f],Object.keys(v).map(function(k){return v[k]}).filter(function(x){return x!==v[f]}).concat([frac(t[2],t[0]),frac(t[1],t[0])]),f==="sen"?"seno = opuesto/hipotenusa.":f==="cos"?"coseno = adyacente/hipotenusa.":"tangente = opuesto/adyacente.",{fig:svgTri(t[1],t[0],t[2])})},
+ function(){var q=pick([["sen 30°","1/2"],["cos 60°","1/2"],["tan 45°","1"],["sen 60°","√3/2"],["cos 30°","√3/2"],["sen 45°","√2/2"]]);return mcq("¿Cuál es el valor de "+q[0]+"?",q[1],["1/2","√3/2","1","√2/2","√3/3","0"].filter(function(x){return x!==q[1]}),"Valor notable: "+q[0]+" = "+q[1]+". (Se memoriza con la tabla de 30°, 45°, 60°).")},
+ function(){var d=R(3,9)*10;return numq("Desde un punto ubicado a "+d+" m de la base de un edificio, el ángulo de elevación a la azotea es 45°. ¿Cuál es la altura del edificio?",d,[d*2,d/2,d*Math.round(Math.sqrt(2)*10)/10,d+45],"tan 45° = 1 = altura / "+d+" → altura = "+d+" m.",{u:"m"})},
+ function(){var d=pick([30,45,60]);var r=d/180;var ok=d===30?"π/6":d===45?"π/4":"π/3";return mcq("¿Cuántos radianes son "+d+"°?",ok,["π/6","π/4","π/3","π/2","2π/3"].filter(function(x){return x!==ok}),d+"° · π/180 = "+d/180*180+"π/180 = "+ok+".")},
+ function(){var r=R(3,9),t=pick([60,90,120,180]);var P=function(n,d){var f=frac(n,d);return (f.indexOf("/")>0?"("+f+")":f)+"π cm"};return mcq("¿Cuál es la longitud de un arco de "+t+"° en una circunferencia de radio "+r+" cm?",P(2*r*t,360),[P(4*r*t,360),P(r*t,360),P(2*r,1),P(r*r*t,360),P(2*r*t+360,360)],"Arco = 2πr · θ/360 = 2π·"+r+"·"+t+"/360 = "+P(2*r*t,360)+".")},
+ function(){var k=pick([2,3,4]);return numq("Un cuerpo es ampliado con razón de homotecia "+k+". Si su volumen original es 5 cm³, ¿cuál es el volumen del cuerpo ampliado?",5*k*k*k,[5*k,5*k*k,5+k*3,5*k*k*k+k],"Los volúmenes se multiplican por k³ = "+k*k*k+": 5 · "+k*k*k+" = "+5*k*k*k+" cm³.",{u:"cm³"})},
+ function(){var r=pick([3,6]),h=pick([4,6,9]);var v=r*r*h/3;return mcq("¿Cuál es el volumen de un cono de radio "+r+" cm y altura "+h+" cm?",fmt(v)+"π cm³",[fmt(r*r*h)+"π cm³",fmt(r*h/3)+"π cm³",fmt(2*r*h/3)+"π cm³"],"V = π r² h / 3 = π · "+r*r+" · "+h+" / 3 = "+fmt(v)+"π cm³.")},
+ function(){var s=pick([[3,4],[5,12],[8,15]]);return mcq("Si sen α = "+s[0]+"/"+(Math.sqrt(s[0]*s[0]+s[1]*s[1]))+" y α es agudo, ¿cuánto vale cos α?",frac(s[1],Math.sqrt(s[0]*s[0]+s[1]*s[1])),[frac(s[0],s[1]),frac(Math.sqrt(s[0]*s[0]+s[1]*s[1]),s[1]),frac(s[0]+s[1],Math.sqrt(s[0]*s[0]+s[1]*s[1]))],"sen²α + cos²α = 1 → cos α = "+frac(s[1],Math.sqrt(s[0]*s[0]+s[1]*s[1]))+".")}
+]);
+
+M2(["m2e","Probabilidad y estadística avanzada"],"Probabilidad condicional, independencia, binomial, esperanza y distribución normal.",[
+ {h:"Reglas básicas",p:'<ul><li>Unión: <span class="fm">P(A∪B) = P(A) + P(B) − P(A∩B)</span>.</li><li>Independientes: <span class="fm">P(A∩B) = P(A)·P(B)</span>.</li><li>Condicional: <span class="fm">P(A|B) = P(A∩B) / P(B)</span> («dado que ocurrió B»).</li></ul>'},
+ {h:"Variable aleatoria",p:'<p>Esperanza: <span class="fm">E(X) = Σ x·P(x)</span> (el promedio a largo plazo).</p><p>Binomial (n intentos, éxito p): <span class="fm">P(X = k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</span>.</p><p>Normal: aprox. 68 % de los datos a ±1 desviación estándar de la media, 95 % a ±2 y 99,7 % a ±3.</p>'}
+],[
+ function(){var a=pick([.2,.3,.4,.5]),b=pick([.1,.2,.3]),i=pick([.05,.1]);return numq("Si P(A) = "+fmt(a)+", P(B) = "+fmt(b)+" y P(A∩B) = "+fmt(i)+", ¿cuánto vale P(A∪B)?",a+b-i,[a+b,a*b,a+b+i,a-i],"P(A∪B) = "+fmt(a)+" + "+fmt(b)+" − "+fmt(i)+" = "+fmt(a+b-i)+".",{d:2})},
+ function(){var a=pick([.2,.3,.4,.5,.6]),b=pick([.1,.2,.5,.4]);return numq("A y B son sucesos independientes con P(A) = "+fmt(a)+" y P(B) = "+fmt(b)+". ¿Cuánto vale P(A∩B)?",Math.round(a*b*1000)/1000,[a+b,a+b-a*b,a/b,Math.abs(a-b)],"Independientes: P(A∩B) = P(A)·P(B) = "+fmt(a)+" · "+fmt(b)+" = "+fmt(Math.round(a*b*1000)/1000,3)+".",{d:3})},
+ function(){var pb=pick([.4,.5,.8]),k=pick([.25,.5,.75]),pab=Math.round(pb*k*1000)/1000;return numq("P(B) = "+fmt(pb)+" y P(A∩B) = "+fmt(pab)+". ¿Cuánto vale P(A|B)?",k,[pab*pb,pab/ (pb+.1),pb-pab,pab],"P(A|B) = P(A∩B)/P(B) = "+fmt(pab)+"/"+fmt(pb)+" = "+fmt(k)+".",{d:2})},
+ function(){var n=pick([4,5,6]),k=R(1,n-1);var ways=C(n,k),den=Math.pow(2,n);return mcq("Se lanza "+n+" veces una moneda equilibrada. ¿Cuál es la probabilidad de obtener exactamente "+k+" caras?",frac(ways,den),[frac(1,den),frac(k,n),frac(ways+1,den),frac(ways,den*2)],"Binomial: C("+n+","+k+")·(1/2)"+sup(n)+" = "+ways+"/"+den+" = "+frac(ways,den)+".")},
+ function(){var v=[[0,.2],[1,.5],[2,.3]],E=0*.2+1*.5+2*.3;var xs=pick([[[1,.2],[2,.5],[3,.3]],[[0,.1],[1,.6],[4,.3]],[[2,.4],[4,.4],[6,.2]]]);var e=xs.reduce(function(s,p){return s+p[0]*p[1]},0);e=Math.round(e*100)/100;return numq("Una variable X toma los valores "+xs.map(function(p){return p[0]+" (prob. "+fmt(p[1])+")"}).join(", ")+". ¿Cuál es su esperanza E(X)?",e,[xs.reduce(function(s,p){return s+p[0]},0)/xs.length,e+1,e-.5,xs.reduce(function(s,p){return s+p[0]},0)],"E(X) = "+xs.map(function(p){return p[0]+"·"+fmt(p[1])}).join(" + ")+" = "+fmt(e)+".",{d:2})},
+ function(){var mu=pick([100,500,60]),sd=pick([10,15,5]);return mcq("Un conjunto de datos sigue una distribución normal con media "+mu+" y desviación estándar "+sd+". ¿Qué porcentaje aproximado de los datos está entre "+(mu-sd)+" y "+(mu+sd)+"?","68 %",["50 %","95 %","99,7 %"],"Entre μ − σ y μ + σ está aproximadamente el 68 % de los datos.")},
+ function(){var t=pick([[8,5,4],[10,6,5]]);var tot=t[0]*3+t[1];return mcq("En una urna hay 10 bolitas: 6 rojas y 4 azules. Se extraen 2 sin devolverlas. ¿Cuál es la probabilidad de que ambas sean rojas?","1/3",["9/25","3/5","36/100"],"P = 6/10 · 5/9 = 30/90 = 1/3. Sin reposición, el segundo denominador baja.")},
+ function(){var w=pick([["PAPA",6],["AMAR",12],["CASA",12]]);var l=w[0];return numq("¿Cuántas ordenaciones distintas se pueden formar con todas las letras de la palabra "+l+"?",w[1],[24,w[1]*2,w[1]/2,l.length],"Permutaciones con repetición: 4!/(repetidas!) = 24/"+(24/w[1])+" = "+w[1]+".")}
+]);
+
+/* ===== Competencia Lectora ===== */
+function L(t,sum,les,items){
+ return U({id:t[0],s:"l",t:t[1],sum:sum,lesson:les,q:function(){
+  var out=[];items.forEach(function(it){var ps=it.p?"<p>"+it.p.replace(/\n/g,"</p><p>")+"</p>":"";it.qs.forEach(function(a){out.push(mcq(a[0],a[1],a[2],a[3],ps?{pass:ps}:null))})});return out}})}
+var LT_STEPS='<div class="box"><b class="t">Método en 3 pasos</b>1) Lee las preguntas primero. 2) Lee el texto marcando la idea de cada párrafo. 3) Vuelve al texto para verificar: la respuesta correcta siempre se apoya en lo que el texto dice o permite deducir.</div>';
+
+L(["l1","Tema e idea principal"],"Distingue el tema, la idea principal y los detalles de un texto.",[
+ {h:"Tema, idea principal y detalles",p:'<ul><li><b>Tema:</b> de qué trata el texto (una frase corta: «el sueño y el aprendizaje»).</li><li><b>Idea principal:</b> lo más importante que se dice sobre el tema (una oración completa).</li><li><b>Detalles:</b> ejemplos, datos y explicaciones que apoyan la idea principal.</li></ul>'+LT_STEPS},
+ {h:"Cómo evitar trampas",p:'<ul><li>Las alternativas incorrectas suelen ser <b>muy específicas</b> (un detalle) o <b>demasiado generales</b> (más amplias que el texto).</li><li>Un buen título resume la idea principal sin agregar información nueva.</li></ul><p class="tip">Prueba: ¿la alternativa abarca todo el texto, o solo una parte?</p>'}
+],[
+ {p:"Dormir no es un lujo, sino una necesidad biológica. Durante el sueño profundo, el cerebro ordena y consolida lo aprendido durante el día: los recuerdos recientes se conectan con los antiguos y se descartan datos irrelevantes. Por eso, un estudiante que se desvela repasando toda la noche suele rendir peor que otro que estudia menos horas, pero duerme bien. Dormir entre siete y nueve horas mejora la atención, el ánimo y la memoria.",qs:[
+  ["¿Cuál es la idea principal del texto?","El sueño es indispensable para consolidar el aprendizaje y rendir mejor.",["Los estudiantes deben estudiar de noche para memorizar más.","El cerebro descarta todo lo que aprendimos durante el día.","Dormir siete horas es un lujo que pocos pueden permitirse."],"El texto afirma que dormir es una necesidad y explica cómo ayuda al aprendizaje. Las otras alternativas contradicen o distorsionan el texto."],
+  ["¿Cuál es el tema del texto?","La relación entre el sueño y el aprendizaje.",["Las enfermedades del cerebro.","Técnicas de estudio con tarjetas.","La historia del descanso humano."],"El tema es la frase breve que nombra de qué trata: sueño y aprendizaje."],
+  ["¿Qué se afirma sobre el estudiante que se desvela repasando?","Suele rendir peor que quien duerme bien.",["Rinde mejor porque estudia más horas.","Recuerda más datos irrelevantes.","Duerme entre siete y nueve horas."],"Es información explícita: «suele rendir peor que otro que estudia menos horas, pero duerme bien»."]]},
+ {p:"La municipalidad inauguró 12 kilómetros de ciclovías que conectan los barrios del sector oriente con el centro. Según el alcalde, el objetivo es reducir el uso del auto en trayectos cortos y disminuir la congestión. Los comerciantes valoraron la medida, aunque pidieron más estacionamientos para bicicletas. Un estudio previo mostró que el 30 % de los viajes en la comuna son menores a cinco kilómetros.",qs:[
+  ["¿Qué título resume mejor el texto?","Inauguran ciclovías para descongestionar el sector oriente",["Comerciantes rechazan las nuevas ciclovías","El 30 % de los viajes es en bicicleta","Alcalde prohíbe el uso del auto"],"Un buen título recoge la idea central: la apertura de ciclovías y su finalidad."],
+  ["¿Para qué sirve el dato del estudio previo?","Para justificar que muchos viajes cortos podrían hacerse en bicicleta.",["Para mostrar que los comerciantes están en contra.","Para criticar al alcalde.","Para indicar cuántos kilómetros de ciclovía faltan."],"Si el 30 % de los viajes son menores a cinco kilómetros, las bicicletas son una alternativa viable: el dato respalda la medida."],
+  ["Según el texto, ¿qué pidieron los comerciantes?","Más estacionamientos para bicicletas.",["Menos kilómetros de ciclovías.","Más estacionamientos para autos.","Una nueva consulta al alcalde."],"Está explícito: «pidieron más estacionamientos para bicicletas»."]]}
+]);
+
+L(["l2","Información explícita e inferencias"],"Localiza datos del texto y deduce lo que no se dice directamente.",[
+ {h:"Explícito vs. implícito",p:'<ul><li><b>Explícita:</b> está escrita; puedes señalarla con el dedo.</li><li><b>Inferencia:</b> es una conclusión razonable a partir de pistas del texto (acciones, palabras, contexto).</li></ul><div class="box"><b class="t">Regla</b>Una inferencia válida debe <b>poder defenderse con el texto</b>. Si necesitas inventar datos, es una trampa.</div>'},
+ {h:"Ejemplo",p:'<p>«Se secó la frente y bebió el vaso de un trago.» Inferencia: tenía calor o sed. No sabemos si estaba enfermo ni qué hora era.</p>'}
+],[
+ {p:"Cuando Marta llegó a la estación, el tren ya se había ido. Miró el reloj, suspiró y se sentó en la banca con la mochila sobre las rodillas. Sacó el celular, pero la pantalla seguía negra. Un hombre con paraguas, que leía el diario a su lado, la miró de reojo: «El próximo pasa en cuarenta minutos», dijo sin levantar la vista. Afuera, la lluvia golpeaba el techo de zinc.",qs:[
+  ["¿Cuánto tiempo falta para el próximo tren?","Cuarenta minutos.",["Diez minutos.","Una hora.","No se indica."],"Dato explícito en las palabras del hombre."],
+  ["¿Qué se puede inferir de la pantalla negra del celular?","Que el celular estaba apagado o sin batería.",["Que el hombre se lo había quitado.","Que Marta había perdido su pasaje.","Que el tren no pasaría ese día."],"La pantalla «seguía negra»: no respondía. La explicación más razonable es que estaba apagado o sin batería."],
+  ["¿Qué estado de ánimo muestra Marta al ver el reloj?","Resignación y contrariedad.",["Entusiasmo.","Enojo violento.","Alegría por llegar temprano."],"Suspira y se sienta: reacción de molestia contenida, no de rabia ni de alegría."]]},
+ {p:"El desierto de Atacama es uno de los lugares más áridos del planeta: en algunas zonas pasan años sin registrarse lluvias. Sin embargo, tras episodios excepcionales de precipitaciones, el suelo se cubre de flores en el fenómeno conocido como desierto florido. Las semillas permanecen latentes bajo la superficie, a la espera de la humedad suficiente. Este espectáculo atrae a miles de turistas, lo que exige cuidar el entorno.",qs:[
+  ["¿Por qué florece el desierto?","Porque semillas latentes germinan tras lluvias excepcionales.",["Porque llueve todos los inviernos.","Porque los turistas plantan semillas.","Porque la humedad del suelo es constante."],"El texto vincula la floración con precipitaciones excepcionales y semillas latentes."],
+  ["¿Cuál es una inferencia válida a partir del texto?","El desierto florido no ocurre todos los años.",["Atacama recibe lluvias abundantes cada invierno.","Las semillas llegan con los turistas.","El fenómeno ocurre sin humedad."],"Si requiere lluvias «excepcionales» y hay años sin lluvia, no es un evento anual."],
+  ["¿Qué implica que el turismo «exige cuidar el entorno»?","Que la gran cantidad de visitantes podría dañar el ecosistema.",["Que el turismo está prohibido.","Que las flores son artificiales.","Que el desierto es más húmedo de lo que parece."],"Se sugiere que muchos visitantes representan un riesgo si no se protege el lugar."]]}
+]);
+
+L(["l3","Vocabulario en contexto"],"Descubre el significado de palabras según cómo se usan en el texto.",[
+ {h:"El contexto manda",p:'<p>Una palabra puede tener varios significados (polisemia). La respuesta correcta es la que <b>mantiene el sentido de la oración completa</b>.</p><ul><li>Reemplaza la palabra por cada alternativa y lee de nuevo.</li><li>Busca pistas: sinónimos cercanos, contrastes («sin embargo»), ejemplos.</li></ul>'},
+ {h:"Pistas típicas",p:'<p>«Sus argumentos eran <b>endebles</b>: cualquiera podía refutarlos». La pista (fácil de refutar) revela que endebles = débiles, poco sólidos.</p>'}
+],[
+ {p:"El director fue tajante: no habría prórrogas para entregar el informe. Los empleados, abatidos, entendieron que debían trabajar el fin de semana. Sin embargo, la jefa de proyecto, con una templanza admirable, organizó turnos y logró terminar a tiempo.",qs:[
+  ["En el texto, «tajante» significa:","categórico, sin admitir discusión.",["amable y conciliador.","confuso y ambiguo.","muy ocupado."],"«No habría prórrogas» muestra una decisión firme y definitiva."],
+  ["«Abatidos» se puede reemplazar por:","desanimados.",["enojados.","sorprendidos.","entusiasmados."],"Tras la mala noticia, el contexto indica desánimo."],
+  ["«Templanza» se refiere a:","serenidad y moderación.",["rapidez para decidir.","enojo contenido.","falta de interés."],"El «Sin embargo» contrasta con el desánimo: ella actúa con calma."]]},
+ {p:"El tema es candente: las redes sociales han transformado la manera de informarse. Muchos jóvenes ya no leen la prensa tradicional; se enteran de las noticias a través de videos breves, lo que plantea el desafío de verificar las fuentes.",qs:[
+  ["«Candente» significa en el texto:","de gran actualidad e interés.",["muy caliente.","antiguo.","poco importante."],"Se usa en sentido figurado: un tema que genera debate hoy."],
+  ["¿Qué palabra puede reemplazar a «transformado» sin cambiar el sentido?","modificado.",["conservado.","olvidado.","detenido."],"Transformar es cambiar una cosa dándole otra forma."],
+  ["La expresión «se enteran» equivale a:","toman conocimiento.",["se olvidan.","se entretienen.","se enojan."],"Enterarse es llegar a saber algo."]]}
+]);
+
+L(["l4","Propósito, emisor y tipo de texto"],"Identifica para qué se escribió un texto, quién habla y qué función cumple.",[
+ {h:"Tipos de texto",p:'<table class="dt"><tbody><tr><td><b>Narrativo</b></td><td>relata hechos con personajes</td></tr><tr><td><b>Expositivo</b></td><td>informa y explica</td></tr><tr><td><b>Argumentativo</b></td><td>defiende una tesis con argumentos</td></tr><tr><td><b>Instructivo</b></td><td>guía pasos para hacer algo</td></tr></tbody></table>'},
+ {h:"Funciones del lenguaje",p:'<ul><li><b>Referencial:</b> informar datos.</li><li><b>Apelativa (conativa):</b> influir en el receptor (órdenes, ruegos).</li><li><b>Expresiva (emotiva):</b> expresar sentimientos.</li><li><b>Poética:</b> cuidar la forma del mensaje.</li></ul>'}
+],[
+ {p:"Para plantar albahaca: llene una maceta con tierra húmeda; coloque tres semillas a medio centímetro de profundidad; cúbralas suavemente y ubique la maceta cerca de una ventana luminosa. Riegue cada dos días, sin empapar.",qs:[
+  ["¿Qué tipo de texto es?","Instructivo.",["Narrativo.","Argumentativo.","Lírico."],"Presenta pasos ordenados para lograr un resultado."],
+  ["¿Qué función del lenguaje predomina?","Apelativa.",["Expresiva.","Poética.","Metalingüística."],"Se usan verbos en imperativo para dirigir la acción del lector."],
+  ["Después de colocar las semillas, ¿qué se debe hacer?","Cubrirlas y poner la maceta cerca de una ventana luminosa.",["Regar abundantemente.","Poner la maceta en la oscuridad.","Cambiar la tierra."],"Es el paso siguiente indicado en el texto."]]},
+ {p:"Señor director: Escribo para manifestar mi preocupación por el cierre de la biblioteca del barrio. Durante años fue el único espacio gratuito donde los niños hacían sus tareas. Solicito a las autoridades que reconsideren la decisión y busquen alternativas de financiamiento. Atentamente, Rosa Aguilar.",qs:[
+  ["¿Cuál es el propósito principal de la carta?","Persuadir a las autoridades para que reviertan el cierre.",["Informar la historia de la biblioteca.","Entretener a los lectores.","Pedir donaciones de libros."],"La autora busca influir en una decisión: pide que se reconsidere."],
+  ["¿Qué función cumple la oración «Durante años fue el único espacio gratuito…»?","Entregar un argumento que justifica su petición.",["Contar una anécdota personal.","Dar una orden a los niños.","Criticar a los vecinos."],"Es una razón que apoya su solicitud."],
+  ["¿Qué rol cumple la emisora del texto?","Una vecina que expresa una preocupación comunitaria.",["Una autoridad que informa un cierre.","Una periodista neutral.","Una bibliotecaria despedida."],"Escribe en primera persona como ciudadana interesada."]]}
+]);
+
+L(["l5","Textos argumentativos"],"Reconoce tesis, argumentos, contraargumentos, hechos, opiniones y falacias.",[
+ {h:"Estructura",p:'<p><b>Tesis</b> (posición) → <b>argumentos</b> (razones, datos, ejemplos, autoridad) → <b>conclusión</b>. Un <b>contraargumento</b> refuta la postura contraria.</p><div class="box"><b class="t">Hecho vs. opinión</b>Hecho: se puede comprobar («abre de lunes a sábado»). Opinión: expresa un juicio («es el mejor lugar»).</div>'},
+ {h:"Falacias frecuentes",p:'<ul><li><b>Generalización apresurada:</b> concluir de un solo caso.</li><li><b>Ad populum:</b> «todos lo hacen, entonces es correcto».</li><li><b>Pendiente resbaladiza:</b> «si ocurre A, ocurrirá lo peor».</li><li><b>Falso dilema:</b> presentar solo dos opciones cuando hay más.</li></ul>'}
+],[
+ {p:"Algunos sostienen que las tareas escolares deberían eliminarse porque agotan a los estudiantes. Sin embargo, la evidencia disponible indica que las tareas breves y bien diseñadas refuerzan lo aprendido en clases y desarrollan hábitos de estudio. El problema no es la tarea en sí, sino su exceso. Por eso, más que suprimirlas, conviene limitarlas y mejorar su calidad.",qs:[
+  ["¿Cuál es la tesis del texto?","Las tareas deben limitarse y mejorarse, no eliminarse.",["Las tareas agotan a los estudiantes y deben prohibirse.","Las tareas largas son las más eficaces.","La evidencia sobre las tareas no es confiable."],"La conclusión «más que suprimirlas, conviene limitarlas y mejorar su calidad» expresa la posición del autor."],
+  ["¿Qué estrategia argumentativa se usa al inicio con «Algunos sostienen…»?","Presentar la postura contraria para refutarla.",["Citar una opinión para respaldarla.","Narrar una experiencia personal.","Definir un término técnico."],"El autor plantea la idea de otros y luego la rebate con «Sin embargo»."],
+  ["¿Qué argumento da el autor a favor de las tareas?","Refuerzan lo aprendido y crean hábitos de estudio.",["Reducen el cansancio.","Reemplazan las clases.","Son obligatorias por ley."],"Aparece explícito: «refuerzan lo aprendido… y desarrollan hábitos de estudio»."]]},
+ {p:"(1) La biblioteca abre de lunes a sábado. (2) Es el mejor lugar de la ciudad para estudiar. (3) En 2023 recibió 40 mil visitas. (4) Todo estudiante serio debería visitarla.",qs:[
+  ["¿Cuáles de los enunciados son opiniones?","2 y 4.",["1 y 3.","1 y 2.","3 y 4."],"«Mejor lugar» y «debería» expresan juicios; 1 y 3 son comprobables."],
+  ["¿Qué enunciado es un hecho verificable con registros?","El 3.",["El 2.","El 4.","Ninguno."],"Las visitas se pueden comprobar con registros de la biblioteca."]]},
+ {p:"",qs:[
+  ["«Mi vecino aprobó sin estudiar, así que estudiar es innecesario». ¿Qué falacia contiene?","Generalización apresurada.",["Pendiente resbaladiza.","Falso dilema.","Ad hominem."],"Se concluye una regla general a partir de un solo caso."],
+  ["«Si permitimos los celulares en clase, pronto nadie prestará atención a nada». Es una falacia de:","pendiente resbaladiza.",["generalización apresurada.","autoridad.","causa común."],"Predice una cadena de consecuencias extremas sin pruebas."]]}
+]);
+
+L(["l6","Texto literario y figuras retóricas"],"Reconoce narrador, hablante lírico y figuras literarias.",[
+ {h:"Figuras literarias esenciales",p:'<ul><li><b>Metáfora:</b> identifica dos cosas sin «como» («tus ojos son luceros»).</li><li><b>Comparación o símil:</b> usa «como» o «cual».</li><li><b>Personificación:</b> da rasgos humanos a lo no humano.</li><li><b>Hipérbole:</b> exageración.</li><li><b>Ironía:</b> decir lo contrario de lo que se piensa.</li><li><b>Antítesis:</b> contraste de ideas opuestas.</li></ul>'},
+ {h:"Narrador y hablante lírico",p:'<ul><li><b>Narrador protagonista:</b> cuenta en 1.ª persona y participa en la historia.</li><li><b>Narrador omnisciente:</b> 3.ª persona, conoce pensamientos de los personajes.</li><li><b>Hablante lírico:</b> la voz que expresa emociones en un poema (no es el poeta).</li></ul>'}
+],[
+ {p:"La tarde es un cuaderno de cobre,\nel viento pasa las hojas del cerro,\ny yo, como un niño sin tareas,\nle pregunto al río adónde va el tiempo.",qs:[
+  ["«La tarde es un cuaderno de cobre» es una:","metáfora.",["comparación.","hipérbole.","ironía."],"Identifica la tarde con un cuaderno sin usar «como»."],
+  ["«El viento pasa las hojas del cerro» contiene:","personificación.",["antítesis.","hipérbole.","onomatopeya."],"El viento realiza una acción humana: pasar las hojas como quien lee."],
+  ["«Como un niño sin tareas» es una:","comparación.",["metáfora.","ironía.","paradoja."],"Usa el nexo «como» para comparar."],
+  ["¿Qué actitud expresa el hablante lírico?","Contemplación serena con reflexión sobre el paso del tiempo.",["Furia contra la naturaleza.","Indiferencia total.","Miedo a la oscuridad."],"Observa el paisaje y pregunta al río por el tiempo: actitud contemplativa."]]},
+ {p:"—Qué bien cantas —le dijo Pedro, tapándose los oídos con ambas manos.",qs:[
+  ["¿Qué figura se usa en la frase de Pedro?","Ironía.",["Hipérbole.","Metáfora.","Personificación."],"Dice lo contrario de lo que piensa; el gesto de tapar los oídos lo revela."]]},
+ {p:"Abrí la puerta y sentí que la casa me miraba. Yo, que había vivido allí veinte años, no reconocía su silencio.",qs:[
+  ["¿Qué tipo de narrador presenta el fragmento?","Narrador protagonista.",["Narrador omnisciente.","Narrador testigo.","Hablante lírico."],"Habla en primera persona sobre su propia experiencia."],
+  ["«Sentí que la casa me miraba» es una:","personificación.",["hipérbole.","antítesis.","comparación."],"Se atribuye a la casa una acción humana: mirar."]]}
+]);
+
+L(["l7","Conectores y cohesión"],"Usa conectores, referentes y coherencia para completar y ordenar ideas.",[
+ {h:"Conectores por función",p:'<table class="dt"><tbody><tr><td><b>Causa</b></td><td>porque, ya que, debido a</td></tr><tr><td><b>Consecuencia</b></td><td>por lo tanto, así que, por eso</td></tr><tr><td><b>Oposición</b></td><td>sin embargo, no obstante, pero, aunque</td></tr><tr><td><b>Adición</b></td><td>además, también, asimismo</td></tr><tr><td><b>Ejemplo / explicación</b></td><td>por ejemplo, es decir</td></tr></tbody></table>'},
+ {h:"Cohesión y coherencia",p:'<p>Los <b>referentes</b> («esta petición», «ellos») retoman ideas ya mencionadas. En una pregunta de «eliminar una oración», saca la que <b>no habla del tema</b> o repite lo anterior.</p>'}
+],[
+ {p:"",qs:[
+  ["Estudió toda la semana; ___, obtuvo un excelente resultado.","por lo tanto",["sin embargo","aunque","es decir"],"La segunda idea es consecuencia de la primera."],
+  ["Quería salir a correr; ___ llovía muy fuerte.","sin embargo",["por lo tanto","además","porque"],"Hay oposición entre querer salir y la lluvia."],
+  ["El poema es una elegía, ___, un poema de lamento por una pérdida.","es decir",["no obstante","por eso","en cambio"],"La segunda parte explica la primera."],
+  ["La bicicleta es económica; ___, no contamina.","además",["sin embargo","aunque","por lo tanto"],"Se suma una ventaja más."]]},
+ {p:"(1) El reciclaje reduce la cantidad de basura que llega a los vertederos. (2) Además, ahorra energía y materias primas. (3) Mi primo tiene un perro llamado Bruno. (4) Por eso, muchos municipios instalan puntos limpios.",qs:[
+  ["¿Qué oración puede eliminarse sin afectar la coherencia?","La 3.",["La 1.","La 2.","La 4."],"La oración 3 no se relaciona con el tema del reciclaje."]]},
+ {p:"Los vecinos pidieron luz en la calle. Esta petición fue ignorada por el municipio.",qs:[
+  ["¿A qué se refiere «Esta petición»?","A la solicitud de iluminar la calle.",["Al municipio.","A los vecinos.","A la calle."],"El referente retoma la idea de la oración anterior: «pidieron luz»."]]}
+]);
+
+/* ===== Historia y Ciencias Sociales ===== */
+function S(s,t,sum,les,qs){return U({id:t[0],s:s,t:t[1],sum:sum,lesson:les,q:function(){return qs.map(function(a){var x=a[4]?{pass:"<p>"+a[4]+"</p>"}:null;return mcq(a[0],a[1],a[2],a[3],x)})}})}
+function H(t,sum,les,qs){return S("h",t,sum,les,qs)}
+
+H(["h1","Chile en el siglo XIX"],"Independencia, organización republicana, Guerra del Pacífico y expansión territorial.",[
+ {h:"Línea de tiempo",p:table(["Año","Hecho"],[["1810","Primera Junta Nacional de Gobierno (18 de septiembre)"],["1814","Desastre de Rancagua: inicio de la Reconquista"],["1817–1818","Cruce de los Andes, Chacabuco y Maipú"],["1818","Declaración de la Independencia (12 de febrero)"],["1833","Constitución de 1833"],["1879–1884","Guerra del Pacífico"],["1861–1883","Ocupación de la Araucanía"]])},
+ {h:"Organización de la república",p:'<p>Tras ensayos y conflictos, se consolidó un orden con la <b>Constitución de 1833</b>: presidente con grandes poderes, Estado centralizado, voto restringido y religión católica oficial. Diego Portales fue el principal impulsor de ese orden conservador.</p>'},
+ {h:"Economía y territorio",p:'<p>La minería (plata, cobre y luego <b>salitre</b>) y la agricultura de exportación sostuvieron la economía. Con la Guerra del Pacífico, Chile incorporó Tarapacá y Antofagasta, ricas en salitre, que se convirtió en el principal ingreso fiscal.</p>'}
+],[
+ ["¿En qué año se declaró formalmente la Independencia de Chile?","1818",["1810","1814","1833"],"El 12 de febrero de 1818 se proclamó la Independencia, tras la victoria de Chacabuco (1817)."],
+ ["¿Qué hecho de 1810 marca el inicio del proceso de independencia?","La formación de la Primera Junta Nacional de Gobierno.",["La Batalla de Maipú.","La Constitución de 1833.","La Guerra del Pacífico."],"El 18 de septiembre de 1810 se formó la Primera Junta, aún en nombre del rey cautivo."],
+ ["¿Qué característica tuvo la Constitución de 1833?","Un Ejecutivo fuerte y un Estado centralizado.",["Voto universal para hombres y mujeres.","Separación entre Iglesia y Estado.","Un régimen parlamentario."],"Concentró poder en el presidente; el voto era restringido y la religión oficial era la católica."],
+ ["¿Qué recurso fue fundamental para las finanzas del Estado tras la Guerra del Pacífico?","El salitre.",["El petróleo.","El oro de California.","El carbón de Magallanes."],"Las provincias incorporadas eran ricas en salitre, que financió al Estado a fines del siglo XIX."],
+ ["La Guerra del Pacífico enfrentó a Chile con:","Perú y Bolivia.",["Argentina y Brasil.","España y Francia.","Ecuador y Colombia."],"Chile combatió contra la alianza peruano-boliviana (1879–1884)."],
+ ["«Se debe asegurar un gobierno fuerte y ordenado, aun a costa de limitar la libertad de algunos». ¿Qué idea del siglo XIX chileno refleja?","El orden conservador impulsado por Portales.",["El federalismo radical.","El anarquismo obrero.","El socialismo de los años 30."],"Priorizaba el orden y la autoridad estatal, como en la república conservadora."]
+]);
+
+H(["h2","Chile 1891–1960"],"Parlamentarismo, cuestión social, industrialización y ampliación de la participación.",[
+ {h:"Claves del período",p:'<ul><li><b>1891:</b> guerra civil; termina el gobierno de Balmaceda y comienza el <b>parlamentarismo</b> (hasta 1925).</li><li><b>Cuestión social:</b> condiciones precarias de obreros y huelgas; matanza de la Escuela Santa María de Iquique (1907).</li><li><b>1925:</b> nueva Constitución presidencialista y separación Iglesia–Estado.</li><li><b>1938:</b> Frente Popular, gobierno de Pedro Aguirre Cerda («gobernar es educar»); <b>CORFO</b> (1939).</li></ul>'},
+ {h:"Participación y modelo económico",p:'<p>Desde los años 30 el Estado impulsó la <b>industrialización por sustitución de importaciones (ISI)</b>: producir en Chile lo que antes se importaba. La participación política se amplió: las mujeres votaron en elecciones municipales (1934) y presidenciales (1952, tras la ley de 1949).</p>'}
+],[
+ ["¿Cómo se llama el período 1891–1925 en Chile?","Parlamentarismo.",["República conservadora.","Frente Popular.","Régimen militar."],"Tras la guerra civil de 1891, el Congreso adquirió gran poder frente al Ejecutivo."],
+ ["¿Qué se entiende por «cuestión social»?","Las malas condiciones de vida y trabajo de obreros y sectores populares.",["La separación entre Iglesia y Estado.","El crecimiento de la minería del cobre.","La pérdida de territorio en la guerra."],"Incluyó hacinamiento, bajos salarios y falta de derechos laborales, y dio origen a un movimiento obrero."],
+ ["¿Qué tragedia de 1907 es símbolo de la cuestión social?","La matanza de la Escuela Santa María de Iquique.",["La toma de La Moneda.","El Desastre de Rancagua.","El Combate Naval de Iquique."],"Mineros del salitre y sus familias fueron reprimidos violentamente durante una huelga."],
+ ["¿Qué cambio introdujo la Constitución de 1925?","Fortaleció el presidencialismo y separó la Iglesia del Estado.",["Estableció el voto femenino universal.","Instauró un régimen parlamentario.","Nacionalizó el cobre."],"Terminó con el parlamentarismo y puso fin a la religión oficial."],
+ ["La Industrialización por Sustitución de Importaciones (ISI) buscaba:","Producir internamente bienes que antes se importaban.",["Exportar solo materias primas.","Eliminar el rol del Estado en la economía.","Abrir completamente las fronteras al comercio."],"El Estado apoyó la industria nacional mediante organismos como la CORFO."],
+ ["¿Cuál fue el lema del gobierno de Pedro Aguirre Cerda?","«Gobernar es educar».",["«Orden y progreso».","«Revolución con empanadas y vino tinto».","«Chile avanza»."],"Su gobierno (Frente Popular) priorizó la educación pública."],
+ ["Las mujeres pudieron votar en elecciones presidenciales en Chile por primera vez en:","1952.",["1810.","1925.","1988."],"Tras la ley de 1949, votaron en las presidenciales de 1952 (en las municipales ya lo hacían desde 1934)."]
+]);
+
+H(["h3","Chile 1960–hoy"],"Reformas, Unidad Popular, dictadura, transición a la democracia y desafíos actuales.",[
+ {h:"Línea de tiempo",p:table(["Año","Hecho"],[["1962–1967","Reforma Agraria (leyes de 1962 y 1967)"],["1970","Gobierno de Salvador Allende (Unidad Popular)"],["1971","Nacionalización del cobre"],["1973","Golpe de Estado (11 de septiembre)"],["1980","Constitución de 1980"],["1988","Plebiscito: gana la opción NO (5 de octubre)"],["1990","Retorno a la democracia (Patricio Aylwin)"]])},
+ {h:"Memoria y derechos humanos",p:'<p>Durante la dictadura (1973–1990) hubo graves violaciones a los derechos humanos. Las comisiones <b>Rettig (1991)</b> y <b>Valech (2004)</b> documentaron víctimas de desaparición, ejecución y tortura. Hoy, la memoria y la justicia siguen siendo debates abiertos.</p>'}
+],[
+ ["¿Qué proceso redistribuyó la tierra a campesinos durante los años 60?","La Reforma Agraria.",["La nacionalización del salitre.","La Ley de Instrucción Primaria.","La Campaña del Desierto."],"Las leyes de 1962 y 1967 permitieron expropiar latifundios."],
+ ["¿Qué ocurrió el 11 de septiembre de 1973?","Un golpe de Estado puso fin al gobierno de Salvador Allende.",["Se aprobó la Constitución de 1980.","Triunfó la opción NO.","Se firmó la independencia."],"Las Fuerzas Armadas derrocaron al gobierno constitucional y comenzó la dictadura."],
+ ["¿Qué resultado tuvo el plebiscito de 1988?","Triunfó la opción NO y se abrió el camino a elecciones democráticas.",["Triunfó el SÍ y Pinochet siguió ocho años más.","Se aprobó una nueva Constitución.","Se anuló el proceso."],"Con el NO se convocó a elecciones presidenciales y parlamentarias en 1989."],
+ ["¿Qué documentó el Informe Rettig?","Las violaciones a los derechos humanos con resultado de muerte durante la dictadura.",["La crisis económica de 1929.","Los resultados del plebiscito de 1988.","La historia del Parlamentarismo."],"Fue la primera comisión de verdad, creada en 1990 durante el gobierno de Aylwin."],
+ ["¿En qué año se restableció la democracia en Chile con la asunción de un presidente electo?","1990.",["1973.","1988.","2000."],"Patricio Aylwin asumió el 11 de marzo de 1990."],
+ ["La nacionalización del cobre (1971) significó que:","El Estado pasó a controlar la gran minería del cobre.",["Se privatizó el cobre.","Se prohibió exportar cobre.","Se entregó el cobre a empresas extranjeras."],"Se aprobó por unanimidad en el Congreso una reforma que traspasó la propiedad de la gran minería al Estado."]
+]);
+
+H(["h4","El mundo: de las revoluciones a la Guerra Fría"],"Revolución Francesa, Revolución Industrial, guerras mundiales, crisis de 1929 y Guerra Fría.",[
+ {h:"Línea de tiempo",p:table(["Año","Hecho"],[["1789","Revolución Francesa; Declaración de los Derechos del Hombre y del Ciudadano"],["Siglo XVIII–XIX","Revolución Industrial (Inglaterra)"],["1914–1918","Primera Guerra Mundial"],["1917","Revolución rusa"],["1929","Crisis económica mundial (Crac de Wall Street)"],["1939–1945","Segunda Guerra Mundial"],["1947–1991","Guerra Fría (EE. UU. vs. URSS)"],["1989","Caída del Muro de Berlín"]])},
+ {h:"Ideas fuerza",p:'<ul><li><b>Ilustración:</b> razón, libertad, igualdad, división de poderes.</li><li><b>Revolución Industrial:</b> fábricas, máquina de vapor, urbanización y nueva clase obrera.</li><li><b>Guerra Fría:</b> rivalidad capitalismo vs. comunismo sin guerra directa entre las superpotencias.</li></ul>'}
+],[
+ ["¿Qué documento de 1789 proclamó la igualdad ante la ley y los derechos naturales?","La Declaración de los Derechos del Hombre y del Ciudadano.",["La Carta Magna.","El Tratado de Versalles.","El Manifiesto Comunista."],"Fue uno de los textos fundamentales de la Revolución Francesa."],
+ ["¿Qué cambio característico trajo la Revolución Industrial?","El paso del trabajo artesanal y agrícola al trabajo fabril y urbano.",["El fin del uso del carbón.","La desaparición de las ciudades.","El regreso a la economía de subsistencia."],"Las máquinas y las fábricas transformaron la producción y la vida social."],
+ ["¿Qué enfrentó a las potencias entre 1914 y 1918?","La Primera Guerra Mundial.",["La Guerra Fría.","La Guerra de los Treinta Años.","La Guerra del Pacífico."],"Fue el primer conflicto de alcance mundial, con la Triple Entente y las Potencias Centrales."],
+ ["La crisis de 1929 se originó principalmente en:","El colapso de la Bolsa de Nueva York y la sobreproducción.",["El hundimiento de Alemania en la guerra.","El descubrimiento del petróleo.","La caída del Muro de Berlín."],"Su efecto fue mundial: desempleo, quiebras y caída del comercio."],
+ ["La Segunda Guerra Mundial comenzó en 1939 con la invasión de:","Polonia por Alemania.",["Francia por Italia.","Japón por China.","Rusia por Turquía."],"El 1 de septiembre de 1939 Alemania invadió Polonia."],
+ ["¿Qué fue la Guerra Fría?","Una rivalidad ideológica y estratégica entre EE. UU. y la URSS.",["Una guerra directa entre EE. UU. y la URSS.","Un conflicto por el control del Ártico.","Una guerra entre Europa y Asia."],"Se manifestó en carrera armamentista, espionaje y conflictos indirectos."],
+ ["¿Qué simbolizó la caída del Muro de Berlín en 1989?","El fin de la división de Europa y el declive del bloque soviético.",["El inicio de la Segunda Guerra Mundial.","El triunfo del nazismo.","La creación de la ONU."],"Marcó el camino hacia la reunificación alemana y la disolución de la URSS (1991)."]
+]);
+
+H(["h5","Economía y territorio"],"Oferta y demanda, inflación, PIB, rol del Estado, globalización y riesgos naturales.",[
+ {h:"Conceptos económicos",p:'<ul><li><b>Oferta y demanda:</b> si aumenta la demanda y la oferta no cambia, sube el precio.</li><li><b>PIB:</b> valor de los bienes y servicios finales producidos en un país en un período.</li><li><b>Inflación:</b> alza sostenida y generalizada de precios (se mide con el IPC).</li><li><b>Desempleo:</b> personas sin trabajo que lo buscan activamente.</li><li><b>Banco Central:</b> cuida la estabilidad de precios y del sistema financiero.</li></ul>'},
+ {h:"Territorio y sostenibilidad",p:'<p>Chile se ubica en el <b>Cinturón de Fuego del Pacífico</b>, donde interactúan las placas de Nazca y Sudamericana: por eso hay sismos y volcanes. El <b>desarrollo sostenible</b> busca satisfacer las necesidades actuales sin comprometer las de futuras generaciones.</p>'}
+],[
+ ["Si aumenta la demanda de un producto y la oferta se mantiene igual, ¿qué ocurre normalmente con su precio?","Sube.",["Baja.","Se mantiene siempre.","Desaparece del mercado."],"Más compradores para la misma cantidad generan presión al alza."],
+ ["¿Qué mide el PIB?","El valor de los bienes y servicios finales producidos en un país en un período.",["La cantidad de dinero en circulación.","El número de habitantes.","La deuda pública."],"Es un indicador de la actividad económica."],
+ ["Una inflación alta significa que:","Los precios suben de forma generalizada y sostenida.",["Los precios bajan.","Aumentan los salarios reales siempre.","Disminuye el desempleo automáticamente."],"Reduce el poder adquisitivo si los ingresos no suben igual."],
+ ["¿Por qué Chile es un país sísmico?","Porque está en el límite de las placas de Nazca y Sudamericana.",["Porque tiene muchos ríos.","Porque tiene clima desértico.","Porque es un país insular."],"La subducción de la placa de Nazca bajo la Sudamericana genera sismos."],
+ ["Un ejemplo de desarrollo sostenible es:","Explotar recursos cuidando que se regeneren para el futuro.",["Agotar un recurso para maximizar la ganancia inmediata.","Prohibir toda actividad económica.","Importar todo lo que se consume."],"Equilibra economía, sociedad y medio ambiente."],
+ ["La globalización se caracteriza por:","Una mayor interconexión económica, cultural y tecnológica entre países.",["El aislamiento comercial.","El fin de las empresas multinacionales.","El rechazo de las nuevas tecnologías."],"Facilita el intercambio, pero también genera desigualdades y dependencia."],
+ ["¿Cuál es una función del Estado en una economía mixta?","Regular mercados y proveer bienes públicos como educación y salud.",["Fijar el precio de todos los productos.","Prohibir la propiedad privada.","Desentenderse de la economía."],"El Estado complementa al mercado corrigiendo fallas y garantizando derechos."]
+]);
+
+H(["h6","Democracia, ciudadanía y derechos humanos"],"Poderes del Estado, participación, Constitución y Declaración Universal de DDHH.",[
+ {h:"El Estado democrático",p:'<ul><li><b>Separación de poderes:</b> Ejecutivo (gobierna), Legislativo (hace las leyes: Cámara de Diputados y Senado) y Judicial (aplica las leyes).</li><li>La <b>Constitución</b> es la norma suprema: organiza el Estado y garantiza derechos.</li><li>La participación incluye votar, informarse, organizarse y fiscalizar.</li></ul>'},
+ {h:"Derechos humanos",p:'<p>La <b>Declaración Universal de Derechos Humanos (1948)</b> reconoce derechos inherentes a toda persona: universales, inalienables e interdependientes. Incluyen derechos civiles y políticos (vida, libertad de expresión, voto) y económicos, sociales y culturales (educación, salud, trabajo).</p>'}
+],[
+ ["¿Cuál es la función principal del Poder Legislativo?","Elaborar y aprobar leyes.",["Aplicar las leyes en los tribunales.","Dirigir la administración del Estado.","Controlar el Banco Central."],"En Chile lo ejercen el Congreso (Cámara de Diputados y Senado)."],
+ ["¿Qué principio busca evitar la concentración del poder?","La separación de poderes.",["El centralismo absoluto.","El corporativismo.","La censura."],"Cada poder controla a los otros, protegiendo la libertad."],
+ ["La Constitución política de un país es:","La norma de mayor jerarquía que organiza el Estado y garantiza derechos.",["Una ley temporal.","Un reglamento municipal.","Un decreto presidencial."],"Todas las leyes deben respetar la Constitución."],
+ ["¿Cuál de los siguientes es un derecho civil y político?","La libertad de expresión.",["El derecho a la salud.","El derecho a la educación.","El derecho a la vivienda."],"Los derechos de salud, educación y vivienda son económicos, sociales y culturales."],
+ ["La Declaración Universal de Derechos Humanos fue proclamada en:","1948.",["1789.","1919.","1991."],"La aprobó la Asamblea General de la ONU tras la Segunda Guerra Mundial."],
+ ["Decir que los derechos humanos son «universales» significa que:","Corresponden a todas las personas sin distinción.",["Solo valen en algunos países.","Dependen de la nacionalidad.","Se otorgan según el ingreso."],"Se tienen por el hecho de ser persona."],
+ ["Ejemplo de participación ciudadana:","Integrar un centro de estudiantes o una junta de vecinos.",["Evitar toda información política.","Delegar siempre decisiones en otros.","Ignorar los problemas de la comunidad."],"La participación puede ser formal (votar) o comunitaria (organizarse)."]
+]);
+
+function subn(n){return String(n).split("").map(function(c){return "₀₁₂₃₄₅₆₇₈₉"[+c]}).join("")}
+/* ===== Ciencias ===== */
+function T(a){return function(){return mcq(a[0],a[1],a[2],a[3])}}
+function CS(k,t,sum,les,statics,gens){return M(t,sum,les,statics.map(T).concat(gens||[]),k)}
+
+/* ---------- BIOLOGÍA ---------- */
+CS("cb",["cb1","La célula y sus procesos"],"Organelos, membrana, transporte, ADN y síntesis de proteínas.",[
+ {h:"Estructura celular",p:'<ul><li><b>Procariota:</b> sin núcleo definido (bacterias). <b>Eucariota:</b> con núcleo (animales, plantas, hongos).</li><li><b>Mitocondria:</b> respiración celular, produce ATP. <b>Cloroplasto:</b> fotosíntesis (solo plantas y algas).</li><li><b>Ribosomas:</b> sintetizan proteínas. <b>Lisosomas:</b> digestión. <b>Pared celular:</b> plantas y hongos.</li></ul>'},
+ {h:"Transporte y flujo de información",p:'<ul><li><b>Difusión:</b> de mayor a menor concentración, sin gasto de energía. <b>Osmosis:</b> difusión de agua a través de una membrana.</li><li><b>Transporte activo:</b> contra gradiente, gasta ATP.</li><li><b>ADN → ARN → proteína</b> (transcripción y traducción).</li></ul>'}
+],[
+ ["¿Qué organelo produce la mayor parte del ATP en una célula eucariota?","Mitocondria.",["Ribosoma.","Lisosoma.","Aparato de Golgi."],"En la respiración celular aeróbica la mitocondria genera ATP."],
+ ["¿Qué estructura está presente en células vegetales y no en animales?","Pared celular y cloroplastos.",["Mitocondrias.","Ribosomas.","Membrana plasmática."],"Las células vegetales poseen pared celular y cloroplastos."],
+ ["Una célula procariota se caracteriza por:","No tener núcleo delimitado por membrana.",["Tener múltiples cromosomas lineales dentro de un núcleo.","Presentar mitocondrias y cloroplastos.","Formar tejidos."],"El ADN de las procariotas está libre en el citoplasma (nucleoide)."],
+ ["El transporte de una sustancia desde una zona de menor a mayor concentración requiere:","Energía (ATP): transporte activo.",["Ninguna energía: difusión simple.","Solo agua: osmosis.","Un cambio de temperatura únicamente."],"Moverse contra el gradiente siempre gasta energía."],
+ ["Una célula vegetal se coloca en agua destilada. ¿Qué ocurre?","Entra agua por osmosis y la célula se hincha (turgencia).",["Sale agua y se arruga.","No entra ni sale agua.","La célula explota inmediatamente."],"El medio es hipotónico: el agua entra; la pared celular evita que reviente."],
+ ["¿Dónde se sintetizan las proteínas?","En los ribosomas.",["En la membrana plasmática.","En los lisosomas.","En el núcleo, solo."],"Los ribosomas traducen el ARNm en una cadena de aminoácidos."],
+ ["¿Cuál es el orden correcto del flujo de información genética?","ADN → ARN → proteína.",["Proteína → ARN → ADN.","ARN → ADN → ARN.","ADN → proteína → ARN."],"Es el «dogma central»: transcripción (ADN→ARN) y traducción (ARN→proteína)."]
+]);
+
+CS("cb",["cb2","Genética y herencia"],"Mendel, cuadros de Punnett, mitosis, meiosis y mutaciones.",[
+ {h:"Herencia mendeliana",p:'<ul><li><b>Gen:</b> segmento de ADN. <b>Alelo:</b> forma alternativa de un gen.</li><li><b>Dominante (A):</b> se expresa si hay al menos una copia. <b>Recesivo (a):</b> solo si hay dos copias (aa).</li><li><b>Genotipo:</b> los alelos (Aa). <b>Fenotipo:</b> el rasgo visible.</li></ul><div class="box"><b class="t">Cruce Aa × Aa</b>Resultados: 25 % AA, 50 % Aa, 25 % aa → 75 % fenotipo dominante, 25 % recesivo.</div>'},
+ {h:"División celular",p:'<ul><li><b>Mitosis:</b> 1 célula → 2 células idénticas (crecimiento y reparación).</li><li><b>Meiosis:</b> 1 célula → 4 gametos con la mitad de cromosomas (reproducción sexual).</li><li><b>Mutación:</b> cambio en el ADN; puede ser neutra, dañina o beneficiosa.</li></ul>'}
+],[
+ ["¿Qué resultado produce la meiosis?","Cuatro células haploides (gametos) genéticamente distintas.",["Dos células idénticas diploides.","Una célula tetraploide.","Dos células con el doble de ADN."],"La meiosis reduce a la mitad el número de cromosomas y genera variabilidad."],
+ ["¿Cuál es la función principal de la mitosis?","Crecimiento y reparación de tejidos.",["Formar gametos.","Aumentar la variabilidad genética.","Producir mutaciones."],"Produce células hijas idénticas a la original."],
+ ["Un individuo Aa tiene el genotipo:","Heterocigoto.",["Homocigoto dominante.","Homocigoto recesivo.","Haploide."],"Tiene dos alelos distintos."],
+ ["El fenotipo es:","La manifestación observable de los genes y el ambiente.",["El conjunto de alelos de un individuo.","El número de cromosomas.","La secuencia de ADN."],"El genotipo son los alelos; el fenotipo es lo que se observa."]
+],[
+ function(){var c=pick([["Aa","Aa",1,4],["Aa","aa",1,2],["AA","Aa",0,1],["aa","aa",1,1],["AA","aa",0,1],["Aa","AA",0,1]]);var p=frac(c[2],c[3]),how={"1/4":"un cuadro de Punnett muestra 1 aa de 4","1/2":"la mitad de los descendientes son aa","0":"ningún descendiente puede ser aa (necesita dos alelos recesivos)","1":"todos los descendientes son aa"}[p];var dis=["0","1/4","1/2","3/4","1"].filter(function(x){return x!==p});return mcq("En una planta, el alelo A (flores moradas) domina sobre a (flores blancas). Si se cruzan "+c[0]+" × "+c[1]+", ¿qué probabilidad hay de que un descendiente tenga flores blancas (aa)?",p,dis,"Al cruzar "+c[0]+" × "+c[1]+", "+how+". Probabilidad = "+p+".")},
+ function(){var c=pick([["Aa","Aa","3/4"],["Aa","aa","1/2"],["AA","Aa","1"],["AA","aa","1"]]);var dis=["1/4","1/2","3/4","1","0"].filter(function(x){return x!==c[2]}).slice(0,4);return mcq("Si A es dominante, ¿qué fracción de los hijos de un cruce "+c[0]+" × "+c[1]+" muestra el fenotipo dominante?",c[2],dis,"Se obtiene con el cuadro de Punnett: "+c[2]+" de los descendientes tienen al menos un alelo A.")}
+]);
+
+CS("cb",["cb3","Cuerpo humano y salud"],"Sistemas nervioso, endocrino, circulatorio, inmune y homeostasis.",[
+ {h:"Homeostasis",p:'<p>Es el equilibrio interno del organismo mediante <b>retroalimentación negativa</b>: un cambio activa mecanismos que lo corrigen. Ejemplo: tras una comida sube la glucosa → el páncreas libera <b>insulina</b> → la glucosa entra a las células y baja.</p>'},
+ {h:"Sistemas",p:'<ul><li><b>Nervioso:</b> respuestas rápidas con neuronas; <b>endocrino:</b> respuestas más lentas con hormonas.</li><li><b>Circulatorio:</b> el corazón bombea sangre; los glóbulos rojos transportan oxígeno (hemoglobina).</li><li><b>Inmune:</b> los linfocitos reconocen antígenos; las <b>vacunas</b> generan memoria inmunológica.</li></ul>'}
+],[
+ ["¿Qué hormona disminuye la glucosa en la sangre?","Insulina.",["Glucagón.","Adrenalina.","Testosterona."],"La insulina permite que la glucosa entre a las células."],
+ ["Después de ejercicio intenso aumenta la frecuencia cardíaca y respiratoria. Esto ayuda a:","Entregar más oxígeno y eliminar CO₂.",["Disminuir la temperatura a cero.","Reducir el consumo de energía.","Detener la contracción muscular."],"Es una respuesta homeostática ante mayor demanda de oxígeno."],
+ ["¿Cómo actúa una vacuna?","Genera memoria inmunológica frente a un patógeno.",["Mata directamente al virus en el cuerpo.","Reemplaza los glóbulos blancos.","Cura la enfermedad ya instalada."],"Expone al sistema inmune a antígenos inofensivos para que responda rápido después."],
+ ["¿Cuál es la diferencia principal entre el sistema nervioso y el endocrino?","El nervioso responde rápido; el endocrino, más lento y duradero.",["El endocrino usa neuronas.","El nervioso usa solo hormonas.","No existe diferencia."],"Impulsos nerviosos vs. hormonas en la sangre."],
+ ["Los glóbulos rojos se encargan de:","Transportar oxígeno.",["Defender de infecciones.","Coagular la sangre.","Producir insulina."],"La hemoglobina se une al oxígeno."],
+ ["Un ejemplo de retroalimentación negativa es:","Sudar cuando sube la temperatura corporal.",["Que la glucosa suba sin control.","Aumentar la fiebre indefinidamente.","Dejar de respirar al hacer ejercicio."],"El mecanismo corrige el cambio y devuelve el valor al rango normal."]
+]);
+
+CS("cb",["cb4","Ecología y evolución"],"Cadenas tróficas, flujo de energía, ciclos, selección natural y biodiversidad.",[
+ {h:"Flujo de energía",p:'<p>La energía entra por los <b>productores</b> (fotosíntesis), pasa a consumidores primarios, secundarios, etc. En cada nivel trófico solo se transfiere cerca del <b>10 %</b>: el resto se pierde como calor y en procesos vitales. Por eso las cadenas son cortas y hay menos carnívoros que herbívoros.</p><p>La materia, en cambio, se <b>recicla</b> (carbono, nitrógeno, agua) gracias a descomponedores.</p>'},
+ {h:"Evolución",p:'<p><b>Selección natural (Darwin):</b> en una población hay variación hereditaria; algunos individuos sobreviven y se reproducen más porque están mejor adaptados; sus rasgos se vuelven más frecuentes con las generaciones.</p>'}
+],[
+ ["¿Qué nivel trófico corresponde a un conejo que come pasto?","Consumidor primario.",["Productor.","Consumidor secundario.","Descomponedor."],"Se alimenta directamente de un productor (pasto)."],
+ ["¿Qué papel cumplen los descomponedores?","Reciclan la materia orgánica en nutrientes.",["Producen energía a partir de la luz.","Son los primeros consumidores.","Evitan el flujo de materia."],"Hongos y bacterias devuelven nutrientes al suelo."],
+ ["Según la selección natural:","Los individuos mejor adaptados dejan más descendencia.",["Los organismos cambian a voluntad.","Las características adquiridas se heredan siempre.","Todas las variaciones son perjudiciales."],"Depende de variación hereditaria y reproducción diferencial."],
+ ["¿Por qué el efecto invernadero intensificado preocupa?","Porque el exceso de gases como CO₂ retiene más calor y contribuye al cambio climático.",["Porque disminuye el CO₂ de la atmósfera.","Porque enfría el planeta.","Porque aumenta la capa de ozono."],"Las actividades humanas aumentan los gases de efecto invernadero."]
+],[
+ function(){var e=pick([10000,50000,20000]),n=R(2,3);var v=e*Math.pow(.1,n);return numq("Si los productores almacenan "+fmt(e)+" kJ de energía, ¿cuántos kJ llegan aproximadamente al nivel trófico "+(n+1)+" (regla del 10 %)?",v,[e/2,e*.01*10,v*10,v/10],"En cada transferencia pasa ~10 %: "+fmt(e)+" · 0,1"+sup(n)+" = "+fmt(v)+" kJ.",{u:"kJ"})}
+]);
+
+/* ---------- FÍSICA ---------- */
+CS("cf",["cf1","Movimiento"],"Rapidez, aceleración, MRU, MRUA y caída libre (g = 10 m/s²).",[
+ {h:"Fórmulas esenciales",p:'<ul><li><b>MRU:</b> <span class="fm">d = v·t</span></li><li><b>Aceleración:</b> <span class="fm">a = (v_f − v_i)/t</span></li><li><b>MRUA desde el reposo:</b> <span class="fm">d = ½·a·t²</span> · <span class="fm">v = a·t</span></li><li><b>Caída libre</b> (g = 10 m/s²): <span class="fm">v = 10·t</span> · <span class="fm">h = 5·t²</span></li></ul><p class="tip">Revisa las unidades: pasa km/h a m/s dividiendo por 3,6.</p>'},
+ {h:"Interpretar gráficos",p:'<p>En un gráfico <b>posición–tiempo</b>, la pendiente es la rapidez. En un gráfico <b>velocidad–tiempo</b>, la pendiente es la aceleración y el área bajo la curva es la distancia.</p>'}
+],[
+ ["En un gráfico velocidad–tiempo, una recta horizontal indica:","Velocidad constante (aceleración cero).",["Aceleración constante distinta de cero.","El cuerpo está detenido siempre.","Caída libre."],"Si v no cambia, a = 0."],
+ ["Dos cuerpos de distinta masa caen en el vacío desde la misma altura. ¿Cuál llega primero?","Llegan al mismo tiempo.",["El más pesado.","El más liviano.","Depende de su forma en el vacío."],"En el vacío todos aceleran con g, sin importar su masa."]
+],[
+ function(){var v=R(3,25)*2,t=R(2,9);return numq("Un ciclista avanza a "+v+" m/s constantes durante "+t+" s. ¿Qué distancia recorre?",v*t,[v+t,v/t,v*t*t],"MRU: d = v·t = "+v+" · "+t+" = "+v*t+" m.",{u:"m"})},
+ function(){var vi=R(0,5)*2,a=R(2,6),t=R(2,8),vf=vi+a*t;return numq("Un auto pasa de "+vi+" m/s a "+vf+" m/s en "+t+" s. ¿Cuál es su aceleración?",a,[vf/t,(vf+vi)/t,a*t,a+1],"a = (v_f − v_i)/t = ("+vf+" − "+vi+")/"+t+" = "+a+" m/s².",{u:"m/s²"})},
+ function(){var a=R(2,6),t=R(2,6);return numq("Un móvil parte del reposo con aceleración "+a+" m/s². ¿Qué distancia recorre en "+t+" s?",a*t*t/2,[a*t,a*t*t,a*t/2,a*t*t/2+t],"d = ½·a·t² = ½ · "+a+" · "+t+"² = "+fmt(a*t*t/2)+" m.",{u:"m"})},
+ function(){var t=R(2,6);return numq("Se suelta una piedra desde un edificio. Despreciando el roce y con g = 10 m/s², ¿qué altura cae en "+t+" s?",5*t*t,[10*t,10*t*t,5*t,5*t*t+10],"h = ½·g·t² = 5·"+t+"² = "+5*t*t+" m.",{u:"m"})},
+ function(){var k=pick([36,72,108,90]);return numq("Un auto se mueve a "+k+" km/h. ¿Cuál es su rapidez en m/s?",k/3.6,[k*3.6,k/36,k/6,k/3.6+3],"Para pasar de km/h a m/s se divide por 3,6: "+k+"/3,6 = "+fmt(k/3.6)+" m/s.",{u:"m/s"})}
+]);
+
+CS("cf",["cf2","Fuerzas, trabajo y energía"],"Leyes de Newton, trabajo, energía cinética y potencial, potencia.",[
+ {h:"Leyes de Newton",p:'<ul><li><b>1.ª (inercia):</b> sin fuerza neta, un cuerpo mantiene su velocidad.</li><li><b>2.ª:</b> <span class="fm">F = m·a</span> (N = kg·m/s²).</li><li><b>3.ª:</b> toda acción tiene una reacción igual y opuesta (sobre cuerpos distintos).</li></ul><p>Peso: <span class="fm">P = m·g</span> (g = 10 m/s²).</p>'},
+ {h:"Energía",p:'<ul><li>Trabajo: <span class="fm">W = F·d</span> (J).</li><li>Cinética: <span class="fm">Ec = ½·m·v²</span> · Potencial: <span class="fm">Ep = m·g·h</span>.</li><li>Potencia: <span class="fm">P = W/t</span> (W = J/s).</li><li>Sin roce, la energía mecánica total se conserva.</li></ul>'}
+],[
+ ["Un pasajero se va hacia adelante cuando el bus frena bruscamente. Esto se explica por:","La inercia (1.ª ley de Newton).",["La acción y reacción.","La conservación de la carga.","La fuerza de gravedad solamente."],"El cuerpo tiende a mantener su movimiento."],
+ ["¿Cuál es la unidad de fuerza en el SI?","Newton (N).",["Joule (J).","Watt (W).","Pascal (Pa)."],"1 N = 1 kg·m/s²."],
+ ["Una pelota sube y su altura aumenta. Si se desprecia el roce, su energía potencial:","Aumenta mientras su energía cinética disminuye.",["Disminuye siempre.","No cambia nunca.","Aumenta junto con la cinética."],"La energía mecánica se conserva: se transforma una en otra."]
+],[
+ function(){var m=R(2,12),a=R(2,6);return numq("¿Qué fuerza neta se necesita para acelerar una masa de "+m+" kg con "+a+" m/s²?",m*a,[m+a,m/a,m*a*10],"F = m·a = "+m+" · "+a+" = "+m*a+" N.",{u:"N"})},
+ function(){var F=R(2,9)*10,d=R(2,9);return numq("Una fuerza de "+F+" N desplaza un objeto "+d+" m en su misma dirección. ¿Cuánto trabajo realiza?",F*d,[F+d,F/d,F*d*10],"W = F·d = "+F+" · "+d+" = "+F*d+" J.",{u:"J"})},
+ function(){var m=R(2,10),v=R(2,10);return numq("¿Cuál es la energía cinética de un cuerpo de "+m+" kg que se mueve a "+v+" m/s?",m*v*v/2,[m*v,m*v*v,m*v*v/4],"Ec = ½·m·v² = ½ · "+m+" · "+v+"² = "+fmt(m*v*v/2)+" J.",{u:"J"})},
+ function(){var m=R(2,10),h=R(2,12);return numq("¿Cuál es la energía potencial de "+m+" kg a "+h+" m de altura? (g = 10 m/s²)",m*10*h,[m*h,m*10+h,m*h/10],"Ep = m·g·h = "+m+" · 10 · "+h+" = "+m*10*h+" J.",{u:"J"})},
+ function(){var W=R(3,9)*100,t=R(2,10);return numq("Una máquina realiza "+W+" J de trabajo en "+t+" s. ¿Qué potencia desarrolla?",W/t,[W*t,W+t,W/t/2],"P = W/t = "+W+"/"+t+" = "+fmt(W/t)+" W.",{u:"W"})}
+]);
+
+CS("cf",["cf3","Ondas, sonido y calor"],"Longitud de onda, frecuencia, sonido, luz, calor y temperatura.",[
+ {h:"Ondas",p:'<ul><li><span class="fm">v = λ · f</span> (rapidez = longitud de onda × frecuencia). <span class="fm">T = 1/f</span>.</li><li><b>Sonido:</b> onda mecánica longitudinal; necesita un medio (no viaja en el vacío). Mayor frecuencia = tono más agudo; mayor amplitud = más intenso.</li><li><b>Luz:</b> onda electromagnética; viaja en el vacío (≈ 3·10⁸ m/s).</li></ul>'},
+ {h:"Calor",p:'<ul><li><b>Calor</b>: energía que fluye del cuerpo más caliente al más frío.</li><li><span class="fm">Q = m·c·ΔT</span> (para agua c = 1 cal/g·°C).</li><li>K = °C + 273.</li></ul>'}
+],[
+ ["El sonido NO puede propagarse en:","El vacío.",["El aire.","El agua.","Un metal."],"Es una onda mecánica: requiere un medio material."],
+ ["Un sonido más agudo tiene mayor:","Frecuencia.",["Amplitud.","Rapidez en el aire.","Longitud de onda."],"El tono depende de la frecuencia."],
+ ["Cuando dos cuerpos a distinta temperatura se ponen en contacto, el calor fluye:","Del más caliente al más frío.",["Del más frío al más caliente.","En ambas direcciones a la misma velocidad.","No fluye."],"Hasta alcanzar el equilibrio térmico."]
+],[
+ function(){var f=R(2,10)*50,l=R(1,6);return numq("Una onda tiene frecuencia "+f+" Hz y longitud de onda "+l+" m. ¿Cuál es su rapidez de propagación?",f*l,[f/l,f+l,l/f],"v = λ·f = "+l+" · "+f+" = "+f*l+" m/s.",{u:"m/s"})},
+ function(){var f=pick([2,4,5,10,20,25,50]);return numq("Una onda tiene frecuencia "+f+" Hz. ¿Cuál es su período?",1/f,[f,f/2,2*f,1/(f+1)],"T = 1/f = 1/"+f+" = "+fmt(1/f,3)+" s.",{u:"s",d:3})},
+ function(){var m=R(1,5)*100,a=R(10,30),b=a+R(10,30);return numq("¿Cuánto calor se necesita para calentar "+m+" g de agua de "+a+" °C a "+b+" °C? (c = 1 cal/g·°C)",m*(b-a),[m*b,m*(b-a)/10,m+(b-a)],"Q = m·c·ΔT = "+m+" · 1 · "+(b-a)+" = "+m*(b-a)+" cal.",{u:"cal"})},
+ function(){var c=pick([0,27,100,-73,127]);return numq("¿A cuántos kelvin equivalen "+c+" °C?",c+273,[c-273,c*273,c+373],"K = °C + 273 = "+(c+273)+" K.",{u:"K"})}
+]);
+
+CS("cf",["cf4","Electricidad"],"Corriente, voltaje, resistencia, circuitos y consumo de energía.",[
+ {h:"Ley de Ohm y circuitos",p:'<ul><li><span class="fm">V = I · R</span> (V en volt, I en ampere, R en ohm).</li><li><b>Serie:</b> R_total = R₁ + R₂ (misma corriente en todas).</li><li><b>Paralelo:</b> 1/R_t = 1/R₁ + 1/R₂ (mismo voltaje en cada rama); la resistencia total es menor que la menor.</li><li>Potencia: <span class="fm">P = V · I</span>. Energía: <span class="fm">E = P · t</span> (kWh).</li></ul>'}
+],[
+ ["Cuando se conectan resistencias en serie, la corriente:","Es la misma en todas.",["Se divide entre ellas.","Es cero.","Aumenta en cada una."],"En un único camino la corriente no tiene alternativas."],
+ ["Un objeto frotado adquiere carga eléctrica porque:","Se transfieren electrones de un material a otro.",["Se crean protones.","Se destruyen neutrones.","Aumenta su masa atómica."],"Los electrones se transfieren; la carga total se conserva."],
+ ["Los materiales que permiten fácilmente el paso de la corriente se llaman:","Conductores.",["Aislantes.","Dieléctricos.","Semiaislantes."],"Metales como el cobre son buenos conductores."]
+],[
+ function(){var R_=R(2,20),I=R(1,6);return numq("Por una resistencia de "+R_+" Ω circula una corriente de "+I+" A. ¿Cuál es el voltaje?",R_*I,[R_/I,R_+I,R_*I*10],"V = I·R = "+I+" · "+R_+" = "+R_*I+" V.",{u:"V"})},
+ function(){var V=pick([12,24,60,120,220]),Rr=pick([2,3,4,6,10,12,20]);if(V%Rr)V=Rr*10;return numq("Una resistencia de "+Rr+" Ω está conectada a "+V+" V. ¿Qué corriente circula?",V/Rr,[V*Rr,V+Rr,Rr/V],"I = V/R = "+V+"/"+Rr+" = "+V/Rr+" A.",{u:"A"})},
+ function(){var p=pick([[6,3,2],[12,4,3],[6,6,3],[10,10,5],[20,5,4],[12,6,4]]);return numq("Dos resistencias de "+p[0]+" Ω y "+p[1]+" Ω se conectan en paralelo. ¿Cuál es la resistencia total?",p[2],[p[0]+p[1],p[0]*p[1],(p[0]+p[1])/2],"Paralelo: R = (R₁·R₂)/(R₁+R₂) = "+p[0]*p[1]+"/"+(p[0]+p[1])+" = "+p[2]+" Ω.",{u:"Ω"})},
+ function(){var a=R(2,15),b=R(2,15),c=R(2,15);return numq("Tres resistencias de "+a+" Ω, "+b+" Ω y "+c+" Ω están en serie. ¿Cuál es la resistencia total?",a+b+c,[a*b*c,(a+b+c)/3,Math.max(a,b,c)],"En serie se suman: "+a+" + "+b+" + "+c+" = "+(a+b+c)+" Ω.",{u:"Ω"})},
+ function(){var P=pick([1,2,0.5,1.5]),h=R(2,8);return numq("Un artefacto de "+fmt(P)+" kW funciona "+h+" horas. ¿Cuántos kWh consume?",P*h,[P+h,h/P,P*h*10],"E = P·t = "+fmt(P)+" · "+h+" = "+fmt(P*h)+" kWh.",{u:"kWh"})}
+]);
+
+/* ---------- QUÍMICA ---------- */
+var ELEM=[["H",1,1],["C",6,12],["N",7,14],["O",8,16],["Na",11,23],["Mg",12,24],["Al",13,27],["Cl",17,35],["K",19,39],["Ca",20,40],["Fe",26,56]];
+CS("cq",["cq1","Átomo y tabla periódica"],"Protones, neutrones, electrones, isótopos, iones y periodicidad.",[
+ {h:"El átomo",p:'<ul><li><b>Número atómico (Z):</b> protones (identifica el elemento).</li><li><b>Número másico (A):</b> protones + neutrones. Neutrones = A − Z.</li><li>Átomo neutro: electrones = protones. <b>Catión:</b> pierde electrones (+). <b>Anión:</b> gana electrones (−).</li><li><b>Isótopos:</b> mismo Z, distinto A.</li></ul>'},
+ {h:"Tabla periódica",p:'<ul><li>Los elementos de un mismo <b>grupo</b> (columna) tienen igual número de electrones de valencia y propiedades parecidas.</li><li>El <b>período</b> (fila) indica el nivel de energía de valencia.</li><li>Hacia la derecha en un período: aumenta la electronegatividad y disminuye el radio atómico. Hacia abajo en un grupo: aumenta el radio.</li></ul>'}
+],[
+ ["Los elementos de un mismo grupo comparten:","El número de electrones de valencia.",["El número de protones.","La masa atómica.","El número de neutrones."],"Por eso tienen propiedades químicas similares."],
+ ["Los isótopos de un elemento tienen:","Igual número de protones y distinto número de neutrones.",["Distinto número de protones.","Igual número de neutrones.","Distinto número de electrones siempre."],"Z es igual, A es distinto."],
+ ["¿Qué elemento es más electronegativo?","Flúor (F).",["Sodio (Na).","Potasio (K).","Magnesio (Mg)."],"La electronegatividad aumenta hacia la derecha y hacia arriba; el flúor es el más electronegativo."],
+ ["¿Qué tienen los metales alcalinos (grupo 1) en común?","Un electrón de valencia.",["Ocho electrones de valencia.","Dos electrones de valencia.","Ningún electrón de valencia."],"Tienden a perder ese electrón formando cationes +1."]
+],[
+ function(){var e=pick(ELEM.slice(1)),n=e[2]-e[1];return numq("Un átomo neutro de "+e[0]+" tiene Z = "+e[1]+" y A = "+e[2]+". ¿Cuántos neutrones posee?",n,[e[1],e[2],e[2]+e[1],n+1],"Neutrones = A − Z = "+e[2]+" − "+e[1]+" = "+n+".")},
+ function(){var e=pick([["Na",11,1],["Mg",12,2],["Al",13,3],["Ca",20,2],["K",19,1],["Cl",17,-1],["O",8,-2],["N",7,-3]]),q=e[2],el=e[1]-q;return numq("¿Cuántos electrones tiene el ion de "+e[0]+" (Z = "+e[1]+") con carga "+(q>0?"+"+q:"−"+Math.abs(q))+"?",el,[e[1],e[1]+Math.abs(q)+(q>0?0:0),e[1]-q+2,e[1]+q],(q>0?"El catión perdió "+q+" e⁻: ":"El anión ganó "+Math.abs(q)+" e⁻: ")+e[1]+" "+(q>0?"−":"+")+" "+Math.abs(q)+" = "+el+".")}
+]);
+
+CS("cq",["cq2","Enlace químico y compuestos"],"Enlace iónico, covalente y metálico, polaridad y propiedades.",[
+ {h:"Tipos de enlace",p:'<table class="dt"><thead><tr><th>Enlace</th><th>Entre</th><th>Propiedades</th></tr></thead><tbody><tr><td>Iónico</td><td>metal + no metal (se transfieren e⁻)</td><td>sólidos cristalinos, puntos de fusión altos, conducen en solución</td></tr><tr><td>Covalente</td><td>no metal + no metal (se comparten e⁻)</td><td>moléculas; polares o apolares</td></tr><tr><td>Metálico</td><td>metales</td><td>conductores, maleables, brillo</td></tr></tbody></table>'},
+ {h:"Polaridad",p:'<p>Un enlace covalente es <b>polar</b> si hay diferencia de electronegatividad (H₂O, HCl); <b>apolar</b> si los átomos son iguales o la molécula es simétrica (O₂, CO₂). Lo semejante disuelve a lo semejante: el agua disuelve sustancias polares.</p>'}
+],[
+ ["¿Qué tipo de enlace se forma entre Na y Cl?","Iónico.",["Covalente apolar.","Covalente polar.","Metálico."],"El sodio (metal) cede un electrón al cloro (no metal)."],
+ ["El enlace entre dos átomos de oxígeno en O₂ es:","Covalente apolar.",["Iónico.","Metálico.","Covalente polar."],"Átomos iguales comparten electrones de forma equitativa."],
+ ["¿Cuál es una propiedad típica de los compuestos iónicos?","Alto punto de fusión.",["Son gases a temperatura ambiente.","No conducen la corriente fundidos ni disueltos.","Son blandos y maleables."],"Las fuerzas entre iones son intensas."],
+ ["¿Por qué el agua es una molécula polar?","Porque es angular y el oxígeno es más electronegativo que el hidrógeno.",["Porque tiene enlaces iónicos.","Porque es lineal.","Porque no tiene electrones compartidos."],"Los dipolos no se cancelan por la forma angular."],
+ ["Los metales conducen la electricidad porque:","Tienen electrones de valencia deslocalizados.",["Tienen enlaces iónicos.","Sus átomos son neutros y sin electrones.","Forman moléculas."],"El «mar de electrones» permite el flujo de carga."]
+]);
+
+var MM=[["H₂O",18],["CO₂",44],["NaCl",58.5],["CaCO₃",100],["NH₃",17],["H₂SO₄",98],["NaOH",40],["HCl",36.5],["CH₄",16],["C₆H₁₂O₆",180]];
+CS("cq",["cq3","Estequiometría y soluciones"],"Mol, masa molar, concentración molar, balanceo y dilución.",[
+ {h:"El mol",p:'<ul><li><b>Masa molar (M):</b> masa de 1 mol (g/mol). Moles: <span class="fm">n = m / M</span>.</li><li>1 mol = 6,02·10²³ partículas.</li><li><b>Ley de conservación de la masa:</b> en una reacción química la masa total no cambia, por eso se <b>balancea</b>: 2 H₂ + O₂ → 2 H₂O.</li></ul>'},
+ {h:"Soluciones",p:'<ul><li><b>Molaridad:</b> <span class="fm">M = n (mol) / V (L)</span>.</li><li><b>Dilución:</b> <span class="fm">C₁·V₁ = C₂·V₂</span> (los moles de soluto no cambian).</li></ul>'}
+],[
+ ["Al balancear una ecuación química se busca que:","Haya igual cantidad de cada tipo de átomo a ambos lados.",["Haya igual número de moléculas a ambos lados.","Los productos tengan más masa.","Se modifiquen los subíndices de las fórmulas."],"Solo se cambian coeficientes, no subíndices."],
+ ["¿Cuál es el coeficiente que balancea: __ H₂ + O₂ → __ H₂O?","2 y 2.",["1 y 1.","2 y 1.","1 y 2."],"2 H₂ + O₂ → 2 H₂O: 4 H y 2 O en cada lado."]
+],[
+ function(){var c=pick(MM);return numq("¿Cuál es la masa molar del "+c[0]+"? (H = 1, C = 12, N = 14, O = 16, Na = 23, S = 32, Cl = 35,5, Ca = 40 g/mol)",c[1],[c[1]+16,c[1]-2,c[1]*2,c[1]+1],"Se suman las masas atómicas de todos los átomos de la fórmula: "+c[0]+" = "+fmt(c[1])+" g/mol.",{u:"g/mol",d:1})},
+ function(){var c=pick(MM.filter(function(x){return Number.isInteger(x[1])})),n=R(2,5);return numq("¿Cuántos moles hay en "+c[1]*n+" g de "+c[0]+" (masa molar "+c[1]+" g/mol)?",n,[c[1]*n*c[1],c[1]*n,n+1,n*2],"n = m/M = "+c[1]*n+"/"+c[1]+" = "+n+" mol.",{u:"mol"})},
+ function(){var V=pick([.5,2,4,.25]),M_=R(1,4);var n=M_*V;return numq("Se disuelven "+fmt(n)+" mol de soluto en "+fmt(V)+" L de solución. ¿Cuál es la molaridad?",M_,[n*V,n+V,V/n,M_+1],"M = n/V = "+fmt(n)+"/"+fmt(V)+" = "+fmt(M_)+" mol/L.",{u:"M"})},
+ function(){var c1=pick([6,4,2,1]),v1=pick([50,100,200]),f=pick([2,4]),c2=c1/f;return numq("Se diluyen "+v1+" mL de una solución "+c1+" M hasta tener "+fmt(c2)+" M. ¿Cuál es el volumen final?",v1*f,[v1/f,v1+f,v1*c1],"C₁V₁ = C₂V₂ → V₂ = ("+c1+" · "+v1+")/"+fmt(c2)+" = "+v1*f+" mL.",{u:"mL"})}
+]);
+
+CS("cq",["cq4","Ácidos, bases y química orgánica"],"pH, neutralización, hidrocarburos y grupos funcionales.",[
+ {h:"Ácidos y bases",p:'<ul><li><span class="fm">pH = −log[H⁺]</span>. pH &lt; 7 ácido; pH = 7 neutro; pH &gt; 7 básico.</li><li>Cada unidad de pH es un factor de 10 en [H⁺].</li><li><b>Neutralización:</b> ácido + base → sal + agua (HCl + NaOH → NaCl + H₂O).</li></ul>'},
+ {h:"Química orgánica",p:'<ul><li>Compuestos del carbono. <b>Alcanos</b> (enlaces simples): CₙH₂ₙ₊₂ (metano CH₄, etano C₂H₆…). <b>Alquenos</b> (doble enlace): CₙH₂ₙ. <b>Alquinos</b> (triple): CₙH₂ₙ₋₂.</li><li>Grupos funcionales: alcohol (–OH), ácido carboxílico (–COOH), amina (–NH₂), cetona/aldehído (C=O).</li></ul>'}
+],[
+ ["Una solución con pH 3 es:","Ácida.",["Neutra.","Básica.","Un alcano."],"pH menor que 7 es ácido."],
+ ["Si el pH de una solución baja de 5 a 3, la concentración de H⁺:","Aumenta 100 veces.",["Aumenta 2 veces.","Disminuye 100 veces.","No cambia."],"Cada unidad de pH equivale a un factor 10; dos unidades = 10² = 100."],
+ ["¿Qué productos se forman en la neutralización de HCl con NaOH?","NaCl y H₂O.",["NaH y ClOH.","Cl₂ y Na.","H₂ y NaClO."],"Un ácido y una base dan sal y agua."],
+ ["¿Qué grupo funcional caracteriza a los alcoholes?","–OH.",["–COOH.","–NH₂.","C=O."],"Hidroxilo unido a un carbono saturado."]
+],[
+ function(){var k=R(1,13);return numq("Una solución tiene [H⁺] = 1·10"+sup(-k)+" M. ¿Cuál es su pH?",k,[14-k,-k,k+1,k-1],"pH = −log(10"+sup(-k)+") = "+k+".")},
+ function(){var n=R(2,8),F=function(c,h){return "C"+subn(c)+"H"+subn(h)};return mcq("¿Cuál es la fórmula de un alcano de "+n+" átomos de carbono?",F(n,2*n+2),[F(n,2*n),F(n,2*n-2),F(n,n+2),F(n,2*n+4)],"Alcanos: CₙH₂ₙ₊₂ → "+F(n,2*n+2)+".")}
+]);
+
+var MEMO={
+ "Figuras literarias":[["Metáfora","Identifica dos elementos sin usar «como»"],["Comparación","Une dos elementos con «como» o «cual»"],["Personificación","Da rasgos humanos a lo no humano"],["Hipérbole","Exagera una idea"],["Ironía","Dice lo contrario de lo que piensa"],["Antítesis","Contrasta ideas opuestas"],["Onomatopeya","Imita un sonido"]],
+ "Historia: hecho y año":[["Independencia de Chile","1818"],["Golpe de Estado","1973"],["Plebiscito del NO","1988"],["Constitución presidencialista","1925"],["Guerra del Pacífico (inicio)","1879"],["Revolución Francesa","1789"],["Caída del Muro de Berlín","1989"],["Crisis de Wall Street","1929"]],
+ "Ciencias: organelo o célula y función":[["Mitocondria","Produce ATP"],["Ribosoma","Sintetiza proteínas"],["Cloroplasto","Realiza fotosíntesis"],["Lisosoma","Digiere sustancias"],["Glóbulo rojo","Transporta oxígeno"],["Insulina","Disminuye la glucosa"],["Pared celular","Da soporte a células vegetales"]],
+ "Ciencias: magnitud y unidad":[["Fuerza","Newton (N)"],["Energía","Joule (J)"],["Potencia","Watt (W)"],["Voltaje","Volt (V)"],["Resistencia","Ohm (Ω)"],["Frecuencia","Hertz (Hz)"],["Molaridad","mol/L"]],
+ "Matemática: concepto y fórmula":[["Teorema de Pitágoras","a² + b² = c²"],["Área del círculo","π r²"],["Discriminante","b² − 4ac"],["Pendiente","(y₂ − y₁)/(x₂ − x₁)"],["Volumen del cilindro","π r² h"],["Suma de ángulos de un polígono","(n − 2)·180°"],["Ley de Ohm","V = I · R"]]
+};
+var TIMELINE=[
+ ["Primera Junta Nacional de Gobierno",1810],["Desastre de Rancagua",1814],["Batalla de Chacabuco",1817],["Declaración de la Independencia de Chile",1818],["Constitución de 1833",1833],["Inicio de la Guerra del Pacífico",1879],["Guerra civil de 1891",1891],["Matanza de la Escuela Santa María de Iquique",1907],["Constitución de 1925",1925],["Frente Popular de Aguirre Cerda",1938],["Mujeres votan en elecciones presidenciales",1952],["Nacionalización del cobre",1971],["Golpe de Estado en Chile",1973],["Constitución de 1980",1980],["Plebiscito del NO",1988],["Retorno a la democracia (Aylwin)",1990],
+ ["Revolución Francesa",1789],["Inicio de la Primera Guerra Mundial",1914],["Revolución rusa",1917],["Crisis económica de 1929",1929],["Inicio de la Segunda Guerra Mundial",1939],["Fundación de la ONU",1945],["Declaración Universal de Derechos Humanos",1948],["Revolución cubana",1959],["Caída del Muro de Berlín",1989],["Disolución de la URSS",1991]
+];
+var VF=[
+ ["Una metáfora usa «como» para comparar dos elementos.",false,"Eso es una comparación o símil. La metáfora identifica sin nexo.","Lectora"],
+ ["La ironía consiste en decir lo contrario de lo que se piensa.",true,"El contexto o el tono revelan el verdadero sentido.","Lectora"],
+ ["Un texto instructivo cumple principalmente una función apelativa.",true,"Dirige las acciones del lector con verbos en imperativo.","Lectora"],
+ ["El tema y la idea principal de un texto siempre son lo mismo.",false,"El tema es una frase breve; la idea principal es lo más importante que se dice sobre él.","Lectora"],
+ ["Una inferencia válida debe apoyarse en pistas del texto.",true,"Si hay que inventar datos, no es una inferencia válida.","Lectora"],
+ ["«Todos lo hacen, entonces es correcto» es una falacia.",true,"Se llama falacia ad populum: la popularidad no prueba verdad.","Lectora"],
+ ["(a + b)² es igual a a² + b².",false,"Falta el doble producto: (a + b)² = a² + 2ab + b².","M1"],
+ ["Al multiplicar una inecuación por un número negativo, el signo de la desigualdad se invierte.",true,"Por ejemplo, −2x < 6 implica x > −3.","M1"],
+ ["Si dos magnitudes son inversamente proporcionales, su producto es constante.",true,"x · y = k.","M1"],
+ ["La suma de los ángulos interiores de un triángulo es 180°.",true,"Es una propiedad de todos los triángulos planos.","M1"],
+ ["El promedio de 2, 4 y 9 es 5.",true,"(2 + 4 + 9)/3 = 15/3 = 5.","M1"],
+ ["Un discriminante negativo indica dos soluciones reales distintas.",false,"Con Δ < 0 no hay soluciones reales.","M2"],
+ ["sen 30° es igual a √3/2.",false,"sen 30° = 1/2; √3/2 es sen 60°.","M2"],
+ ["log₂(8) = 3.",true,"Porque 2³ = 8.","M2"],
+ ["En el interés compuesto, el capital crece de forma lineal.",false,"Crece de forma exponencial: C(1 + i)ⁿ.","M2"],
+ ["La Constitución de 1925 estableció el parlamentarismo.",false,"Fortaleció el presidencialismo y puso fin al parlamentarismo.","Historia"],
+ ["En el plebiscito de 1988 triunfó la opción NO.",true,"Abrió paso a elecciones democráticas en 1989.","Historia"],
+ ["La Guerra Fría fue un enfrentamiento militar directo entre EE. UU. y la URSS.",false,"Fue una rivalidad sin guerra directa, con conflictos indirectos.","Historia"],
+ ["La Revolución Industrial comenzó en Inglaterra.",true,"Desde mediados del siglo XVIII.","Historia"],
+ ["El PIB mide el nivel de precios de los productos.",false,"El PIB mide el valor de los bienes y servicios finales producidos; los precios se miden con el IPC.","Historia"],
+ ["En una democracia, el Poder Judicial elabora las leyes.",false,"Las leyes las elabora el Poder Legislativo; el Judicial las aplica.","Historia"],
+ ["Chile está ubicado en el Cinturón de Fuego del Pacífico.",true,"Por eso tiene alta actividad sísmica y volcánica.","Historia"],
+ ["La Declaración Universal de Derechos Humanos es de 1948.",true,"Fue aprobada por la ONU tras la Segunda Guerra Mundial.","Historia"],
+ ["La mitocondria realiza la fotosíntesis.",false,"La fotosíntesis ocurre en el cloroplasto; la mitocondria produce ATP.","Biología"],
+ ["La mitosis produce cuatro células distintas.",false,"Produce dos células idénticas; la meiosis produce cuatro gametos.","Biología"],
+ ["En una cadena trófica se transfiere el 100 % de la energía de un nivel al siguiente.",false,"Solo cerca del 10 %.","Biología"],
+ ["Un individuo Aa es heterocigoto.",true,"Tiene dos alelos distintos.","Biología"],
+ ["El sonido puede viajar en el vacío.",false,"Necesita un medio material; la luz sí viaja en el vacío.","Física"],
+ ["En un circuito en serie la corriente es la misma en todos los elementos.",true,"Hay un único camino para la carga.","Física"],
+ ["La masa y el peso son la misma magnitud.",false,"La masa es la cantidad de materia; el peso es una fuerza (m·g).","Física"],
+ ["La energía no se crea ni se destruye, solo se transforma.",true,"Es el principio de conservación de la energía.","Física"],
+ ["La luz se propaga más rápido que el sonido.",true,"≈ 3·10⁸ m/s frente a ≈ 340 m/s en el aire.","Física"],
+ ["Los isótopos de un elemento tienen distinto número de protones.",false,"Tienen igual número de protones y distinto número de neutrones.","Química"],
+ ["Una solución con pH 9 es ácida.",false,"pH mayor que 7 es básico.","Química"],
+ ["Un catión es un ion con carga positiva.",true,"Se forma al perder electrones.","Química"],
+ ["Los ácidos tienen pH menor que 7.",true,"Cuanto menor el pH, más ácida es la solución.","Química"],
+ ["El enlace entre Na y Cl es iónico.",true,"Un metal cede electrones a un no metal.","Química"],
+ ["Al balancear una ecuación se pueden cambiar los subíndices de las fórmulas.",false,"Solo se cambian los coeficientes.","Química"]
+];
+
+/* ===== juegos ===== */
+function gameEnd(id,sc,xp,html,again){
+ clearTimers();var best=P.g[id]||0,rec=sc>best;if(rec)P.g[id]=sc;addXp(xp);markDay("g");
+ set('<div class="result"><div class="eyebrow">Fin del juego</div><div class="score">'+sc+'</div><p><b>+'+xp+' XP</b>'+(rec?" · 🎉 ¡Nuevo récord!":" · Tu récord: "+best)+'</p>'+(html||"")+'<div class="row"><a class="btn" href="#'+again+'">Jugar otra vez</a><a class="btn alt" href="#juegos">Más juegos</a></div></div>');
+}
+function gamesScreen(){
+ var G=[["reloj","⏱️","Contrarreloj","60 segundos para responder todas las preguntas que puedas. Combos suman más."],["calc","🧮","Cálculo mental","Porcentajes, potencias y ecuaciones simples. Rapidez y precisión."],["memo","🃏","Memorice","Une cada concepto con su definición, fecha o fórmula."],["linea","🕰️","Línea de tiempo","Ordena hechos históricos del más antiguo al más reciente."],["vf","✅","Verdadero o falso","Decide rápido y aprende por qué."]];
+ set('<a class="back" href="#inicio">← Inicio</a><header class="lvhead gh"><div class="cefr">Aprender jugando</div><h1>Zona de juegos</h1><p class="lead">Cada partida suma XP y mantiene tu racha. Lo que falles se guarda en «Mis errores».</p></header><div class="gcards">'+G.map(function(g){return '<div class="gcard"><div class="ic" style="font-size:30px">'+g[1]+'</div><h3>'+g[2]+'</h3><p class="small">'+g[3]+'</p><span class="small">Récord: <b>'+(P.g[g[0]]||0)+'</b></span><a class="btn" href="#juego-'+g[0]+'">Jugar</a></div>'}).join("")+'</div>');
+}
+function relojScreen(){
+ var sel="mix",opts=[["mix","Mixto"],["m1","M1"],["m2","M2"],["h","Historia"],["cb","Biología"],["cf","Física"],["cq","Química"]];
+ function intro(){set('<a class="back" href="#juegos">← Juegos</a><div class="gplay"><h1>⏱️ Contrarreloj</h1><p class="lead">Elige materia. Tienes 60 segundos: acierta para sumar, falla y pierdes el combo.</p><div class="chips">'+opts.map(function(o){return '<button class="chip" data-s="'+o[0]+'" aria-pressed="'+(sel===o[0])+'">'+o[1]+'</button>'}).join("")+'</div><div class="row"><button class="btn" id="go">¡Empezar!</button></div></div>');
+  $main.onclick=function(e){var c=e.target.closest(".chip");if(c){sel=c.dataset.s;intro()}else if(e.target.id==="go")play()}}
+ function play(){
+  var ks=sel==="mix"?["m1","m2","h","cb","cf","cq"]:[sel],us=[];ks.forEach(function(k){us=us.concat(unitsOf(k))});
+  var left=60,sc=0,combo=0,best=0,busy=false,q,wrong=0;
+  function nextQ(){var u=pick(us),a=u.q();q=tagq(pick(a),u);busy=false;draw()}
+  function draw(){set('<div class="gplay"><div class="sprhead"><span>Puntos: <span id="sc">'+sc+'</span></span><span id="tt" class="timer">'+left+'</span><span>Combo ×'+(1+Math.floor(combo/3))+'</span></div>'+qHTML(q,0,0,"")+'</div>');
+   $main.onclick=function(e){var o=e.target.closest(".opt");if(!o||busy)return;busy=true;var j=+o.dataset.j,bs=$main.querySelectorAll(".opt");bs.forEach(function(b){b.disabled=true});
+    if(j===q.ai){o.classList.add("good");combo++;sc+=1+Math.floor((combo-1)/3);best=Math.max(best,combo);setTimeout(nextQ,350)}
+    else{o.classList.add("bad");bs[q.ai].classList.add("good");combo=0;wrong++;noteErr(q);setTimeout(nextQ,1500)}}}
+  clearTimers();every(function(){left--;var t=document.getElementById("tt");if(t){t.textContent=Math.max(left,0);t.classList.toggle("low",left<=10)}if(left<=0){clearTimers();gameEnd("reloj",sc,sc*4+5,'<p class="small">Mejor combo seguido: '+best+' · Errores: '+wrong+' (guardados en «Mis errores»)</p>',"juego-reloj")}},1000);
+  nextQ();
+ }
+ intro();
+}
+/* cálculo mental */
+function calcProb(){
+ var t=R(0,7),a,b,c;
+ switch(t){
+  case 0:a=pick([10,20,25,50,5,15,30,40]);b=R(2,20)*10;return{q:a+"% de "+b,a:a*b/100};
+  case 1:a=R(23,89);b=R(12,76);return{q:a+" + "+b+" − "+R(5,19),a:null,fix:function(p){return p}};
+  case 2:a=R(11,19);b=R(6,15);return{q:a+" × "+b,a:a*b};
+  case 3:a=R(2,12);return{q:"√"+a*a+" + "+R(2,5)+"²",a:null};
+  case 4:a=R(3,9);b=R(2,5);return{q:a+"<sup>"+b+"</sup> ",a:Math.pow(a,b)};
+  case 5:a=R(3,12);b=R(2,9);c=R(10,60);return{q:"Si "+a+"x + "+b+" = "+(a*c+b)+", ¿x?",a:c};
+  case 6:a=R(2,9);b=R(2,9);c=R(2,9);return{q:"−"+a+" + "+b+" − "+c+" + "+R(1,9),a:null};
+  default:a=pick([2,4,5,8,10]);b=R(2,9)*a;return{q:"1/"+a+" de "+b*1+"  ",a:b/a};
+ }
+}
+function calcScreen(){
+ function intro(){set('<a class="back" href="#juegos">← Juegos</a><div class="gplay"><h1>🧮 Cálculo mental</h1><p class="lead">Resuelve 12 operaciones en 90 segundos, sin calculadora. Escribe el resultado y presiona Enter. Para decimales usa coma o punto.</p><div class="row"><button class="btn" id="go">¡Empezar!</button></div></div>');$main.onclick=function(e){if(e.target.id==="go")play()}}
+ function mk(){var p=calcProb();
+  if(p.a===null){ // problemas con valor computado de forma segura
+   var m=p.q.match(/^(\d+) \+ (\d+) − (\d+)$/);
+   if(m)p.a=+m[1]+ +m[2]-m[3];
+   else if(m=p.q.match(/^√(\d+) \+ (\d)²$/))p.a=Math.sqrt(+m[1])+ +m[2]*m[2];
+   else if(m=p.q.match(/^−(\d) \+ (\d) − (\d) \+ (\d)$/))p.a=-m[1]- -m[2]-m[3]- -m[4];
+  }
+  return p}
+ function play(){
+  var n=0,ok=0,left=90,cur=mk(),busy=false;
+  function draw(msg){set('<div class="gplay"><div class="sprhead"><span>'+(n+1)+' / 12</span><span id="tt" class="timer">'+left+'</span><span>✓ '+ok+'</span></div><div class="q"><div class="qt" style="font-size:1.6rem">'+cur.q+' = ?</div><div class="fillrow"><input id="in" inputmode="decimal" autocomplete="off" aria-label="Tu respuesta"></div><div id="fb">'+(msg||"")+'</div><div class="row"><button class="btn" id="ok">Responder</button></div></div></div>');
+   var inp=document.getElementById("in");inp.focus();
+   function submit(){if(busy)return;var v=parseFloat(inp.value.replace(",",".").replace("−","-"));if(isNaN(v))return;busy=true;var good=Math.abs(v-cur.a)<1e-9;if(good)ok++;n++;
+    inp.classList.add(good?"good":"bad");document.getElementById("fb").innerHTML='<div class="fb '+(good?"good":"bad")+'">'+(good?"¡Bien!":"Era "+fmt(cur.a))+'</div>';
+    setTimeout(function(){if(n>=12){clearTimers();gameEnd("calc",ok,ok*6+(ok===12?20:0),"","juego-calc")}else{cur=mk();busy=false;draw()}},good?400:1100)}
+   inp.onkeydown=function(e){if(e.key==="Enter")submit()};document.getElementById("ok").onclick=submit}
+  clearTimers();every(function(){left--;var t=document.getElementById("tt");if(t){t.textContent=Math.max(left,0);t.classList.toggle("low",left<=10)}if(left<=0){clearTimers();gameEnd("calc",ok,ok*6,"<p class=\"small\">Se acabó el tiempo: respondiste "+n+" operaciones.</p>","juego-calc")}},1000);
+  draw();
+ }
+ intro();
+}
+/* memorice */
+function memoScreen(){
+ var cats=Object.keys(MEMO);
+ set('<a class="back" href="#juegos">← Juegos</a><div class="gplay"><h1>🃏 Memorice</h1><p class="lead">Elige un tema. Encuentra las 6 parejas dando vuelta cartas: cada concepto con su significado.</p><div class="chips">'+cats.map(function(c){return '<button class="chip" data-c="'+c+'">'+c+'</button>'}).join("")+'</div></div>');
+ $main.onclick=function(e){var c=e.target.closest(".chip");if(c)play(c.dataset.c)};
+ function play(cat){
+  var pairs=shuf(MEMO[cat]).slice(0,6),cards=[];pairs.forEach(function(p,i){cards.push({i:i,t:p[0]});cards.push({i:i,t:p[1]})});cards=shuf(cards);
+  var up=[],moves=0,found=0,lock=false;
+  function draw(){set('<div class="gplay"><div class="sprhead"><span>'+esc(cat)+'</span><span>Intentos: '+moves+'</span><span>Parejas: '+found+'/6</span></div><div class="mem">'+cards.map(function(c,k){return '<button class="mc '+(c.ok?"ok":up.indexOf(k)>=0?"up":"")+'" data-k="'+k+'" aria-label="Carta '+(k+1)+'">'+(c.ok||up.indexOf(k)>=0?c.t:"?")+'</button>'}).join("")+'</div></div>')}
+  $main.onclick=function(e){var b=e.target.closest(".mc");if(!b||lock)return;var k=+b.dataset.k;if(cards[k].ok||up.indexOf(k)>=0)return;up.push(k);draw();
+   if(up.length===2){moves++;lock=true;var A=cards[up[0]],B=cards[up[1]];
+    setTimeout(function(){if(A.i===B.i){A.ok=B.ok=true;found++}up=[];lock=false;draw();if(found===6)gameEnd("memo",Math.max(1,60-moves*3),Math.max(10,40-(moves-6)*3),'<p class="small">Lo lograste en '+moves+' intentos (mínimo posible: 6).</p>',"juego-memo")},A.i===B.i?500:1000)}};
+  draw();
+ }
+}
+/* línea de tiempo */
+function lineaScreen(){
+ var round=0,sc=0,total=0,evs,exp,pos,busy;
+ function newRound(){
+  evs=shuf(TIMELINE).slice(0,4);var years=evs.map(function(e){return e[1]});
+  exp=evs.slice().sort(function(a,b){return a[1]-b[1]});pos=0;busy=false;draw();
+ }
+ function draw(){
+  set('<a class="back" href="#juegos">← Juegos</a><div class="gplay"><div class="sprhead"><span>Ronda '+(round+1)+'/5</span><span>Aciertos: '+sc+'</span></div><p class="lead">Toca los hechos en orden: del <b>más antiguo</b> al <b>más reciente</b>.</p><div class="tl">'+evs.map(function(e,i){return '<button class="tile" data-i="'+i+'" '+(e.st?"disabled":"")+'>'+(e.st?'<b>'+e[1]+'</b> · ':"")+e[0]+'</button>'}).join("")+'</div></div>');
+  evs.forEach(function(e,i){if(e.st)$main.querySelectorAll(".tile")[i].classList.add(e.st)});
+  $main.onclick=function(e){var t=e.target.closest(".tile");if(!t||busy||t.disabled)return;var i=+t.dataset.i,ev=evs[i];
+   var rest=evs.filter(function(x){return !x.st}),minY=Math.min.apply(null,rest.map(function(x){return x[1]}));
+   if(ev[1]===minY){ev.st="done";sc++}else{ev.st="no"}
+   total++;
+   if(ev.st==="no"){busy=true;noteLine(ev);var m=rest.filter(function(x){return x[1]===minY})[0];m.st="done";}
+   draw();
+   if(evs.every(function(x){return x.st})){busy=true;setTimeout(function(){round++;if(round>=5)gameEnd("linea",sc,sc*4+5,'<p class="small">Respondiste '+total+' toques; el máximo es 20 aciertos.</p>',"juego-linea");else newRound()},1400)}
+   else if(ev.st==="no"){busy=false}
+  };
+ }
+ function noteLine(){}
+ newRound();
+}
+/* verdadero o falso */
+function vfScreen(){
+ var qs=shuf(VF).slice(0,10),i=0,sc=0;
+ function draw(){var q=qs[i];set('<a class="back" href="#juegos">← Juegos</a><div class="gplay"><div class="sprhead"><span>'+(i+1)+' / 10</span><span>✓ '+sc+'</span></div><div class="q"><div><span class="tag">'+q[3]+'</span></div><div class="qt" style="font-size:1.25rem">'+q[0]+'</div><div class="vf"><button class="btn" data-v="1">Verdadero</button><button class="btn alt" data-v="0">Falso</button></div><div id="fb"></div></div></div>');
+  $main.onclick=function(e){var b=e.target.closest("[data-v]");if(b){var good=(+b.dataset.v===1)===q[1];if(good)sc++;
+   $main.querySelectorAll("[data-v]").forEach(function(x){x.disabled=true});
+   document.getElementById("fb").innerHTML='<div class="fb '+(good?"good":"bad")+'"><b>'+(good?"¡Correcto!":"Ups.")+'</b> '+(q[1]?"Es verdadero. ":"Es falso. ")+q[2]+'<div class="row"><button class="btn small" id="nx">'+(i<9?"Siguiente →":"Ver resultado")+'</button></div></div>';document.getElementById("nx").focus()}
+   else if(e.target.id==="nx"){if(i<9){i++;draw()}else gameEnd("vf",sc,sc*5+5,"","juego-vf")}}}
+ draw();
+}
+
+/* ===== router ===== */
+function navHTML(cur){
+ var L=[["inicio","Inicio"]].concat(SUBJ.map(function(s){return["s-"+s.k,s.s]})).concat([["juegos","Juegos"],["errores","Errores"+(P.err.length?" ("+P.err.length+")":"")],["paes","Guía PAES"]]);
+ return L.map(function(l){return '<a href="#'+l[0]+'"'+(cur===l[0]||(cur.charAt(0)==="u"&&cur.indexOf("-")>0&&uById(cur.slice(2))&&"s-"+uById(cur.slice(2)).s===l[0])?' aria-current="page"':"")+'>'+l[1]+'</a>'}).join("");
+}
+function route(){
+ clearTimers();$main.onclick=null;
+ var h=(location.hash||"#inicio").slice(1),m;
+ $nav.innerHTML=navHTML(h);
+ var hp=document.getElementById("hprog");if(hp)hp.innerHTML='<span class="small">🔥 '+streak()+' · ⭐ '+P.xp+' XP · '+rank().n+'</span>';
+ if(h==="inicio")homeScreen();
+ else if(m=h.match(/^s-(\w+)$/))subjScreen(m[1]);
+ else if(m=h.match(/^u-(\w+)$/))unitScreen(m[1]);
+ else if(m=h.match(/^p-(\w+)$/))practiceScreen(m[1]);
+ else if(m=h.match(/^ens-(\w+)$/))ensayoScreen(m[1]);
+ else if(h==="juegos")gamesScreen();
+ else if(h==="juego-reloj")relojScreen();
+ else if(h==="juego-calc")calcScreen();
+ else if(h==="juego-memo")memoScreen();
+ else if(h==="juego-linea")lineaScreen();
+ else if(h==="juego-vf")vfScreen();
+ else if(h==="errores")errScreen();
+ else if(h==="paes")paesScreen();
+ else homeScreen();
+ markDayView();
+}
+function markDayView(){}
+window.addEventListener("hashchange",route);
+route();
+</script>
+
+</body></html>
